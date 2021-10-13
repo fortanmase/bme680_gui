@@ -41,6 +41,8 @@
 *.su
 *.idb
 *.pdb
+STM32CubeIDE/Debug/
+TouchGFX/build/
 
 # Kernel Module Compile Results
 *.mod*
