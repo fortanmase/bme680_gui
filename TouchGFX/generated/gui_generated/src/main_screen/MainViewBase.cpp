@@ -23,9 +23,17 @@ MainViewBase::MainViewBase() :
     GraphButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     GraphButton.setAction(buttonCallback);
 
+    digitalClock1.setPosition(0, 0, 100, 25);
+    digitalClock1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    digitalClock1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID65));
+    digitalClock1.displayLeadingZeroForHourIndicator(true);
+    digitalClock1.setDisplayMode(touchgfx::DigitalClock::DISPLAY_24_HOUR);
+    digitalClock1.setTime24Hour(10, 10, 0);
+
     add(__background);
     add(box1);
     add(GraphButton);
+    add(digitalClock1);
 }
 
 void MainViewBase::setupScreen()

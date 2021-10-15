@@ -58,14 +58,16 @@ LTDC_HandleTypeDef hltdc;
 
 QSPI_HandleTypeDef hqspi;
 
+RTC_HandleTypeDef hrtc;
+
 SDRAM_HandleTypeDef hsdram1;
 
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .stack_size = 1024 * 4,
-  .priority = (osPriority_t) osPriorityLow,
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for TouchGFXTask */
 osThreadId_t TouchGFXTaskHandle;
@@ -74,13 +76,25 @@ const osThreadAttr_t TouchGFXTask_attributes = {
   .stack_size = 4096 * 4,
   .priority = (osPriority_t) osPriorityRealtime,
 };
+/* Definitions for RTCTask */
+osThreadId_t RTCTaskHandle;
+const osThreadAttr_t RTCTask_attributes = {
+  .name = "RTCTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityRealtime,
+};
 /* USER CODE BEGIN PV */
 uint32_t (*pfHAL_GetTick)(void) = &HAL_GetTick;
 extern float gui_temperature;
 extern float gui_humidity;
 extern float gui_pressure;
 extern float gui_iaq;
-
+extern uint8_t hours;
+extern uint8_t minutes;
+extern uint8_t seconds;
+extern uint8_t year;
+extern uint8_t month;
+extern uint8_t date;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -93,8 +107,10 @@ static void MX_FMC_Init(void);
 static void MX_LTDC_Init(void);
 static void MX_QUADSPI_Init(void);
 static void MX_I2C1_Init(void);
-void StartDefaultTask(void *argument);
+static void MX_RTC_Init(void);
+void Default_Task(void *argument);
 extern void TouchGFX_Task(void *argument);
+void RTC_Task(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -140,6 +156,7 @@ int main(void)
   MX_LTDC_Init();
   MX_QUADSPI_Init();
   MX_I2C1_Init();
+  MX_RTC_Init();
   MX_TouchGFX_Init();
   /* USER CODE BEGIN 2 */
 //  return_values_init result = {BME680_OK, BSEC_OK};
@@ -179,10 +196,13 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle = osThreadNew(Default_Task, NULL, &defaultTask_attributes);
 
   /* creation of TouchGFXTask */
   TouchGFXTaskHandle = osThreadNew(TouchGFX_Task, NULL, &TouchGFXTask_attributes);
+
+  /* creation of RTCTask */
+  RTCTaskHandle = osThreadNew(RTC_Task, NULL, &RTCTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -223,8 +243,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 8;
@@ -598,6 +620,68 @@ static void MX_QUADSPI_Init(void)
 
 }
 
+/**
+  * @brief RTC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_RTC_Init(void)
+{
+
+  /* USER CODE BEGIN RTC_Init 0 */
+
+  /* USER CODE END RTC_Init 0 */
+
+  RTC_TimeTypeDef sTime = {0};
+  RTC_DateTypeDef sDate = {0};
+
+  /* USER CODE BEGIN RTC_Init 1 */
+
+  /* USER CODE END RTC_Init 1 */
+  /** Initialize RTC Only
+  */
+  hrtc.Instance = RTC;
+  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
+  hrtc.Init.AsynchPrediv = 127;
+  hrtc.Init.SynchPrediv = 255;
+  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
+  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* USER CODE BEGIN Check_RTC_BKUP */
+
+  /* USER CODE END Check_RTC_BKUP */
+
+  /** Initialize RTC and set the Time and Date
+  */
+  sTime.Hours = 10;
+  sTime.Minutes = 11;
+  sTime.Seconds = 12;
+  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+  sDate.Month = RTC_MONTH_JANUARY;
+  sDate.Date = 1;
+  sDate.Year = 0;
+
+  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN RTC_Init 2 */
+
+  /* USER CODE END RTC_Init 2 */
+
+}
+
 /* FMC initialization function */
 static void MX_FMC_Init(void)
 {
@@ -791,14 +875,14 @@ int64_t get_timestamp_us (void)
 }
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_StartDefaultTask */
+/* USER CODE BEGIN Header_Default_Task */
 /**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
+/* USER CODE END Header_Default_Task */
+void Default_Task(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
@@ -807,6 +891,31 @@ void StartDefaultTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_RTC_Task */
+/**
+* @brief Function implementing the RTCTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_RTC_Task */
+void RTC_Task(void *argument)
+{
+  /* USER CODE BEGIN RTC_Task */
+    RTC_TimeTypeDef sTime;
+    RTC_DateTypeDef sDate;
+  /* Infinite loop */
+  for(;;)
+  {
+      HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+      HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+      seconds = sTime.Seconds;
+      minutes = sTime.Minutes;
+      hours   = sTime.Hours;
+      osDelay(500);
+  }
+  /* USER CODE END RTC_Task */
 }
 
 /**
