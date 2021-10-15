@@ -9,6 +9,7 @@
 #include <gui/main_screen/MainPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/containers/clock/DigitalClock.hpp>
 
 class MainViewBase : public touchgfx::View<MainPresenter>
 {
@@ -28,6 +29,7 @@ protected:
     touchgfx::Box __background;
     touchgfx::Box box1;
     touchgfx::ButtonWithLabel GraphButton;
+    touchgfx::DigitalClock digitalClock1;
 
 private:
 

@@ -52,6 +52,33 @@
             "Clickable": false,
             "Fadeable": false,
             "Moveable": false
+          },
+          {
+            "Type": "DigitalClock",
+            "TextColor": {
+              "Red": 0,
+              "Green": 0,
+              "Blue": 0
+            },
+            "TextId": "SingleUseId65",
+            "DisplaySeconds": true,
+            "DisplayLeadingZeroForHourIndicator": true,
+            "Alpha": 255,
+            "UseAmPm": false,
+            "InitialHour": 10,
+            "InitialMinute": 10,
+            "InitialSecond": 0,
+            "Name": "digitalClock1",
+            "X": 0,
+            "Y": 0,
+            "Width": 100,
+            "Height": 25,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
           }
         ],
         "Interactions": [
@@ -1441,6 +1468,10 @@
       {
         "TextEntryId": "SingleUseId64",
         "IsResource": true
+      },
+      {
+        "TextEntryId": "SingleUseId65",
+        "IsResource": false
       }
     ],
     "Name": "MyApplication_6",
