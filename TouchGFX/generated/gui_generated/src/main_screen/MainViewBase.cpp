@@ -7,7 +7,8 @@
 #include <texts/TextKeysAndLanguages.hpp>
 
 MainViewBase::MainViewBase() :
-    buttonCallback(this, &MainViewBase::buttonCallbackHandler)
+    buttonCallback(this, &MainViewBase::buttonCallbackHandler),
+    updateItemCallback(this, &MainViewBase::updateItemCallbackHandler)
 {
 
     __background.setPosition(0, 0, 800, 480);
@@ -16,7 +17,7 @@ MainViewBase::MainViewBase() :
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
 
-    GraphButton.setXY(220, 210);
+    GraphButton.setXY(0, 38);
     GraphButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_SQUARE_LARGE_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_SQUARE_LARGE_PRESSED_ID));
     GraphButton.setLabelText(touchgfx::TypedText(T_SINGLEUSEID5));
     GraphButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -30,15 +31,32 @@ MainViewBase::MainViewBase() :
     digitalClock1.setDisplayMode(touchgfx::DigitalClock::DISPLAY_24_HOUR);
     digitalClock1.setTime24Hour(10, 10, 0);
 
+    scrollWheel1.setPosition(400, 38, 390, 390);
+    scrollWheel1.setHorizontal(false);
+    scrollWheel1.setCircular(false);
+    scrollWheel1.setEasingEquation(touchgfx::EasingEquations::backEaseOut);
+    scrollWheel1.setSwipeAcceleration(10);
+    scrollWheel1.setDragAcceleration(10);
+    scrollWheel1.setNumberOfItems(20);
+    scrollWheel1.setSelectedItemOffset(160);
+    scrollWheel1.setDrawableSize(70, 0);
+    scrollWheel1.setDrawables(scrollWheel1ListItems, updateItemCallback);
+    scrollWheel1.animateToItem(0, 0);
+
     add(__background);
     add(box1);
     add(GraphButton);
     add(digitalClock1);
+    add(scrollWheel1);
 }
 
 void MainViewBase::setupScreen()
 {
-
+    scrollWheel1.initialize();
+    for (int i = 0; i < scrollWheel1ListItems.getNumberOfDrawables(); i++)
+    {
+        scrollWheel1ListItems[i].initialize();
+    }
 }
 
 void MainViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
@@ -49,5 +67,15 @@ void MainViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         //When GraphButton clicked change screen to Graphs
         //Go to Graphs with screen transition towards East
         application().gotoGraphsScreenCoverTransitionEast();
+    }
+}
+
+void MainViewBase::updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex)
+{
+    if (items == &scrollWheel1ListItems)
+    {
+        touchgfx::Drawable* d = items->getDrawable(containerIndex);
+        MenuElement* cc = (MenuElement*)d;
+        scrollWheel1UpdateItem(*cc, itemIndex);
     }
 }

@@ -21,6 +21,9 @@ touchgfx::Font* ApplicationFontProvider::getFont(touchgfx::FontId typography)
     case Typography::LABELS:
         // trebucit_23_4bpp
         return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[3]);
+    case Typography::SCROLLWHELLTXT:
+        // ariblk_50_4bpp
+        return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[4]);
     default:
         return 0;
     }

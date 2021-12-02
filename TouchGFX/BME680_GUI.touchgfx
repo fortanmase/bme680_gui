@@ -42,8 +42,8 @@
             "TextRotation": "0",
             "Style": "Style10",
             "Name": "GraphButton",
-            "X": 220,
-            "Y": 210,
+            "X": 0,
+            "Y": 38,
             "Width": 360,
             "Height": 60,
             "Visible": true,
@@ -73,6 +73,36 @@
             "Y": 0,
             "Width": 100,
             "Height": 25,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "ScrollWheel",
+            "SelectedItemOffset": 160,
+            "UseSelectedStyle": false,
+            "ExtraSizeBefore": 0,
+            "ExtraSizeAfter": 0,
+            "MarginBefore": 0,
+            "MarginAfter": 0,
+            "IsHorizontal": false,
+            "IsCircular": false,
+            "ItemTemplateName": "MenuElement",
+            "NumberofItems": 20,
+            "InitialElement": 0,
+            "ItemMargin": 0,
+            "Easing": "Back",
+            "EasingOption": "Out",
+            "SwipeAcceleration": 1.0,
+            "DragAcceleration": 1.0,
+            "Name": "scrollWheel1",
+            "X": 400,
+            "Y": 38,
+            "Width": 390,
+            "Height": 390,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -230,8 +260,8 @@
                       "BufferSize": 20
                     },
                     "Name": "textArea1",
-                    "X": 286,
-                    "Y": 11,
+                    "X": 292,
+                    "Y": 9,
                     "Width": 255,
                     "Height": 29,
                     "Visible": true,
@@ -797,7 +827,7 @@
                       "BufferSize": 20
                     },
                     "Name": "textArea2",
-                    "X": 286,
+                    "X": 292,
                     "Y": 11,
                     "Width": 255,
                     "Height": 29,
@@ -1238,6 +1268,1140 @@
                 "Clickable": false,
                 "Fadeable": false,
                 "Moveable": false
+              },
+              {
+                "Components": [
+                  {
+                    "Type": "Box",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 255,
+                    "Name": "PresBox",
+                    "X": 0,
+                    "Y": 0,
+                    "Width": 800,
+                    "Height": 480,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "DynamicGraph",
+                    "DataSeed": -1695110854,
+                    "NumberOfValues": 100,
+                    "MaxY": 30.0,
+                    "MinY": 20.0,
+                    "Precision": "1",
+                    "UseCustomVisibleDataPointRange": true,
+                    "FirstIndex": 0,
+                    "LastIndex": 100,
+                    "MapDataPointIndexToCustomValue": false,
+                    "XAxisOffset": 0.0,
+                    "XAxisScale": 1.0,
+                    "InsertRandomValues": false,
+                    "Alpha": 255,
+                    "LabelSizeTop": 8,
+                    "LabelSizeBottom": 8,
+                    "LabelSizeLeft": 0,
+                    "LabelSizeRight": 20,
+                    "PaddingTop": 0,
+                    "PaddingBottom": 0,
+                    "PaddingLeft": 0,
+                    "PaddingRight": 0,
+                    "GraphType": "GraphScroll",
+                    "GraphDrawers": [
+                      {
+                        "Type": "LineDrawer",
+                        "LineWidth": 2,
+                        "Color": {
+                          "Red": 255,
+                          "Green": 0,
+                          "Blue": 0
+                        },
+                        "Alpha": 255
+                      }
+                    ],
+                    "XAxisGrid": {
+                      "Type": "GraphGrid",
+                      "Color": {
+                        "Red": 0,
+                        "Green": 0,
+                        "Blue": 0
+                      },
+                      "Interval": 10.0,
+                      "LineWidth": 1,
+                      "Alpha": 255
+                    },
+                    "YAxisGrid": {
+                      "Type": "GraphGrid",
+                      "Color": {
+                        "Red": 0,
+                        "Green": 0,
+                        "Blue": 0
+                      },
+                      "Interval": 1.0,
+                      "LineWidth": 1,
+                      "Alpha": 255
+                    },
+                    "YAxisLabel": {
+                      "Type": "GraphLabel",
+                      "Interval": 1.0,
+                      "NumberOfDecimals": 0,
+                      "DecimalSeparator": "Point",
+                      "TextColor": {
+                        "Red": 20,
+                        "Green": 151,
+                        "Blue": 197
+                      },
+                      "TextId": "SingleUseId34",
+                      "Alpha": 0,
+                      "TextRotation": "0",
+                      "Position": "Left"
+                    },
+                    "Name": "PresGraph",
+                    "X": 141,
+                    "Y": 43,
+                    "Width": 577,
+                    "Height": 394,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId68",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "TextId": "SingleUseId69",
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "textArea3",
+                    "X": 292,
+                    "Y": 11,
+                    "Width": 255,
+                    "Height": 29,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3",
+                    "X": 141,
+                    "Y": 399,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 28,
+                    "EndX": 557,
+                    "EndY": 28,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_1",
+                    "X": 141,
+                    "Y": 23,
+                    "Width": 582,
+                    "Height": 61,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 28,
+                    "StartY": 382,
+                    "EndX": 28,
+                    "EndY": 4,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_2",
+                    "X": 670,
+                    "Y": 47,
+                    "Width": 48,
+                    "Height": 401,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 24,
+                    "StartY": 382,
+                    "EndX": 24,
+                    "EndY": 4,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_3",
+                    "X": 117,
+                    "Y": 47,
+                    "Width": 48,
+                    "Height": 403,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId70",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3",
+                    "X": 76,
+                    "Y": 39,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId71",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_1",
+                    "X": 76,
+                    "Y": 77,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId72",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_2",
+                    "X": 76,
+                    "Y": 114,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId73",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_3",
+                    "X": 76,
+                    "Y": 152,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId74",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_4",
+                    "X": 76,
+                    "Y": 190,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId75",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_5",
+                    "X": 76,
+                    "Y": 227,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId76",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_6",
+                    "X": 76,
+                    "Y": 265,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId77",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_7",
+                    "X": 76,
+                    "Y": 303,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId78",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_8",
+                    "X": 76,
+                    "Y": 340,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId79",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_9",
+                    "X": 76,
+                    "Y": 378,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId80",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval3_10",
+                    "X": 76,
+                    "Y": 416,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  }
+                ],
+                "Type": "Container",
+                "IsCacheableContainer": false,
+                "Name": "Pressure",
+                "X": 0,
+                "Y": 0,
+                "Width": 800,
+                "Height": 480,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Components": [
+                  {
+                    "Type": "Box",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 255,
+                    "Name": "IAQBox",
+                    "X": 0,
+                    "Y": 0,
+                    "Width": 800,
+                    "Height": 480,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "DynamicGraph",
+                    "DataSeed": -1695110854,
+                    "NumberOfValues": 100,
+                    "MaxY": 30.0,
+                    "MinY": 20.0,
+                    "Precision": "1",
+                    "UseCustomVisibleDataPointRange": true,
+                    "FirstIndex": 0,
+                    "LastIndex": 100,
+                    "MapDataPointIndexToCustomValue": false,
+                    "XAxisOffset": 0.0,
+                    "XAxisScale": 1.0,
+                    "InsertRandomValues": false,
+                    "Alpha": 255,
+                    "LabelSizeTop": 8,
+                    "LabelSizeBottom": 8,
+                    "LabelSizeLeft": 0,
+                    "LabelSizeRight": 20,
+                    "PaddingTop": 0,
+                    "PaddingBottom": 0,
+                    "PaddingLeft": 0,
+                    "PaddingRight": 0,
+                    "GraphType": "GraphScroll",
+                    "GraphDrawers": [
+                      {
+                        "Type": "LineDrawer",
+                        "LineWidth": 2,
+                        "Color": {
+                          "Red": 255,
+                          "Green": 0,
+                          "Blue": 0
+                        },
+                        "Alpha": 255
+                      }
+                    ],
+                    "XAxisGrid": {
+                      "Type": "GraphGrid",
+                      "Color": {
+                        "Red": 0,
+                        "Green": 0,
+                        "Blue": 0
+                      },
+                      "Interval": 10.0,
+                      "LineWidth": 1,
+                      "Alpha": 255
+                    },
+                    "YAxisGrid": {
+                      "Type": "GraphGrid",
+                      "Color": {
+                        "Red": 0,
+                        "Green": 0,
+                        "Blue": 0
+                      },
+                      "Interval": 1.0,
+                      "LineWidth": 1,
+                      "Alpha": 255
+                    },
+                    "YAxisLabel": {
+                      "Type": "GraphLabel",
+                      "Interval": 1.0,
+                      "NumberOfDecimals": 0,
+                      "DecimalSeparator": "Point",
+                      "TextColor": {
+                        "Red": 20,
+                        "Green": 151,
+                        "Blue": 197
+                      },
+                      "TextId": "SingleUseId34",
+                      "Alpha": 0,
+                      "TextRotation": "0",
+                      "Position": "Left"
+                    },
+                    "Name": "IAQGraph",
+                    "X": 141,
+                    "Y": 43,
+                    "Width": 577,
+                    "Height": 394,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId81",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "TextId": "SingleUseId82",
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "textArea4",
+                    "X": 292,
+                    "Y": 9,
+                    "Width": 342,
+                    "Height": 29,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4",
+                    "X": 141,
+                    "Y": 399,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 28,
+                    "EndX": 557,
+                    "EndY": 28,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_1",
+                    "X": 141,
+                    "Y": 23,
+                    "Width": 582,
+                    "Height": 61,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 28,
+                    "StartY": 382,
+                    "EndX": 28,
+                    "EndY": 4,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_2",
+                    "X": 670,
+                    "Y": 47,
+                    "Width": 48,
+                    "Height": 401,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 24,
+                    "StartY": 382,
+                    "EndX": 24,
+                    "EndY": 4,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_3",
+                    "X": 117,
+                    "Y": 47,
+                    "Width": 48,
+                    "Height": 403,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId83",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4",
+                    "X": 76,
+                    "Y": 39,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId84",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_1",
+                    "X": 76,
+                    "Y": 77,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId85",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_2",
+                    "X": 76,
+                    "Y": 114,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId86",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_3",
+                    "X": 76,
+                    "Y": 152,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId87",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_4",
+                    "X": 76,
+                    "Y": 190,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId88",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_5",
+                    "X": 76,
+                    "Y": 227,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId89",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_6",
+                    "X": 76,
+                    "Y": 265,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId90",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_7",
+                    "X": 76,
+                    "Y": 303,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId91",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_8",
+                    "X": 76,
+                    "Y": 340,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId92",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_9",
+                    "X": 76,
+                    "Y": 378,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId93",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 20
+                    },
+                    "Name": "graphInterval4_10",
+                    "X": 76,
+                    "Y": 416,
+                    "Width": 59,
+                    "Height": 25,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  }
+                ],
+                "Type": "Container",
+                "IsCacheableContainer": false,
+                "Name": "IAQ",
+                "X": 0,
+                "Y": 0,
+                "Width": 800,
+                "Height": 480,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
               }
             ],
             "Type": "SwipeContainer",
@@ -1246,8 +2410,8 @@
             "PageIndicatorX": 370,
             "PageIndicatorY": 450,
             "CenteredX": false,
-            "IndicatorImageNormal": "__designer\\Blue_PageIndicator_dot_indicator_small_normal.png",
-            "IndicatorImageHighlight": "__designer\\Dark_PageIndicator_dot_indicator_small_normal.png",
+            "IndicatorImageNormal": "__designer\\Dark_PageIndicator_dot_indicator_small_normal.png",
+            "IndicatorImageHighlight": "__designer\\Dark_PageIndicator_dot_indicator_small_highlight.png",
             "EndSwipeElasticWidth": 50,
             "SelectedPage": "Temperature",
             "Name": "SwipeArea",
@@ -1271,13 +2435,43 @@
     ],
     "CustomContainerDefinitions": [
       {
-        "Components": [],
+        "Components": [
+          {
+            "Type": "TextArea",
+            "TextId": "SingleUseId66",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 0,
+              "Green": 0,
+              "Blue": 0
+            },
+            "Alpha": 255,
+            "AutoSize": true,
+            "LineSpacing": 0,
+            "Wildcard1": {
+              "TextId": "SingleUseId67",
+              "UseBuffer": true,
+              "BufferSize": 3
+            },
+            "Name": "scrollTextArea",
+            "X": 93,
+            "Y": 23,
+            "Width": 172,
+            "Height": 25,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
         "Interactions": [],
-        "Name": "EmptyContainer",
+        "Name": "MenuElement",
         "X": 0,
         "Y": 0,
-        "Width": 800,
-        "Height": 480
+        "Width": 390,
+        "Height": 70
       }
     ],
     "TextEntries": [
@@ -1471,6 +2665,118 @@
       },
       {
         "TextEntryId": "SingleUseId65",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId66",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId67",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId68",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId69",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId70",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId71",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId72",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId73",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId74",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId75",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId76",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId77",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId78",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId79",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId80",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId81",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId82",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId83",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId84",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId85",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId86",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId87",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId88",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId89",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId90",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId91",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId92",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId93",
         "IsResource": false
       }
     ],

@@ -1,14 +1,9 @@
 #ifndef GRAPHSVIEW_HPP
 #define GRAPHSVIEW_HPP
 
-/***********************************************************************************************************************
- *  include files
- ***********************************************************************************************************************/
 #include <gui_generated/graphs_screen/GraphsViewBase.hpp>
 #include <gui/graphs_screen/GraphsPresenter.hpp>
-/***********************************************************************************************************************
- *  class definitions
- ***********************************************************************************************************************/
+
 class GraphsView : public GraphsViewBase
 {
 public:
@@ -32,8 +27,12 @@ protected:
     uint32_t lastTickValue = 0;
     void displayTemperatureGraph(float temperatureValue);
     void displayHumidityGraph(float humidityValue);
+    void displayPressureGraph(float pressureValue);
+    void displayIAQGraph(float IAQValue);
     void setTempGraphMajorYAxisLabel(void);
     void setHumGraphMajorYAxisLabel(void);
+    void setPresGraphMajorYAxisLabel(void);
+    void setIAQGraphMajorYAxisLabel(void);
 };
 
 #endif // GRAPHSVIEW_HPP

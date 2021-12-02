@@ -10,6 +10,8 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/containers/clock/DigitalClock.hpp>
+#include <touchgfx/containers/scrollers/ScrollWheel.hpp>
+#include <gui/containers/MenuElement.hpp>
 
 class MainViewBase : public touchgfx::View<MainPresenter>
 {
@@ -17,6 +19,11 @@ public:
     MainViewBase();
     virtual ~MainViewBase() {}
     virtual void setupScreen();
+
+    virtual void scrollWheel1UpdateItem(MenuElement& item, int16_t itemIndex)
+    {
+        // Override and implement this function in Main
+    }
 
 protected:
     FrontendApplication& application() {
@@ -30,6 +37,8 @@ protected:
     touchgfx::Box box1;
     touchgfx::ButtonWithLabel GraphButton;
     touchgfx::DigitalClock digitalClock1;
+    touchgfx::ScrollWheel scrollWheel1;
+    touchgfx::DrawableListItems<MenuElement, 7> scrollWheel1ListItems;
 
 private:
 
@@ -37,11 +46,13 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<MainViewBase, const touchgfx::AbstractButton&> buttonCallback;
+    touchgfx::Callback<MainViewBase, touchgfx::DrawableListItemsInterface*, int16_t, int16_t> updateItemCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
+    void updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex);
 
 };
 

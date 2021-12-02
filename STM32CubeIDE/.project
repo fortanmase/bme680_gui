@@ -345,9 +345,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/common/FrontendApplication.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/gui/EmptyContainer.cpp</name>
+			<name>Application/User/gui/MenuElement.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/EmptyContainer.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/gui/src/containers/MenuElement.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/gui/GraphsPresenter.cpp</name>
@@ -390,6 +390,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/FontCache.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/Font_ariblk_50_4bpp_0.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/Font_ariblk_50_4bpp_0.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/Font_trebucit_23_4bpp_0.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/Font_trebucit_23_4bpp_0.cpp</locationURI>
@@ -415,6 +420,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/GeneratedFont.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/Kerning_ariblk_50_4bpp.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/Kerning_ariblk_50_4bpp.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/Kerning_trebucit_23_4bpp.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/Kerning_trebucit_23_4bpp.cpp</locationURI>
@@ -433,6 +443,11 @@
 			<name>Application/User/generated/Kerning_verdana_40_4bpp.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/Kerning_verdana_40_4bpp.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/Table_ariblk_50_4bpp.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/fonts/src/Table_ariblk_50_4bpp.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/Table_trebucit_23_4bpp.cpp</name>
@@ -465,9 +480,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/EmptyContainerBase.cpp</name>
+			<name>Application/User/generated/MenuElementBase.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/EmptyContainerBase.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/gui_generated/src/containers/MenuElementBase.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/GraphsViewBase.cpp</name>
@@ -495,9 +510,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Buttons_Square_large_pressed.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/image_Blue_PageIndicator_dot_indicator_small_normal.cpp</name>
+			<name>Application/User/generated/image_Dark_PageIndicator_dot_indicator_small_highlight.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_PageIndicator_dot_indicator_small_normal.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Dark_PageIndicator_dot_indicator_small_highlight.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_Dark_PageIndicator_dot_indicator_small_normal.cpp</name>

@@ -17,8 +17,6 @@
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\hal\simulator\sdl2\OSWrappers.cpp"/>
     <ClCompile Include="$(ApplicationRoot)\simulator\main.cpp"/>
     <ClCompile Include="$(ApplicationRoot)\generated\simulator\src\mainBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\containers\EmptyContainer.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\containers\EmptyContainerBase.cpp"/>
     <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp"/>
     <ClCompile Include="..\..\gui\src\graphs_screen\GraphsPresenter.cpp"/>
@@ -28,6 +26,8 @@
     <ClCompile Include="..\..\gui\src\main_screen\MainView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\main_screen\MainViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\model\Model.cpp"/>
+    <ClCompile Include="..\..\gui\src\containers\MenuElement.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\containers\MenuElementBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xlsx"/>
@@ -168,8 +168,6 @@
     <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\TouchArea.hpp"/>
     <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\Widget.hpp"/>
     <ClInclude Include="$(ApplicationRoot)\generated\simulator\include\simulator\mainBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\containers\EmptyContainer.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\EmptyContainerBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\common\FrontendApplication.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendApplicationBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\common\FrontendHeap.hpp"/>
@@ -183,6 +181,8 @@
     <ClInclude Include="..\..\gui\include\gui\model\Model.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\containers\MenuElement.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\MenuElementBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

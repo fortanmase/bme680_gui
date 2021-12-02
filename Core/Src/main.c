@@ -30,6 +30,7 @@
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
+typedef StaticTask_t osStaticThreadDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -62,25 +63,40 @@ RTC_HandleTypeDef hrtc;
 
 SDRAM_HandleTypeDef hsdram1;
 
-/* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+/* Definitions for BME680Task */
+osThreadId_t BME680TaskHandle;
+uint32_t BME680TaskBuffer[ 8192 ];
+osStaticThreadDef_t BME680TaskControlBlock;
+const osThreadAttr_t BME680Task_attributes = {
+  .name = "BME680Task",
+  .cb_mem = &BME680TaskControlBlock,
+  .cb_size = sizeof(BME680TaskControlBlock),
+  .stack_mem = &BME680TaskBuffer[0],
+  .stack_size = sizeof(BME680TaskBuffer),
+  .priority = (osPriority_t) osPriorityRealtime,
 };
 /* Definitions for TouchGFXTask */
 osThreadId_t TouchGFXTaskHandle;
+uint32_t TouchGFXTaskBuffer[ 8192 ];
+osStaticThreadDef_t TouchGFXTaskControlBlock;
 const osThreadAttr_t TouchGFXTask_attributes = {
   .name = "TouchGFXTask",
-  .stack_size = 4096 * 4,
+  .cb_mem = &TouchGFXTaskControlBlock,
+  .cb_size = sizeof(TouchGFXTaskControlBlock),
+  .stack_mem = &TouchGFXTaskBuffer[0],
+  .stack_size = sizeof(TouchGFXTaskBuffer),
   .priority = (osPriority_t) osPriorityRealtime,
 };
 /* Definitions for RTCTask */
 osThreadId_t RTCTaskHandle;
+uint32_t RTCTaskBuffer[ 512 ];
+osStaticThreadDef_t RTCTaskControlBlock;
 const osThreadAttr_t RTCTask_attributes = {
   .name = "RTCTask",
-  .stack_size = 128 * 4,
+  .cb_mem = &RTCTaskControlBlock,
+  .cb_size = sizeof(RTCTaskControlBlock),
+  .stack_mem = &RTCTaskBuffer[0],
+  .stack_size = sizeof(RTCTaskBuffer),
   .priority = (osPriority_t) osPriorityRealtime,
 };
 /* USER CODE BEGIN PV */
@@ -89,6 +105,8 @@ extern float gui_temperature;
 extern float gui_humidity;
 extern float gui_pressure;
 extern float gui_iaq;
+extern float gui_co2;
+
 extern uint8_t hours;
 extern uint8_t minutes;
 extern uint8_t seconds;
@@ -108,7 +126,7 @@ static void MX_LTDC_Init(void);
 static void MX_QUADSPI_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_RTC_Init(void);
-void Default_Task(void *argument);
+void BME680_Task(void *argument);
 extern void TouchGFX_Task(void *argument);
 void RTC_Task(void *argument);
 
@@ -195,8 +213,8 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(Default_Task, NULL, &defaultTask_attributes);
+  /* creation of BME680Task */
+  BME680TaskHandle = osThreadNew(BME680_Task, NULL, &BME680Task_attributes);
 
   /* creation of TouchGFXTask */
   TouchGFXTaskHandle = osThreadNew(TouchGFX_Task, NULL, &TouchGFXTask_attributes);
@@ -243,10 +261,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 8;
@@ -658,9 +675,9 @@ static void MX_RTC_Init(void)
 
   /** Initialize RTC and set the Time and Date
   */
-  sTime.Hours = 10;
-  sTime.Minutes = 11;
-  sTime.Seconds = 12;
+  sTime.Hours = 0;
+  sTime.Minutes = 0;
+  sTime.Seconds = 0;
   sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
   sTime.StoreOperation = RTC_STOREOPERATION_RESET;
   if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
@@ -867,6 +884,7 @@ void bsec_output(int64_t timestamp, float iaq, uint8_t iaq_accuracy, float tempe
     gui_humidity = humidity;
     gui_pressure = pressure;
     gui_iaq = iaq;
+    gui_co2 = co2_equivalent;
 }
 
 int64_t get_timestamp_us (void)
@@ -875,19 +893,56 @@ int64_t get_timestamp_us (void)
 }
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_Default_Task */
+/* USER CODE BEGIN Header_BME680_Task */
 /**
-  * @brief  Function implementing the defaultTask thread.
+  * @brief  Function implementing the BME680Task thread.
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_Default_Task */
-void Default_Task(void *argument)
+int64_t time_stamp = 0;
+int64_t time_stamp_interval_ms = 0;
+
+/* Allocate enough memory for up to BSEC_MAX_PHYSICAL_SENSOR physical inputs*/
+bsec_input_t bsec_inputs[BSEC_MAX_PHYSICAL_SENSOR];
+
+/* Number of inputs to BSEC */
+uint8_t num_bsec_inputs = 0;
+
+/* BSEC sensor settings struct */
+bsec_bme_settings_t sensor_settings;
+
+/* Initialize BSEC library */
+
+/* USER CODE END Header_BME680_Task */
+void BME680_Task(void *argument)
 {
   /* USER CODE BEGIN 5 */
+    return_values_init result = {BME680_OK, BSEC_OK};
+    result = bsec_iot_init(BSEC_SAMPLE_RATE_LP, 0.0f, &i2cWrite, &i2cRead, &osDelay, 0, 0);
+    /* Timestamp variables */
   /* Infinite loop */
   for(;;)
   {
+    /* get the timestamp in nanoseconds before calling bsec_sensor_control() */
+    time_stamp = get_timestamp_us() * 1000;
+
+    /* Retrieve sensor settings to be used in this time instant by calling bsec_sensor_control */
+    bsec_sensor_control(time_stamp, &sensor_settings);
+
+    /* Trigger a measurement if necessary */
+    bme680_bsec_trigger_measurement(&sensor_settings, &osDelay);
+
+    /* Read data from last measurement */
+    num_bsec_inputs = 0;
+    bme680_bsec_read_data(time_stamp, bsec_inputs, &num_bsec_inputs, sensor_settings.process_data);
+
+    /* Time to invoke BSEC to perform the actual processing */
+    bme680_bsec_process_data(bsec_inputs, num_bsec_inputs, bsec_output);
+    time_stamp_interval_ms = (sensor_settings.next_call - get_timestamp_us() * 1000) / 1000000;
+    if (time_stamp_interval_ms > 0)
+    {
+        osDelay((uint32_t)time_stamp_interval_ms);
+    }
     osDelay(1);
   }
   /* USER CODE END 5 */
@@ -913,7 +968,7 @@ void RTC_Task(void *argument)
       seconds = sTime.Seconds;
       minutes = sTime.Minutes;
       hours   = sTime.Hours;
-      osDelay(500);
+      osDelay(1);
   }
   /* USER CODE END RTC_Task */
 }
