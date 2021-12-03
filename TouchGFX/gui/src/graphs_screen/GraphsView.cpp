@@ -1,15 +1,17 @@
 #include <gui/graphs_screen/GraphsView.hpp>
 
-extern uint32_t (*pfHAL_GetTick)(void);    //pointer to HAL_GetTick()
+extern uint32_t (*pfHAL_GetTick)(void);    /* Pointer to HAL_GetTick imported from main*/
+/* Variables imported from main */
 float gui_temperature;
 float gui_humidity;
 float gui_pressure;
 float gui_iaq;
 float gui_co2;
 
+uint32_t lastTickValue; /* Variable monitoring last tick value (HAL_GetTick) */
 GraphsView::GraphsView()
 {
-    lastTickValue = pfHAL_GetTick();
+    lastTickValue = pfHAL_GetTick(); /* Initialize with actual tick value */
 }
 
 /*  generated function for screen setup  */
@@ -23,16 +25,17 @@ void GraphsView::tearDownScreen()
 {
     GraphsViewBase::tearDownScreen();
 }
-/*  function call based on ticks (loop)  */
+/*  function call based on ticks (loop), call frequency = 60Hz (16.6ms)  */
 void GraphsView::handleTickEvent()
 {
-    if(pfHAL_GetTick() - lastTickValue >= 3000)
+    if(pfHAL_GetTick() - lastTickValue >= 3000)     /* wait 3 seconds till data from BME680 gets ready*/
     {
+        /* Display the graphs*/
         displayTemperatureGraph(gui_temperature);
         displayHumidityGraph(gui_humidity);
         displayPressureGraph(gui_pressure/100/1.33333);
-        displayIAQGraph(gui_co2);
-        lastTickValue = pfHAL_GetTick();
+        displayIAQGraph(gui_iaq);
+        lastTickValue = pfHAL_GetTick();             /* refresh the actual tick value */
     }
 
 }
@@ -44,55 +47,60 @@ void GraphsView::handleClickEvent(const ClickEvent& evt)
     bool presGraphAreaClicked = false;
     bool IAQGraphAreaClicked  = false;
 
-    if(TempGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))
+    if(TempGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))           /* Check if temperature graph is clicked and get the coordinates */
     {
         tempGraphAreaClicked = true;
     }
-    else if(HumGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))
+    else if(HumGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))       /* Check if humidity graph is clicked and get the coordinates */
     {
         humGraphAreaClicked = true;
     }
-    else if(PresGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))
+    else if(PresGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))      /* Check if pressure graph is clicked and get the coordinates */
     {
         presGraphAreaClicked = true;
     }
-    else
+    else if (IAQGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))     /* Check if IAQ graph is clicked and get the coordinates */
     {
         IAQGraphAreaClicked = true;
     }
+    else
+    {
+        // do nothing
+    }
 
-    // Click Event occurred
-    if (evt.getType() == ClickEvent::PRESSED)
+    if (evt.getType() == ClickEvent::PRESSED)       /* Click Event occurred */
     {
         if(tempGraphAreaClicked)
         {
-            // Click Event occurred within the graph
-            clickStatus = ClickStatus::CLICKED;
+            clickStatus = ClickStatus::CLICKED;     /* Click Event occurred within the temperature graph */
         }
         else if(humGraphAreaClicked)
         {
-            clickStatus = ClickStatus::CLICKED;
+            clickStatus = ClickStatus::CLICKED;     /* Click Event occurred within the humidity graph */
         }
         else if(presGraphAreaClicked)
+        {
+            clickStatus = ClickStatus::CLICKED;     /* Click Event occurred within the pressure graph */
+        }
+        else if (IAQGraphAreaClicked)               /* Click Event occurred within the IAQ graph */
         {
             clickStatus = ClickStatus::CLICKED;
         }
         else
         {
-            clickStatus = ClickStatus::CLICKED;
+            //do nothing
         }
-        GraphsViewBase::handleClickEvent(evt); // act normally
+        GraphsViewBase::handleClickEvent(evt);              /* Act normally */
     }
-    else if (evt.getType() == ClickEvent::RELEASED)
+    else if (evt.getType() == ClickEvent::RELEASED)         /* No Click Event or click event ended */
     {
-        if(clickStatus == ClickStatus::CLICK_DRAGGING)
+        if(clickStatus == ClickStatus::CLICK_DRAGGING)      /* Drag event occured */
         {
             SwipeArea.handleClickEvent(evt);
         }
         else
         {
-            // Not dragging, allow passing the event to the graph
-            GraphsViewBase::handleClickEvent(evt);
+            GraphsViewBase::handleClickEvent(evt);          /* Not dragging, allow passing the event to the graph */
         }
         clickStatus = ClickStatus::RELEASED;
     }
@@ -101,7 +109,7 @@ void GraphsView::handleClickEvent(const ClickEvent& evt)
 void GraphsView::handleDragEvent(const DragEvent& evt)
 {
     bool dragIntersect = false;
-
+    /* Check if drag event occured and get the coordinates */
     if( ( TempGraph.getAbsoluteRect().intersect(evt.getOldX(), evt.getOldY())) ||
         (  HumGraph.getAbsoluteRect().intersect(evt.getOldX(), evt.getOldY())) ||
         ( PresGraph.getAbsoluteRect().intersect(evt.getOldX(), evt.getOldY())) ||
@@ -109,16 +117,16 @@ void GraphsView::handleDragEvent(const DragEvent& evt)
     {
         dragIntersect = true;
     }
-
+    else
+    {
+        dragIntersect = false;
+    }
 
     if(dragIntersect)
     {
-        // Drag occurred within a graph
-        if(abs(evt.getDeltaX()) > 2 && clickStatus == ClickStatus::CLICKED)
+        if(abs(evt.getDeltaX()) > 2 && clickStatus == ClickStatus::CLICKED)             /* Drag occurred within a graph */
         {
-            // We are now dragging, cancel any graph touch by creating a new click event
-            // and forwarding it to the rest of the view
-            ClickEvent cancelEvt(ClickEvent::CANCEL, evt.getOldX(), evt.getOldY(), 1);
+            ClickEvent cancelEvt(ClickEvent::CANCEL, evt.getOldX(), evt.getOldY(), 1);  /* We are now dragging, cancel any graph touch by creating a new click event and forwarding it to the rest of the view*/
             GraphsViewBase::handleClickEvent(cancelEvt);
             clickStatus = ClickStatus::CLICK_DRAGGING;
         }
@@ -126,13 +134,11 @@ void GraphsView::handleDragEvent(const DragEvent& evt)
 
     if(clickStatus == ClickStatus::CLICK_DRAGGING)
     {
-        // We are dragging, forward drag events to swipe container only
-        SwipeArea.handleDragEvent(evt);
+        SwipeArea.handleDragEvent(evt);             /* We are dragging, forward drag events to swipe container only */
     }
     else
     {
-        // No dragging within a graph occured, act normally
-        GraphsViewBase::handleDragEvent(evt);
+        GraphsViewBase::handleDragEvent(evt);       /* No dragging within a graph occured, act normally */
     }
 }
 
@@ -140,17 +146,15 @@ void GraphsView::handleGestureEvent(const GestureEvent& evt)
 {
     if(clickStatus == ClickStatus::CLICK_DRAGGING)
     {
-        // We are dragging, forward gesture events to swipe container only
-        SwipeArea.handleGestureEvent(evt);
+        SwipeArea.handleGestureEvent(evt);          /* We are dragging, forward gesture events to swipe container only */
     }
     else
     {
-        // No dragging within a graph occured, act normally
-        GraphsViewBase::handleGestureEvent(evt);
+        GraphsViewBase::handleGestureEvent(evt);    /* No dragging within a graph occured, act normally */
     }
 }
 
-/*  function for displaying the temperature graph  */
+/* Function for displaying the temperature graph */
 void GraphsView::displayTemperatureGraph(float temperatureValue)
 {
     TempGraph.addDataPoint(temperatureValue*100);
@@ -163,7 +167,7 @@ void GraphsView::displayTemperatureGraph(float temperatureValue)
     TempGraph.invalidate();
 }
 
-/*  function for displaying the humidity graph  */
+/* Function for displaying the humidity graph */
 void GraphsView::displayHumidityGraph(float humidityValue)
 {
     HumGraph.addDataPoint(humidityValue*100);
@@ -176,6 +180,7 @@ void GraphsView::displayHumidityGraph(float humidityValue)
     HumGraph.invalidate();
 }
 
+/* Function for displaying the pressure graph */
 void GraphsView::displayPressureGraph(float pressureValue)
 {
     PresGraph.addDataPoint(pressureValue*100);
@@ -188,6 +193,7 @@ void GraphsView::displayPressureGraph(float pressureValue)
     PresGraph.invalidate();
 }
 
+/* Function for displaying the IAQ graph */
 void GraphsView::displayIAQGraph(float IAQValue)
 {
     IAQGraph.addDataPoint(IAQValue*100);
@@ -200,6 +206,7 @@ void GraphsView::displayIAQGraph(float IAQValue)
     IAQGraph.invalidate();
 }
 
+/* Function for setting the temperature graph Y axis labels */
 void GraphsView::setTempGraphMajorYAxisLabel(void)
 {
     int GraphRangeYMinAsInt = TempGraph.getGraphRangeYMinAsInt();
@@ -228,6 +235,7 @@ void GraphsView::setTempGraphMajorYAxisLabel(void)
     graphInterval1.invalidate();
 }
 
+/* Function for setting the humidity graph Y axis labels */
 void GraphsView::setHumGraphMajorYAxisLabel(void)
 {
     int GraphRangeYMinAsInt = HumGraph.getGraphRangeYMinAsInt();
@@ -256,6 +264,7 @@ void GraphsView::setHumGraphMajorYAxisLabel(void)
     graphInterval2.invalidate();
 }
 
+/* Function for setting the pressure graph Y axis labels */
 void GraphsView::setPresGraphMajorYAxisLabel(void)
 {
     int GraphRangeYMinAsInt = PresGraph.getGraphRangeYMinAsInt();
@@ -284,6 +293,7 @@ void GraphsView::setPresGraphMajorYAxisLabel(void)
     graphInterval3.invalidate();
 }
 
+/* Function for setting the IAQ graph Y axis labels */
 void GraphsView::setIAQGraphMajorYAxisLabel(void)
 {
     int GraphRangeYMinAsInt = IAQGraph.getGraphRangeYMinAsInt();

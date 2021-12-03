@@ -100,7 +100,9 @@ const osThreadAttr_t RTCTask_attributes = {
   .priority = (osPriority_t) osPriorityRealtime,
 };
 /* USER CODE BEGIN PV */
-uint32_t (*pfHAL_GetTick)(void) = &HAL_GetTick;
+uint32_t (*pfHAL_GetTick)(void) = &HAL_GetTick;     /* Pointer to HAL_GetTick exported to TouchGFX) */
+
+/* Variables exported to TouchGFX */
 extern float gui_temperature;
 extern float gui_humidity;
 extern float gui_pressure;
@@ -113,6 +115,7 @@ extern uint8_t seconds;
 extern uint8_t year;
 extern uint8_t month;
 extern uint8_t date;
+extern uint8_t weekDay;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -899,51 +902,48 @@ int64_t get_timestamp_us (void)
   * @param  argument: Not used
   * @retval None
   */
-int64_t time_stamp = 0;
-int64_t time_stamp_interval_ms = 0;
 
-/* Allocate enough memory for up to BSEC_MAX_PHYSICAL_SENSOR physical inputs*/
-bsec_input_t bsec_inputs[BSEC_MAX_PHYSICAL_SENSOR];
-
-/* Number of inputs to BSEC */
-uint8_t num_bsec_inputs = 0;
-
-/* BSEC sensor settings struct */
-bsec_bme_settings_t sensor_settings;
-
-/* Initialize BSEC library */
-
+int8_t bme680Err = 0;                                        /* Global variable to store BME680 error code */
+int8_t bsecErr = 0;                                          /* Global variable to store bsec library error code */
 /* USER CODE END Header_BME680_Task */
 void BME680_Task(void *argument)
 {
   /* USER CODE BEGIN 5 */
-    return_values_init result = {BME680_OK, BSEC_OK};
-    result = bsec_iot_init(BSEC_SAMPLE_RATE_LP, 0.0f, &i2cWrite, &i2cRead, &osDelay, 0, 0);
     /* Timestamp variables */
+    int64_t time_stamp = 0;
+    int64_t time_stamp_interval_ms = 0;
+    bsec_input_t bsec_inputs[BSEC_MAX_PHYSICAL_SENSOR];      /* Allocate enough memory for up to BSEC_MAX_PHYSICAL_SENSOR physical inputs*/
+    uint8_t num_bsec_inputs = 0;                             /* Number of inputs to BSEC */
+    bsec_bme_settings_t sensor_settings;                     /* BSEC sensor settings struct */
+    return_values_init result = {BME680_OK, BSEC_OK};
+    result = bsec_iot_init(BSEC_SAMPLE_RATE_LP, 0.0f, &i2cWrite, &i2cRead, (sleep_fct)osDelay, 0, 0);     /* Initialize BSEC library */
+
   /* Infinite loop */
   for(;;)
   {
-    /* get the timestamp in nanoseconds before calling bsec_sensor_control() */
-    time_stamp = get_timestamp_us() * 1000;
-
-    /* Retrieve sensor settings to be used in this time instant by calling bsec_sensor_control */
-    bsec_sensor_control(time_stamp, &sensor_settings);
-
-    /* Trigger a measurement if necessary */
-    bme680_bsec_trigger_measurement(&sensor_settings, &osDelay);
-
-    /* Read data from last measurement */
-    num_bsec_inputs = 0;
-    bme680_bsec_read_data(time_stamp, bsec_inputs, &num_bsec_inputs, sensor_settings.process_data);
-
-    /* Time to invoke BSEC to perform the actual processing */
-    bme680_bsec_process_data(bsec_inputs, num_bsec_inputs, bsec_output);
-    time_stamp_interval_ms = (sensor_settings.next_call - get_timestamp_us() * 1000) / 1000000;
-    if (time_stamp_interval_ms > 0)
-    {
-        osDelay((uint32_t)time_stamp_interval_ms);
-    }
-    osDelay(1);
+      if(result.bme680_status)
+      {
+          bme680Err = result.bme680_status;
+      }
+      else if(result.bsec_status)
+      {
+          bsecErr = result.bsec_status;
+      }
+      else
+      {
+          time_stamp = get_timestamp_us() * 1000;                                                           /* get the timestamp in nanoseconds before calling bsec_sensor_control() */
+          bsec_sensor_control(time_stamp, &sensor_settings);                                                /* Retrieve sensor settings to be used in this time instant by calling bsec_sensor_control */
+          bme680_bsec_trigger_measurement(&sensor_settings, (sleep_fct)osDelay);                            /* Trigger a measurement if necessary */
+          num_bsec_inputs = 0; /* Reset the number of inputs to BSEC */
+          bme680_bsec_read_data(time_stamp, bsec_inputs, &num_bsec_inputs, sensor_settings.process_data);   /* Read data from last measurement */
+          bme680_bsec_process_data(bsec_inputs, num_bsec_inputs, bsec_output);                              /* Time to invoke BSEC to perform the actual processing */
+          time_stamp_interval_ms = (sensor_settings.next_call - get_timestamp_us() * 1000) / 1000000;       /* Compute the time till the next measurement */
+          if (time_stamp_interval_ms > 0) /* Wait till the next measurement gets ready */
+          {
+              osDelay((uint32_t)time_stamp_interval_ms);
+          }
+          osDelay(1);
+      }
   }
   /* USER CODE END 5 */
 }
@@ -963,11 +963,17 @@ void RTC_Task(void *argument)
   /* Infinite loop */
   for(;;)
   {
+      /* Get the data from RTC */
       HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
       HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+      /* Export data to TouchGFX */
       seconds = sTime.Seconds;
       minutes = sTime.Minutes;
       hours   = sTime.Hours;
+      date    = sDate.Date;
+      month   = sDate.Month;
+      year    = sDate.Year;
+      weekDay = sDate.WeekDay;
       osDelay(1);
   }
   /* USER CODE END RTC_Task */

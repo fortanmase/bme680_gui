@@ -24,7 +24,6 @@ protected:
         CLICK_DRAGGING
     };
     ClickStatus clickStatus;
-    uint32_t lastTickValue = 0;
     void displayTemperatureGraph(float temperatureValue);
     void displayHumidityGraph(float humidityValue);
     void displayPressureGraph(float pressureValue);
