@@ -180,20 +180,7 @@ int main(void)
   MX_RTC_Init();
   MX_TouchGFX_Init();
   /* USER CODE BEGIN 2 */
-//  return_values_init result = {BME680_OK, BSEC_OK};
-//  result = bsec_iot_init(BSEC_SAMPLE_RATE_LP, 0.0f, &i2cWrite, &i2cRead, HAL_Delay, NULL, NULL);
-//  if(result.bme680_status)
-//  {
-//    printf("Error while initializing BME680\r\n");
-//  }
-//  else if (result.bsec_status)
-//  {
-//    printf("Error while initializing BSEC library\r\n");
-//  }
-//  else
-//  {
-//    printf("Initialization done\r\n");
-//  }
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -269,8 +256,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 360;
+  RCC_OscInitStruct.PLL.PLLM = 4;
+  RCC_OscInitStruct.PLL.PLLN = 180;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   RCC_OscInitStruct.PLL.PLLR = 6;
@@ -341,14 +328,22 @@ static void MX_DMA2D_Init(void)
 
   /* USER CODE END DMA2D_Init 1 */
   hdma2d.Instance = DMA2D;
-  hdma2d.Init.Mode = DMA2D_M2M;
+  hdma2d.Init.Mode = DMA2D_M2M_BLEND;
   hdma2d.Init.ColorMode = DMA2D_OUTPUT_ARGB8888;
   hdma2d.Init.OutputOffset = 0;
+  hdma2d.LayerCfg[0].InputOffset = 0;
+  hdma2d.LayerCfg[0].InputColorMode = DMA2D_INPUT_ARGB8888;
+  hdma2d.LayerCfg[0].AlphaMode = DMA2D_REPLACE_ALPHA;
+  hdma2d.LayerCfg[0].InputAlpha = 0;
   hdma2d.LayerCfg[1].InputOffset = 0;
   hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
-  hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
+  hdma2d.LayerCfg[1].AlphaMode = DMA2D_REPLACE_ALPHA;
   hdma2d.LayerCfg[1].InputAlpha = 0;
   if (HAL_DMA2D_Init(&hdma2d) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_DMA2D_ConfigLayer(&hdma2d, 0) != HAL_OK)
   {
     Error_Handler();
   }
@@ -540,9 +535,9 @@ static void MX_LTDC_Init(void)
   hltdc.Init.VerticalSync = 1;
   hltdc.Init.AccumulatedHBP = 2;
   hltdc.Init.AccumulatedVBP = 2;
-  hltdc.Init.AccumulatedActiveW = 202;
+  hltdc.Init.AccumulatedActiveW = 802;
   hltdc.Init.AccumulatedActiveH = 482;
-  hltdc.Init.TotalWidth = 203;
+  hltdc.Init.TotalWidth = 803;
   hltdc.Init.TotalHeigh = 483;
   hltdc.Init.Backcolor.Blue = 0;
   hltdc.Init.Backcolor.Green = 0;
@@ -552,7 +547,7 @@ static void MX_LTDC_Init(void)
     Error_Handler();
   }
   pLayerCfg.WindowX0 = 0;
-  pLayerCfg.WindowX1 = 200;
+  pLayerCfg.WindowX1 = 800;
   pLayerCfg.WindowY0 = 0;
   pLayerCfg.WindowY1 = 480;
   pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
@@ -561,7 +556,7 @@ static void MX_LTDC_Init(void)
   pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
   pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
   pLayerCfg.FBStartAdress = 0xC0000000;
-  pLayerCfg.ImageWidth = 200;
+  pLayerCfg.ImageWidth = 800;
   pLayerCfg.ImageHeight = 480;
   pLayerCfg.Backcolor.Blue = 0;
   pLayerCfg.Backcolor.Green = 0;
@@ -725,11 +720,11 @@ static void MX_FMC_Init(void)
   hsdram1.Init.RowBitsNumber = FMC_SDRAM_ROW_BITS_NUM_12;
   hsdram1.Init.MemoryDataWidth = FMC_SDRAM_MEM_BUS_WIDTH_32;
   hsdram1.Init.InternalBankNumber = FMC_SDRAM_INTERN_BANKS_NUM_4;
-  hsdram1.Init.CASLatency = FMC_SDRAM_CAS_LATENCY_3;
+  hsdram1.Init.CASLatency = FMC_SDRAM_CAS_LATENCY_2;
   hsdram1.Init.WriteProtection = FMC_SDRAM_WRITE_PROTECTION_DISABLE;
-  hsdram1.Init.SDClockPeriod = FMC_SDRAM_CLOCK_DISABLE;
+  hsdram1.Init.SDClockPeriod = FMC_SDRAM_CLOCK_PERIOD_2;
   hsdram1.Init.ReadBurst = FMC_SDRAM_RBURST_ENABLE;
-  hsdram1.Init.ReadPipeDelay = FMC_SDRAM_RPIPE_DELAY_2;
+  hsdram1.Init.ReadPipeDelay = FMC_SDRAM_RPIPE_DELAY_0;
   /* SdramTiming */
   SdramTiming.LoadToActiveDelay = 2;
   SdramTiming.ExitSelfRefreshDelay = 7;
@@ -775,10 +770,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOJ_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED4_GPIO_Port, LED4_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, BME680_LED_Pin|RENDER_TIME_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(RENDER_TIME_GPIO_Port, RENDER_TIME_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(RTC_LED_GPIO_Port, RTC_LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(VSYNC_FREQ_GPIO_Port, VSYNC_FREQ_Pin, GPIO_PIN_RESET);
@@ -786,19 +781,19 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOH, GPIO_PIN_7, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : LED4_Pin */
-  GPIO_InitStruct.Pin = LED4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(LED4_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : RENDER_TIME_Pin */
-  GPIO_InitStruct.Pin = RENDER_TIME_Pin;
+  /*Configure GPIO pins : BME680_LED_Pin RENDER_TIME_Pin */
+  GPIO_InitStruct.Pin = BME680_LED_Pin|RENDER_TIME_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(RENDER_TIME_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : RTC_LED_Pin */
+  GPIO_InitStruct.Pin = RTC_LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(RTC_LED_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : VSYNC_FREQ_Pin */
   GPIO_InitStruct.Pin = VSYNC_FREQ_Pin;
@@ -879,13 +874,13 @@ int8_t i2cRead(uint8_t dev_id, uint8_t reg_addr, uint8_t *data, uint16_t len)
     return rslt;
 }
 
-void bsec_output(int64_t timestamp, float iaq, uint8_t iaq_accuracy, float temperature, float humidity,
-	     float pressure, float raw_temperature, float raw_humidity, float gas, bsec_library_return_t bsec_status,
-	     float static_iaq, float co2_equivalent, float breath_voc_equivalent)
+void bsec_output(int64_t timestamp, float iaq, uint8_t iaq_accuracy, float temp, float raw_temp, float raw_pressure, float humidity, float raw_humidity, float raw_gas,
+                  float static_iaq, uint8_t static_iaq_accuracy, float co2_equivalent, uint8_t co2_accuracy, float breath_voc_equivalent,
+                  uint8_t breath_voc_accuracy, float comp_gas_value, uint8_t comp_gas_accuracy, float gas_percentage, uint8_t gas_percentage_accuracy)
 {
-    gui_temperature = temperature;
+    gui_temperature = temp;
     gui_humidity = humidity;
-    gui_pressure = pressure;
+    gui_pressure = (raw_pressure/100.0f/1.33333f); /* Converting bar to mmHg */
     gui_iaq = iaq;
     gui_co2 = co2_equivalent;
 }
@@ -916,11 +911,12 @@ void BME680_Task(void *argument)
     uint8_t num_bsec_inputs = 0;                             /* Number of inputs to BSEC */
     bsec_bme_settings_t sensor_settings;                     /* BSEC sensor settings struct */
     return_values_init result = {BME680_OK, BSEC_OK};
-    result = bsec_iot_init(BSEC_SAMPLE_RATE_LP, 0.0f, &i2cWrite, &i2cRead, (sleep_fct)osDelay, 0, 0);     /* Initialize BSEC library */
+    result = bsec_iot_init(BSEC_SAMPLE_RATE_LP, 0.0f, &i2cWrite, &i2cRead, (sleep_fct) osDelay, 0, 0);     /* Initialize BSEC library */
 
   /* Infinite loop */
   for(;;)
   {
+      HAL_GPIO_TogglePin(BME680_LED_GPIO_Port, BME680_LED_Pin);
       if(result.bme680_status)
       {
           bme680Err = result.bme680_status;
@@ -933,7 +929,7 @@ void BME680_Task(void *argument)
       {
           time_stamp = get_timestamp_us() * 1000;                                                           /* get the timestamp in nanoseconds before calling bsec_sensor_control() */
           bsec_sensor_control(time_stamp, &sensor_settings);                                                /* Retrieve sensor settings to be used in this time instant by calling bsec_sensor_control */
-          bme680_bsec_trigger_measurement(&sensor_settings, (sleep_fct)osDelay);                            /* Trigger a measurement if necessary */
+          bme680_bsec_trigger_measurement(&sensor_settings, (sleep_fct) osDelay);                            /* Trigger a measurement if necessary */
           num_bsec_inputs = 0; /* Reset the number of inputs to BSEC */
           bme680_bsec_read_data(time_stamp, bsec_inputs, &num_bsec_inputs, sensor_settings.process_data);   /* Read data from last measurement */
           bme680_bsec_process_data(bsec_inputs, num_bsec_inputs, bsec_output);                              /* Time to invoke BSEC to perform the actual processing */
@@ -942,8 +938,8 @@ void BME680_Task(void *argument)
           {
               osDelay((uint32_t)time_stamp_interval_ms);
           }
-          osDelay(1);
       }
+      osDelay(1);
   }
   /* USER CODE END 5 */
 }
@@ -963,6 +959,7 @@ void RTC_Task(void *argument)
   /* Infinite loop */
   for(;;)
   {
+      HAL_GPIO_TogglePin(RTC_LED_GPIO_Port, RTC_LED_Pin);
       /* Get the data from RTC */
       HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
       HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
@@ -974,7 +971,7 @@ void RTC_Task(void *argument)
       month   = sDate.Month;
       year    = sDate.Year;
       weekDay = sDate.WeekDay;
-      osDelay(1);
+      osDelay(500);
   }
   /* USER CODE END RTC_Task */
 }

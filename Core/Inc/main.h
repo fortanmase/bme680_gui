@@ -58,15 +58,17 @@ void Error_Handler(void);
 /* USER CODE BEGIN EFP */
 int8_t i2cWrite(uint8_t dev_id, uint8_t reg_addr, uint8_t *data, uint16_t len);
 int8_t i2cRead(uint8_t dev_id, uint8_t reg_addr, uint8_t *data, uint16_t len);
-void bsec_output(int64_t timestamp, float iaq, uint8_t iaq_accuracy, float temperature, float humidity,
-         float pressure, float raw_temperature, float raw_humidity, float gas, bsec_library_return_t bsec_status,
-         float static_iaq, float co2_equivalent, float breath_voc_equivalent);
+void bsec_output(int64_t timestamp, float iaq, uint8_t iaq_accuracy, float temp, float raw_temp, float raw_pressure, float humidity, float raw_humidity, float raw_gas,
+                 float static_iaq, uint8_t static_iaq_accuracy, float co2_equivalent, uint8_t co2_accuracy, float breath_voc_equivalent,
+                 uint8_t breath_voc_accuracy, float comp_gas_value, uint8_t comp_gas_accuracy,float gas_percentage, uint8_t gas_percentage_accuracy);
 int64_t get_timestamp_us (void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED4_Pin GPIO_PIN_3
-#define LED4_GPIO_Port GPIOK
+#define BME680_LED_Pin GPIO_PIN_5
+#define BME680_LED_GPIO_Port GPIOD
+#define RTC_LED_Pin GPIO_PIN_3
+#define RTC_LED_GPIO_Port GPIOK
 #define RENDER_TIME_Pin GPIO_PIN_4
 #define RENDER_TIME_GPIO_Port GPIOD
 #define VSYNC_FREQ_Pin GPIO_PIN_6

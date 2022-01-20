@@ -161,9 +161,9 @@
                     "Type": "DynamicGraph",
                     "DataSeed": -1695110854,
                     "NumberOfValues": 100,
-                    "MaxY": 30.0,
-                    "MinY": 20.0,
-                    "Precision": "1",
+                    "MaxY": 10.0,
+                    "MinY": 0.0,
+                    "Precision": "0.01",
                     "UseCustomVisibleDataPointRange": true,
                     "FirstIndex": 0,
                     "LastIndex": 100,
@@ -201,17 +201,6 @@
                         "Blue": 0
                       },
                       "Interval": 10.0,
-                      "LineWidth": 1,
-                      "Alpha": 255
-                    },
-                    "YAxisGrid": {
-                      "Type": "GraphGrid",
-                      "Color": {
-                        "Red": 0,
-                        "Green": 0,
-                        "Blue": 0
-                      },
-                      "Interval": 1.0,
                       "LineWidth": 1,
                       "Alpha": 255
                     },
@@ -380,6 +369,249 @@
                     "Moveable": false
                   },
                   {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_4",
+                    "X": 141,
+                    "Y": 361,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_5",
+                    "X": 141,
+                    "Y": 323,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_6",
+                    "X": 141,
+                    "Y": 286,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_7",
+                    "X": 141,
+                    "Y": 248,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_8",
+                    "X": 141,
+                    "Y": 210,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_9",
+                    "X": 141,
+                    "Y": 173,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_10",
+                    "X": 141,
+                    "Y": 135,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_11",
+                    "X": 141,
+                    "Y": 97,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line1_12",
+                    "X": 141,
+                    "Y": 60,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
                     "Type": "TextArea",
                     "TextId": "SingleUseId23",
                     "TextRotation": "0",
@@ -395,262 +627,10 @@
                       "UseBuffer": true,
                       "BufferSize": 20
                     },
-                    "Name": "graphInterval1",
-                    "X": 76,
+                    "Name": "graphInterval1_0",
+                    "X": 61,
                     "Y": 39,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId24",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_1",
-                    "X": 76,
-                    "Y": 77,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId25",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_2",
-                    "X": 76,
-                    "Y": 114,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId26",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_3",
-                    "X": 76,
-                    "Y": 152,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId27",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_4",
-                    "X": 76,
-                    "Y": 190,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId28",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_5",
-                    "X": 76,
-                    "Y": 227,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId29",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_6",
-                    "X": 76,
-                    "Y": 265,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId30",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_7",
-                    "X": 76,
-                    "Y": 303,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId31",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_8",
-                    "X": 76,
-                    "Y": 340,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId32",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval1_9",
-                    "X": 76,
-                    "Y": 378,
-                    "Width": 59,
+                    "Width": 74,
                     "Height": 25,
                     "Visible": true,
                     "LockPosition": false,
@@ -675,10 +655,10 @@
                       "UseBuffer": true,
                       "BufferSize": 20
                     },
-                    "Name": "graphInterval1_10",
-                    "X": 76,
+                    "Name": "graphInterval1_1",
+                    "X": 61,
                     "Y": 416,
-                    "Width": 59,
+                    "Width": 74,
                     "Height": 25,
                     "Visible": true,
                     "LockPosition": false,
@@ -728,9 +708,9 @@
                     "Type": "DynamicGraph",
                     "DataSeed": -1695110854,
                     "NumberOfValues": 100,
-                    "MaxY": 30.0,
-                    "MinY": 20.0,
-                    "Precision": "1",
+                    "MaxY": 1.0,
+                    "MinY": 0.0,
+                    "Precision": "0.01",
                     "UseCustomVisibleDataPointRange": true,
                     "FirstIndex": 0,
                     "LastIndex": 100,
@@ -768,17 +748,6 @@
                         "Blue": 0
                       },
                       "Interval": 10.0,
-                      "LineWidth": 1,
-                      "Alpha": 255
-                    },
-                    "YAxisGrid": {
-                      "Type": "GraphGrid",
-                      "Color": {
-                        "Red": 0,
-                        "Green": 0,
-                        "Blue": 0
-                      },
-                      "Interval": 1.0,
                       "LineWidth": 1,
                       "Alpha": 255
                     },
@@ -947,6 +916,249 @@
                     "Moveable": false
                   },
                   {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_4",
+                    "X": 141,
+                    "Y": 361,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_5",
+                    "X": 141,
+                    "Y": 323,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_6",
+                    "X": 141,
+                    "Y": 286,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_7",
+                    "X": 141,
+                    "Y": 248,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_8",
+                    "X": 141,
+                    "Y": 210,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_9",
+                    "X": 141,
+                    "Y": 173,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_10",
+                    "X": 141,
+                    "Y": 135,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_11",
+                    "X": 141,
+                    "Y": 97,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line2_12",
+                    "X": 141,
+                    "Y": 60,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
                     "Type": "TextArea",
                     "TextId": "SingleUseId37",
                     "TextRotation": "0",
@@ -962,262 +1174,10 @@
                       "UseBuffer": true,
                       "BufferSize": 20
                     },
-                    "Name": "graphInterval2",
-                    "X": 76,
+                    "Name": "graphInterval2_0",
+                    "X": 61,
                     "Y": 39,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId38",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_1",
-                    "X": 76,
-                    "Y": 77,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId39",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_2",
-                    "X": 76,
-                    "Y": 114,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId40",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_3",
-                    "X": 76,
-                    "Y": 152,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId41",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_4",
-                    "X": 76,
-                    "Y": 190,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId42",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_5",
-                    "X": 76,
-                    "Y": 227,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId43",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_6",
-                    "X": 76,
-                    "Y": 265,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId44",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_7",
-                    "X": 76,
-                    "Y": 303,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId45",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_8",
-                    "X": 76,
-                    "Y": 340,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId46",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval2_9",
-                    "X": 76,
-                    "Y": 378,
-                    "Width": 59,
+                    "Width": 74,
                     "Height": 25,
                     "Visible": true,
                     "LockPosition": false,
@@ -1242,10 +1202,10 @@
                       "UseBuffer": true,
                       "BufferSize": 20
                     },
-                    "Name": "graphInterval2_10",
-                    "X": 76,
+                    "Name": "graphInterval2_1",
+                    "X": 61,
                     "Y": 416,
-                    "Width": 59,
+                    "Width": 74,
                     "Height": 25,
                     "Visible": true,
                     "LockPosition": false,
@@ -1295,9 +1255,9 @@
                     "Type": "DynamicGraph",
                     "DataSeed": -1695110854,
                     "NumberOfValues": 100,
-                    "MaxY": 30.0,
-                    "MinY": 20.0,
-                    "Precision": "1",
+                    "MaxY": 1.0,
+                    "MinY": 0.0,
+                    "Precision": "0.01",
                     "UseCustomVisibleDataPointRange": true,
                     "FirstIndex": 0,
                     "LastIndex": 100,
@@ -1335,17 +1295,6 @@
                         "Blue": 0
                       },
                       "Interval": 10.0,
-                      "LineWidth": 1,
-                      "Alpha": 255
-                    },
-                    "YAxisGrid": {
-                      "Type": "GraphGrid",
-                      "Color": {
-                        "Red": 0,
-                        "Green": 0,
-                        "Blue": 0
-                      },
-                      "Interval": 1.0,
                       "LineWidth": 1,
                       "Alpha": 255
                     },
@@ -1514,6 +1463,249 @@
                     "Moveable": false
                   },
                   {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_4",
+                    "X": 141,
+                    "Y": 361,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_5",
+                    "X": 141,
+                    "Y": 323,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_6",
+                    "X": 141,
+                    "Y": 286,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_7",
+                    "X": 141,
+                    "Y": 248,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_8",
+                    "X": 141,
+                    "Y": 210,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_9",
+                    "X": 141,
+                    "Y": 173,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_10",
+                    "X": 141,
+                    "Y": 135,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_11",
+                    "X": 141,
+                    "Y": 97,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line3_12",
+                    "X": 141,
+                    "Y": 60,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
                     "Type": "TextArea",
                     "TextId": "SingleUseId70",
                     "TextRotation": "0",
@@ -1529,262 +1721,10 @@
                       "UseBuffer": true,
                       "BufferSize": 20
                     },
-                    "Name": "graphInterval3",
-                    "X": 76,
+                    "Name": "graphInterval3_0",
+                    "X": 61,
                     "Y": 39,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId71",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_1",
-                    "X": 76,
-                    "Y": 77,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId72",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_2",
-                    "X": 76,
-                    "Y": 114,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId73",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_3",
-                    "X": 76,
-                    "Y": 152,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId74",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_4",
-                    "X": 76,
-                    "Y": 190,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId75",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_5",
-                    "X": 76,
-                    "Y": 227,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId76",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_6",
-                    "X": 76,
-                    "Y": 265,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId77",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_7",
-                    "X": 76,
-                    "Y": 303,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId78",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_8",
-                    "X": 76,
-                    "Y": 340,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId79",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval3_9",
-                    "X": 76,
-                    "Y": 378,
-                    "Width": 59,
+                    "Width": 74,
                     "Height": 25,
                     "Visible": true,
                     "LockPosition": false,
@@ -1809,10 +1749,10 @@
                       "UseBuffer": true,
                       "BufferSize": 20
                     },
-                    "Name": "graphInterval3_10",
-                    "X": 76,
+                    "Name": "graphInterval3_1",
+                    "X": 61,
                     "Y": 416,
-                    "Width": 59,
+                    "Width": 74,
                     "Height": 25,
                     "Visible": true,
                     "LockPosition": false,
@@ -1862,9 +1802,9 @@
                     "Type": "DynamicGraph",
                     "DataSeed": -1695110854,
                     "NumberOfValues": 100,
-                    "MaxY": 30.0,
-                    "MinY": 20.0,
-                    "Precision": "1",
+                    "MaxY": 1.0,
+                    "MinY": 0.0,
+                    "Precision": "0.01",
                     "UseCustomVisibleDataPointRange": true,
                     "FirstIndex": 0,
                     "LastIndex": 100,
@@ -1902,17 +1842,6 @@
                         "Blue": 0
                       },
                       "Interval": 10.0,
-                      "LineWidth": 1,
-                      "Alpha": 255
-                    },
-                    "YAxisGrid": {
-                      "Type": "GraphGrid",
-                      "Color": {
-                        "Red": 0,
-                        "Green": 0,
-                        "Blue": 0
-                      },
-                      "Interval": 1.0,
                       "LineWidth": 1,
                       "Alpha": 255
                     },
@@ -2081,6 +2010,249 @@
                     "Moveable": false
                   },
                   {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_4",
+                    "X": 141,
+                    "Y": 361,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_5",
+                    "X": 141,
+                    "Y": 323,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_6",
+                    "X": 141,
+                    "Y": 286,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_7",
+                    "X": 141,
+                    "Y": 248,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_8",
+                    "X": 141,
+                    "Y": 210,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_9",
+                    "X": 141,
+                    "Y": 173,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_10",
+                    "X": 141,
+                    "Y": 135,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_11",
+                    "X": 141,
+                    "Y": 97,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Line",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    "FileNameImage": "",
+                    "Alpha": 255,
+                    "StartX": 0,
+                    "StartY": 30,
+                    "EndX": 576,
+                    "EndY": 30,
+                    "LineWidth": 1,
+                    "LineEndingStyle": "Butt",
+                    "Name": "line4_12",
+                    "X": 141,
+                    "Y": 60,
+                    "Width": 557,
+                    "Height": 58,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
                     "Type": "TextArea",
                     "TextId": "SingleUseId83",
                     "TextRotation": "0",
@@ -2096,262 +2268,10 @@
                       "UseBuffer": true,
                       "BufferSize": 20
                     },
-                    "Name": "graphInterval4",
-                    "X": 76,
+                    "Name": "graphInterval4_0",
+                    "X": 61,
                     "Y": 39,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId84",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_1",
-                    "X": 76,
-                    "Y": 77,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId85",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_2",
-                    "X": 76,
-                    "Y": 114,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId86",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_3",
-                    "X": 76,
-                    "Y": 152,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId87",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_4",
-                    "X": 76,
-                    "Y": 190,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId88",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_5",
-                    "X": 76,
-                    "Y": 227,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId89",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_6",
-                    "X": 76,
-                    "Y": 265,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId90",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_7",
-                    "X": 76,
-                    "Y": 303,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId91",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_8",
-                    "X": 76,
-                    "Y": 340,
-                    "Width": 59,
-                    "Height": 25,
-                    "Visible": true,
-                    "LockPosition": false,
-                    "Draggable": false,
-                    "Clickable": false,
-                    "Fadeable": false,
-                    "Moveable": false
-                  },
-                  {
-                    "Type": "TextArea",
-                    "TextId": "SingleUseId92",
-                    "TextRotation": "0",
-                    "Color": {
-                      "Red": 0,
-                      "Green": 0,
-                      "Blue": 0
-                    },
-                    "Alpha": 255,
-                    "AutoSize": false,
-                    "LineSpacing": 0,
-                    "Wildcard1": {
-                      "UseBuffer": true,
-                      "BufferSize": 20
-                    },
-                    "Name": "graphInterval4_9",
-                    "X": 76,
-                    "Y": 378,
-                    "Width": 59,
+                    "Width": 74,
                     "Height": 25,
                     "Visible": true,
                     "LockPosition": false,
@@ -2376,10 +2296,10 @@
                       "UseBuffer": true,
                       "BufferSize": 20
                     },
-                    "Name": "graphInterval4_10",
-                    "X": 76,
+                    "Name": "graphInterval4_1",
+                    "X": 61,
                     "Y": 416,
-                    "Width": 59,
+                    "Width": 74,
                     "Height": 25,
                     "Visible": true,
                     "LockPosition": false,
@@ -2500,42 +2420,6 @@
         "IsResource": false
       },
       {
-        "TextEntryId": "SingleUseId24",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId25",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId26",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId27",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId28",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId29",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId30",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId31",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId32",
-        "IsResource": false
-      },
-      {
         "TextEntryId": "SingleUseId33",
         "IsResource": false
       },
@@ -2553,42 +2437,6 @@
       },
       {
         "TextEntryId": "SingleUseId37",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId38",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId39",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId40",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId41",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId42",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId43",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId44",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId45",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId46",
         "IsResource": false
       },
       {
@@ -2688,42 +2536,6 @@
         "IsResource": false
       },
       {
-        "TextEntryId": "SingleUseId71",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId72",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId73",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId74",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId75",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId76",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId77",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId78",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId79",
-        "IsResource": false
-      },
-      {
         "TextEntryId": "SingleUseId80",
         "IsResource": false
       },
@@ -2737,42 +2549,6 @@
       },
       {
         "TextEntryId": "SingleUseId83",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId84",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId85",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId86",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId87",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId88",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId89",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId90",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId91",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId92",
         "IsResource": false
       },
       {

@@ -24,6 +24,7 @@ protected:
         CLICK_DRAGGING
     };
     ClickStatus clickStatus;
+    void filterData(void);
     void displayTemperatureGraph(float temperatureValue);
     void displayHumidityGraph(float humidityValue);
     void displayPressureGraph(float pressureValue);

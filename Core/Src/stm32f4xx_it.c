@@ -58,6 +58,7 @@
 /* External variables --------------------------------------------------------*/
 extern DMA2D_HandleTypeDef hdma2d;
 extern DSI_HandleTypeDef hdsi;
+extern SDRAM_HandleTypeDef hsdram1;
 extern LTDC_HandleTypeDef hltdc;
 extern TIM_HandleTypeDef htim6;
 
@@ -160,6 +161,20 @@ void DebugMon_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
+
+/**
+  * @brief This function handles FMC global interrupt.
+  */
+void FMC_IRQHandler(void)
+{
+  /* USER CODE BEGIN FMC_IRQn 0 */
+
+  /* USER CODE END FMC_IRQn 0 */
+  HAL_SDRAM_IRQHandler(&hsdram1);
+  /* USER CODE BEGIN FMC_IRQn 1 */
+
+  /* USER CODE END FMC_IRQn 1 */
+}
 
 /**
   * @brief This function handles TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts.

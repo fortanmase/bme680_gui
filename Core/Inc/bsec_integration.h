@@ -100,9 +100,9 @@ typedef void (*sleep_fct)(uint32_t t_ms);
 typedef int64_t (*get_timestamp_us_fct)();
 
 /* function pointer to the function processing obtained BSEC outputs */
-typedef void (*output_ready_fct)(int64_t timestamp, float iaq, uint8_t iaq_accuracy, float temperature, float humidity,
-     float pressure, float raw_temperature, float raw_humidity, float gas, bsec_library_return_t bsec_status,
-     float static_iaq, float co2_equivalent, float breath_voc_equivalent);
+typedef void (*output_ready_fct)(int64_t timestamp, float iaq, uint8_t iaq_accuracy, float temp, float raw_temp, float raw_pressure, float humidity, float raw_humidity, float raw_gas,
+        float static_iaq, uint8_t static_iaq_accuracy, float co2_equivalent, uint8_t co2_accuracy, float breath_voc_equivalent,
+        uint8_t breath_voc_accuracy, float comp_gas_value, uint8_t comp_gas_accuracy, float gas_percentage, uint8_t gas_percentage_accuracy);
 
 /* function pointer to the function loading a previous BSEC state from NVM */
 typedef uint32_t (*state_load_fct)(uint8_t *state_buffer, uint32_t n_buffer);
@@ -126,9 +126,9 @@ typedef struct{
 /* function declarations */
 /**********************************************************************************************************************/
 
-void bme680_bsec_trigger_measurement(bsec_bme_settings_t *sensor_settings, sleep_fct sleep);
-void bme680_bsec_read_data(int64_t time_stamp_trigger, bsec_input_t *inputs, uint8_t *num_bsec_inputs, int32_t bsec_process_data);
-void bme680_bsec_process_data(bsec_input_t *bsec_inputs, uint8_t num_bsec_inputs, output_ready_fct output_ready);
+int8_t bme680_bsec_trigger_measurement(bsec_bme_settings_t *sensor_settings, sleep_fct sleep);
+int8_t bme680_bsec_read_data(int64_t time_stamp_trigger, bsec_input_t *inputs, uint8_t *num_bsec_inputs, int32_t bsec_process_data);
+bsec_library_return_t bme680_bsec_process_data(bsec_input_t *bsec_inputs, uint8_t num_bsec_inputs, output_ready_fct output_ready);
 
 /*!
  * @brief       Initialize the BME680 sensor and the BSEC library
@@ -144,20 +144,6 @@ void bme680_bsec_process_data(bsec_input_t *bsec_inputs, uint8_t num_bsec_inputs
  */
 return_values_init bsec_iot_init(float sample_rate, float temperature_offset, bme680_com_fptr_t bus_write, bme680_com_fptr_t bus_read, 
     sleep_fct sleep, state_load_fct state_load, config_load_fct config_load);
-
-/*!
- * @brief       Runs the main (endless) loop that queries sensor settings, applies them, and processes the measured data
- *
- * @param[in]   sleep               pointer to the system-specific sleep function
- * @param[in]   get_timestamp_us    pointer to the system-specific timestamp derivation function
- * @param[in]   output_ready        pointer to the function processing obtained BSEC outputs
- * @param[in]   state_save          pointer to the system-specific state save function
- * @param[in]   save_intvl          interval at which BSEC state should be saved (in samples)
- *
- * @return      return_values_init	struct with the result of the API and the BSEC library
- */ 
-void bsec_iot_loop(sleep_fct sleep, get_timestamp_us_fct get_timestamp_us, output_ready_fct output_ready,
-    state_save_fct state_save, uint32_t save_intvl);
 
 #ifdef __cplusplus
 }

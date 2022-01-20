@@ -1,14 +1,41 @@
 #include <gui/graphs_screen/GraphsView.hpp>
+#include <math.h>
+
+class kalman
+{
+    private:
+    float err_measure = 0.8;  //noise coef
+    float kalman_gain, current_estimate;
+    float err_estimate = err_measure;
+    float last_estimate;
+    public:
+    float kalmanFilter(float input, float q)
+    {
+        kalman_gain = err_estimate / (err_estimate + err_measure);
+        current_estimate = last_estimate + kalman_gain * (input - last_estimate);
+        err_estimate =  (1.0 - kalman_gain) * err_estimate + fabs(last_estimate - current_estimate) * q;
+        last_estimate = current_estimate;
+        return current_estimate;
+    }
+};
 
 extern uint32_t (*pfHAL_GetTick)(void);    /* Pointer to HAL_GetTick imported from main*/
 /* Variables imported from main */
-float gui_temperature;
-float gui_humidity;
-float gui_pressure;
-float gui_iaq;
-float gui_co2;
+float gui_temperature = 0;
+float gui_humidity = 0;
+float gui_pressure = 0;
+float gui_iaq = 0;
+float gui_co2 = 0;
 
 uint32_t lastTickValue; /* Variable monitoring last tick value (HAL_GetTick) */
+uint8_t filterCounter = 0;
+kalman filterObj[5];
+float filtredTemp = 0;
+float filtredHum = 0;
+float filtredPres = 0;
+float filtredIAQ = 0;
+float filtredCO2 = 0;
+
 GraphsView::GraphsView()
 {
     lastTickValue = pfHAL_GetTick(); /* Initialize with actual tick value */
@@ -28,16 +55,26 @@ void GraphsView::tearDownScreen()
 /*  function call based on ticks (loop), call frequency = 60Hz (16.6ms)  */
 void GraphsView::handleTickEvent()
 {
-    if(pfHAL_GetTick() - lastTickValue >= 3000)     /* wait 3 seconds till data from BME680 gets ready*/
-    {
-        /* Display the graphs*/
-        displayTemperatureGraph(gui_temperature);
-        displayHumidityGraph(gui_humidity);
-        displayPressureGraph(gui_pressure/100/1.33333);
-        displayIAQGraph(gui_iaq);
+    if(pfHAL_GetTick() - lastTickValue >= 375)    /* we have 100 points on x-Axis so we have to add a new data point once in 1.66 sec */
+    {                                             /* in order to hold a 10 min interval on the graph, the data is filtered 7 times     */
+                                                  /* before displayed, so 238ms * 7 = 1.66 sec                                         */
+
+        if(filterCounter == 8)
+        {
+            /* Display the graphs*/
+            displayTemperatureGraph(filtredTemp);
+            displayHumidityGraph(filtredHum);
+            displayPressureGraph(filtredPres);
+            displayIAQGraph(filtredIAQ);
+            filterCounter = 0;
+        }
+        else
+        {
+            filterCounter++;
+            filterData();
+        }
         lastTickValue = pfHAL_GetTick();             /* refresh the actual tick value */
     }
-
 }
 
 void GraphsView::handleClickEvent(const ClickEvent& evt)
@@ -154,56 +191,60 @@ void GraphsView::handleGestureEvent(const GestureEvent& evt)
     }
 }
 
+void GraphsView::filterData(void)
+{
+    filtredTemp = filterObj[0].kalmanFilter(gui_temperature, 0.1f);
+    filtredHum  = filterObj[1].kalmanFilter(gui_humidity, 0.05f);
+    filtredPres = filterObj[2].kalmanFilter(gui_pressure, 0.001f);
+    filtredIAQ  = filterObj[3].kalmanFilter(gui_iaq, 0.001);
+    //filtredCO2  = filterObj[4].kalmanFilter(gui_co2, 1.0f);
+}
 /* Function for displaying the temperature graph */
 void GraphsView::displayTemperatureGraph(float temperatureValue)
 {
-    TempGraph.addDataPoint(temperatureValue*100);
-    TempGraph.setGraphRangeYAuto(false, 3);
+    TempGraph.addDataPoint(temperatureValue*100.0f);
+    TempGraph.setGraphRangeYAuto(false, 5);
     TempGraphMajorYAxisLabel.setInterval(((TempGraph.getGraphRangeYMaxAsInt() - TempGraph.getGraphRangeYMinAsInt())/10));
-    TempGraphMajorYAxisGrid.setInterval (((TempGraph.getGraphRangeYMaxAsInt() - TempGraph.getGraphRangeYMinAsInt())/10));
     setTempGraphMajorYAxisLabel();
     Unicode::snprintfFloat(textArea1Buffer, TEXTAREA1_SIZE, "%.2f", temperatureValue);
     textArea1.invalidate();
-    TempGraph.invalidate();
+//    TempGraph.invalidate();
 }
 
 /* Function for displaying the humidity graph */
 void GraphsView::displayHumidityGraph(float humidityValue)
 {
     HumGraph.addDataPoint(humidityValue*100);
-    HumGraph.setGraphRangeYAuto(false, 3);
+    HumGraph.setGraphRangeYAuto(false, 5);
     HumGraphMajorYAxisLabel.setInterval(((HumGraph.getGraphRangeYMaxAsInt() - HumGraph.getGraphRangeYMinAsInt())/10));
-    HumGraphMajorYAxisGrid.setInterval (((HumGraph.getGraphRangeYMaxAsInt() - HumGraph.getGraphRangeYMinAsInt())/10));
     setHumGraphMajorYAxisLabel();
     Unicode::snprintfFloat(textArea2Buffer, TEXTAREA2_SIZE, "%.2f", humidityValue);
     textArea2.invalidate();
-    HumGraph.invalidate();
+//    HumGraph.invalidate();
 }
 
 /* Function for displaying the pressure graph */
 void GraphsView::displayPressureGraph(float pressureValue)
 {
     PresGraph.addDataPoint(pressureValue*100);
-    PresGraph.setGraphRangeYAuto(false, 3);
+    PresGraph.setGraphRangeYAuto(false, 5);
     PresGraphMajorYAxisLabel.setInterval(((PresGraph.getGraphRangeYMaxAsInt() - PresGraph.getGraphRangeYMinAsInt())/10));
-    PresGraphMajorYAxisGrid.setInterval (((PresGraph.getGraphRangeYMaxAsInt() - PresGraph.getGraphRangeYMinAsInt())/10));
     setPresGraphMajorYAxisLabel();
     Unicode::snprintfFloat(textArea3Buffer, TEXTAREA3_SIZE, "%.2f", pressureValue);
     textArea3.invalidate();
-    PresGraph.invalidate();
+//    PresGraph.invalidate();
 }
 
 /* Function for displaying the IAQ graph */
 void GraphsView::displayIAQGraph(float IAQValue)
 {
     IAQGraph.addDataPoint(IAQValue*100);
-    IAQGraph.setGraphRangeYAuto(false, 3);
+    IAQGraph.setGraphRangeYAuto(false, 5);
     IAQGraphMajorYAxisLabel.setInterval(((IAQGraph.getGraphRangeYMaxAsInt() - IAQGraph.getGraphRangeYMinAsInt())/10));
-    IAQGraphMajorYAxisGrid.setInterval (((IAQGraph.getGraphRangeYMaxAsInt() - IAQGraph.getGraphRangeYMinAsInt())/10));
     setIAQGraphMajorYAxisLabel();
     Unicode::snprintfFloat(textArea4Buffer, TEXTAREA4_SIZE, "%.2f", IAQValue);
     textArea4.invalidate();
-    IAQGraph.invalidate();
+//    IAQGraph.invalidate();
 }
 
 /* Function for setting the temperature graph Y axis labels */
@@ -211,28 +252,10 @@ void GraphsView::setTempGraphMajorYAxisLabel(void)
 {
     int GraphRangeYMinAsInt = TempGraph.getGraphRangeYMinAsInt();
     int IntervalAsInt       = TempGraphMajorYAxisLabel.getIntervalAsInt();
-    Unicode::snprintfFloat( graphInterval1_10Buffer, GRAPHINTERVAL1_10_SIZE, "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
-    Unicode::snprintfFloat( graphInterval1_9Buffer,  GRAPHINTERVAL1_9_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  1)/100));
-    Unicode::snprintfFloat( graphInterval1_8Buffer,  GRAPHINTERVAL1_8_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  2)/100));
-    Unicode::snprintfFloat( graphInterval1_7Buffer,  GRAPHINTERVAL1_7_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  3)/100));
-    Unicode::snprintfFloat( graphInterval1_6Buffer,  GRAPHINTERVAL1_6_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  4)/100));
-    Unicode::snprintfFloat( graphInterval1_5Buffer,  GRAPHINTERVAL1_5_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  5)/100));
-    Unicode::snprintfFloat( graphInterval1_4Buffer,  GRAPHINTERVAL1_4_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  6)/100));
-    Unicode::snprintfFloat( graphInterval1_3Buffer,  GRAPHINTERVAL1_3_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  7)/100));
-    Unicode::snprintfFloat( graphInterval1_2Buffer,  GRAPHINTERVAL1_2_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  8)/100));
-    Unicode::snprintfFloat( graphInterval1_1Buffer,  GRAPHINTERVAL1_1_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  9)/100));
-    Unicode::snprintfFloat( graphInterval1Buffer,    GRAPHINTERVAL1_SIZE,    "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
-    graphInterval1_10.invalidate();
-    graphInterval1_9.invalidate();
-    graphInterval1_8.invalidate();
-    graphInterval1_7.invalidate();
-    graphInterval1_6.invalidate();
-    graphInterval1_5.invalidate();
-    graphInterval1_4.invalidate();
-    graphInterval1_3.invalidate();
-    graphInterval1_2.invalidate();
+    Unicode::snprintfFloat( graphInterval1_1Buffer, GRAPHINTERVAL1_1_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
+    Unicode::snprintfFloat( graphInterval1_0Buffer, GRAPHINTERVAL1_0_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
     graphInterval1_1.invalidate();
-    graphInterval1.invalidate();
+    graphInterval1_0.invalidate();
 }
 
 /* Function for setting the humidity graph Y axis labels */
@@ -240,28 +263,10 @@ void GraphsView::setHumGraphMajorYAxisLabel(void)
 {
     int GraphRangeYMinAsInt = HumGraph.getGraphRangeYMinAsInt();
     int IntervalAsInt       = HumGraphMajorYAxisLabel.getIntervalAsInt();
-    Unicode::snprintfFloat( graphInterval2_10Buffer, GRAPHINTERVAL2_10_SIZE, "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
-    Unicode::snprintfFloat( graphInterval2_9Buffer,  GRAPHINTERVAL2_9_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  1)/100));
-    Unicode::snprintfFloat( graphInterval2_8Buffer,  GRAPHINTERVAL2_8_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  2)/100));
-    Unicode::snprintfFloat( graphInterval2_7Buffer,  GRAPHINTERVAL2_7_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  3)/100));
-    Unicode::snprintfFloat( graphInterval2_6Buffer,  GRAPHINTERVAL2_6_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  4)/100));
-    Unicode::snprintfFloat( graphInterval2_5Buffer,  GRAPHINTERVAL2_5_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  5)/100));
-    Unicode::snprintfFloat( graphInterval2_4Buffer,  GRAPHINTERVAL2_4_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  6)/100));
-    Unicode::snprintfFloat( graphInterval2_3Buffer,  GRAPHINTERVAL2_3_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  7)/100));
-    Unicode::snprintfFloat( graphInterval2_2Buffer,  GRAPHINTERVAL2_2_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  8)/100));
-    Unicode::snprintfFloat( graphInterval2_1Buffer,  GRAPHINTERVAL2_1_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  9)/100));
-    Unicode::snprintfFloat( graphInterval2Buffer,    GRAPHINTERVAL1_SIZE,    "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
-    graphInterval2_10.invalidate();
-    graphInterval2_9.invalidate();
-    graphInterval2_8.invalidate();
-    graphInterval2_7.invalidate();
-    graphInterval2_6.invalidate();
-    graphInterval2_5.invalidate();
-    graphInterval2_4.invalidate();
-    graphInterval2_3.invalidate();
-    graphInterval2_2.invalidate();
+    Unicode::snprintfFloat( graphInterval2_1Buffer, GRAPHINTERVAL2_1_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
+    Unicode::snprintfFloat( graphInterval2_0Buffer, GRAPHINTERVAL2_0_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
     graphInterval2_1.invalidate();
-    graphInterval2.invalidate();
+    graphInterval2_0.invalidate();
 }
 
 /* Function for setting the pressure graph Y axis labels */
@@ -269,28 +274,10 @@ void GraphsView::setPresGraphMajorYAxisLabel(void)
 {
     int GraphRangeYMinAsInt = PresGraph.getGraphRangeYMinAsInt();
     int IntervalAsInt       = PresGraphMajorYAxisLabel.getIntervalAsInt();
-    Unicode::snprintfFloat( graphInterval3_10Buffer, GRAPHINTERVAL3_10_SIZE, "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
-    Unicode::snprintfFloat( graphInterval3_9Buffer,  GRAPHINTERVAL3_9_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  1)/100));
-    Unicode::snprintfFloat( graphInterval3_8Buffer,  GRAPHINTERVAL3_8_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  2)/100));
-    Unicode::snprintfFloat( graphInterval3_7Buffer,  GRAPHINTERVAL3_7_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  3)/100));
-    Unicode::snprintfFloat( graphInterval3_6Buffer,  GRAPHINTERVAL3_6_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  4)/100));
-    Unicode::snprintfFloat( graphInterval3_5Buffer,  GRAPHINTERVAL3_5_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  5)/100));
-    Unicode::snprintfFloat( graphInterval3_4Buffer,  GRAPHINTERVAL3_4_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  6)/100));
-    Unicode::snprintfFloat( graphInterval3_3Buffer,  GRAPHINTERVAL3_3_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  7)/100));
-    Unicode::snprintfFloat( graphInterval3_2Buffer,  GRAPHINTERVAL3_2_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  8)/100));
-    Unicode::snprintfFloat( graphInterval3_1Buffer,  GRAPHINTERVAL3_1_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  9)/100));
-    Unicode::snprintfFloat( graphInterval3Buffer,    GRAPHINTERVAL3_SIZE,    "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
-    graphInterval3_10.invalidate();
-    graphInterval3_9.invalidate();
-    graphInterval3_8.invalidate();
-    graphInterval3_7.invalidate();
-    graphInterval3_6.invalidate();
-    graphInterval3_5.invalidate();
-    graphInterval3_4.invalidate();
-    graphInterval3_3.invalidate();
-    graphInterval3_2.invalidate();
+    Unicode::snprintfFloat( graphInterval3_1Buffer, GRAPHINTERVAL3_1_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
+    Unicode::snprintfFloat( graphInterval3_0Buffer, GRAPHINTERVAL3_0_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
     graphInterval3_1.invalidate();
-    graphInterval3.invalidate();
+    graphInterval3_0.invalidate();
 }
 
 /* Function for setting the IAQ graph Y axis labels */
@@ -298,27 +285,9 @@ void GraphsView::setIAQGraphMajorYAxisLabel(void)
 {
     int GraphRangeYMinAsInt = IAQGraph.getGraphRangeYMinAsInt();
     int IntervalAsInt       = IAQGraphMajorYAxisLabel.getIntervalAsInt();
-    Unicode::snprintfFloat( graphInterval4_10Buffer, GRAPHINTERVAL4_10_SIZE, "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
-    Unicode::snprintfFloat( graphInterval4_9Buffer,  GRAPHINTERVAL4_9_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  1)/100));
-    Unicode::snprintfFloat( graphInterval4_8Buffer,  GRAPHINTERVAL4_8_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  2)/100));
-    Unicode::snprintfFloat( graphInterval4_7Buffer,  GRAPHINTERVAL4_7_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  3)/100));
-    Unicode::snprintfFloat( graphInterval4_6Buffer,  GRAPHINTERVAL4_6_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  4)/100));
-    Unicode::snprintfFloat( graphInterval4_5Buffer,  GRAPHINTERVAL4_5_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  5)/100));
-    Unicode::snprintfFloat( graphInterval4_4Buffer,  GRAPHINTERVAL4_4_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  6)/100));
-    Unicode::snprintfFloat( graphInterval4_3Buffer,  GRAPHINTERVAL4_3_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  7)/100));
-    Unicode::snprintfFloat( graphInterval4_2Buffer,  GRAPHINTERVAL4_2_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  8)/100));
-    Unicode::snprintfFloat( graphInterval4_1Buffer,  GRAPHINTERVAL4_1_SIZE,  "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  9)/100));
-    Unicode::snprintfFloat( graphInterval4Buffer,    GRAPHINTERVAL4_SIZE,    "%.1f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
-    graphInterval4_10.invalidate();
-    graphInterval4_9.invalidate();
-    graphInterval4_8.invalidate();
-    graphInterval4_7.invalidate();
-    graphInterval4_6.invalidate();
-    graphInterval4_5.invalidate();
-    graphInterval4_4.invalidate();
-    graphInterval4_3.invalidate();
-    graphInterval4_2.invalidate();
+    Unicode::snprintfFloat( graphInterval4_1Buffer, GRAPHINTERVAL4_1_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
+    Unicode::snprintfFloat( graphInterval4_0Buffer, GRAPHINTERVAL4_0_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
     graphInterval4_1.invalidate();
-    graphInterval4.invalidate();
+    graphInterval4_0.invalidate();
 }
 

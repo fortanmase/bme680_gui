@@ -4,7 +4,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under Ultimate Liberty license
@@ -23,11 +23,18 @@
 
 using namespace touchgfx;
 
+namespace
+{
+    // Use the section "TouchGFX_Framebuffer" in the linker to specify the placement of the buffer
+    LOCATION_PRAGMA("TouchGFX_Framebuffer")
+    uint32_t frameBuf[(800 * 480 * 2 + 3) / 4] LOCATION_ATTRIBUTE("TouchGFX_Framebuffer");
+}
+
 void TouchGFXGeneratedHAL::initialize()
 {
     HAL::initialize();
     registerEventListener(*(Application::getInstance()));
-    setFrameBufferStartAddresses((void*)0xC0000000, (void*)0, (void*)0);
+    setFrameBufferStartAddresses((void*)frameBuf, (void*)0, (void*)0);
     /*
      * Set whether the DMA transfers are locked to the TFT update cycle. If
      * locked, DMA transfer will not begin until the TFT controller has finished
@@ -75,8 +82,7 @@ inline uint8_t* TouchGFXGeneratedHAL::advanceFrameBufferToRect(uint8_t* fbPtr, c
 
 uint16_t* TouchGFXGeneratedHAL::getTFTFrameBuffer() const
 {
-    //getTFTFrameBuffer() not used for selected Frame Buffer Strategy
-    return 0;
+    return (uint16_t*)frameBuf;
 }
 
 void TouchGFXGeneratedHAL::setTFTFrameBuffer(uint16_t* adr)

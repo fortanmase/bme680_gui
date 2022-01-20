@@ -27,33 +27,27 @@ GraphsViewBase::GraphsViewBase()
     TempBox.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     Temperature.add(TempBox);
 
-    TempGraph.setScale(1);
+    TempGraph.setScale(100);
     TempGraph.setGraphRangeX(0, 100);
     TempGraph.setPosition(141, 43, 577, 394);
     TempGraph.setGraphAreaMargin(8, 0, 20, 8);
     TempGraph.setGraphAreaPadding(0, 0, 0, 0);
-    TempGraph.setGraphRangeY(20, 30);
+    TempGraph.setGraphRangeY(0, 10);
 
-    TempGraphMajorXAxisGrid.setScale(1);
+    TempGraphMajorXAxisGrid.setScale(100);
     TempGraphMajorXAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     TempGraphMajorXAxisGrid.setInterval(10);
     TempGraphMajorXAxisGrid.setLineWidth(1);
     TempGraph.addGraphElement(TempGraphMajorXAxisGrid);
 
-    TempGraphMajorYAxisGrid.setScale(1);
-    TempGraphMajorYAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    TempGraphMajorYAxisGrid.setInterval(1);
-    TempGraphMajorYAxisGrid.setLineWidth(1);
-    TempGraph.addGraphElement(TempGraphMajorYAxisGrid);
-
-    TempGraphMajorYAxisLabel.setScale(1);
+    TempGraphMajorYAxisLabel.setScale(100);
     TempGraphMajorYAxisLabel.setInterval(1);
     TempGraphMajorYAxisLabel.setLabelTypedText(touchgfx::TypedText(T_SINGLEUSEID34));
     TempGraphMajorYAxisLabel.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
     TempGraphMajorYAxisLabel.setAlpha(0);
     TempGraph.addLeftElement(TempGraphMajorYAxisLabel);
 
-    TempGraphLine1.setScale(1);
+    TempGraphLine1.setScale(100);
     TempGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
     TempGraphLine1.setPainter(TempGraphLine1Painter);
     TempGraphLine1.setLineWidth(2);
@@ -104,93 +98,102 @@ GraphsViewBase::GraphsViewBase()
     line1_3.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
     Temperature.add(line1_3);
 
-    graphInterval1.setPosition(76, 39, 59, 25);
-    graphInterval1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1.setLinespacing(0);
-    graphInterval1Buffer[0] = 0;
-    graphInterval1.setWildcard(graphInterval1Buffer);
-    graphInterval1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID23));
-    Temperature.add(graphInterval1);
+    line1_4.setPosition(141, 361, 557, 58);
+    line1_4Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_4.setPainter(line1_4Painter);
+    line1_4.setStart(0, 30);
+    line1_4.setEnd(576, 30);
+    line1_4.setLineWidth(1);
+    line1_4.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_4);
 
-    graphInterval1_1.setPosition(76, 77, 59, 25);
+    line1_5.setPosition(141, 323, 557, 58);
+    line1_5Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_5.setPainter(line1_5Painter);
+    line1_5.setStart(0, 30);
+    line1_5.setEnd(576, 30);
+    line1_5.setLineWidth(1);
+    line1_5.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_5);
+
+    line1_6.setPosition(141, 286, 557, 58);
+    line1_6Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_6.setPainter(line1_6Painter);
+    line1_6.setStart(0, 30);
+    line1_6.setEnd(576, 30);
+    line1_6.setLineWidth(1);
+    line1_6.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_6);
+
+    line1_7.setPosition(141, 248, 557, 58);
+    line1_7Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_7.setPainter(line1_7Painter);
+    line1_7.setStart(0, 30);
+    line1_7.setEnd(576, 30);
+    line1_7.setLineWidth(1);
+    line1_7.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_7);
+
+    line1_8.setPosition(141, 210, 557, 58);
+    line1_8Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_8.setPainter(line1_8Painter);
+    line1_8.setStart(0, 30);
+    line1_8.setEnd(576, 30);
+    line1_8.setLineWidth(1);
+    line1_8.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_8);
+
+    line1_9.setPosition(141, 173, 557, 58);
+    line1_9Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_9.setPainter(line1_9Painter);
+    line1_9.setStart(0, 30);
+    line1_9.setEnd(576, 30);
+    line1_9.setLineWidth(1);
+    line1_9.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_9);
+
+    line1_10.setPosition(141, 135, 557, 58);
+    line1_10Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_10.setPainter(line1_10Painter);
+    line1_10.setStart(0, 30);
+    line1_10.setEnd(576, 30);
+    line1_10.setLineWidth(1);
+    line1_10.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_10);
+
+    line1_11.setPosition(141, 97, 557, 58);
+    line1_11Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_11.setPainter(line1_11Painter);
+    line1_11.setStart(0, 30);
+    line1_11.setEnd(576, 30);
+    line1_11.setLineWidth(1);
+    line1_11.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_11);
+
+    line1_12.setPosition(141, 60, 557, 58);
+    line1_12Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line1_12.setPainter(line1_12Painter);
+    line1_12.setStart(0, 30);
+    line1_12.setEnd(576, 30);
+    line1_12.setLineWidth(1);
+    line1_12.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Temperature.add(line1_12);
+
+    graphInterval1_0.setPosition(61, 39, 74, 25);
+    graphInterval1_0.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    graphInterval1_0.setLinespacing(0);
+    graphInterval1_0Buffer[0] = 0;
+    graphInterval1_0.setWildcard(graphInterval1_0Buffer);
+    graphInterval1_0.setTypedText(touchgfx::TypedText(T_SINGLEUSEID23));
+    Temperature.add(graphInterval1_0);
+
+    graphInterval1_1.setPosition(61, 416, 74, 25);
     graphInterval1_1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     graphInterval1_1.setLinespacing(0);
     graphInterval1_1Buffer[0] = 0;
     graphInterval1_1.setWildcard(graphInterval1_1Buffer);
-    graphInterval1_1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID24));
+    graphInterval1_1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID33));
     Temperature.add(graphInterval1_1);
-
-    graphInterval1_2.setPosition(76, 114, 59, 25);
-    graphInterval1_2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_2.setLinespacing(0);
-    graphInterval1_2Buffer[0] = 0;
-    graphInterval1_2.setWildcard(graphInterval1_2Buffer);
-    graphInterval1_2.setTypedText(touchgfx::TypedText(T_SINGLEUSEID25));
-    Temperature.add(graphInterval1_2);
-
-    graphInterval1_3.setPosition(76, 152, 59, 25);
-    graphInterval1_3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_3.setLinespacing(0);
-    graphInterval1_3Buffer[0] = 0;
-    graphInterval1_3.setWildcard(graphInterval1_3Buffer);
-    graphInterval1_3.setTypedText(touchgfx::TypedText(T_SINGLEUSEID26));
-    Temperature.add(graphInterval1_3);
-
-    graphInterval1_4.setPosition(76, 190, 59, 25);
-    graphInterval1_4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_4.setLinespacing(0);
-    graphInterval1_4Buffer[0] = 0;
-    graphInterval1_4.setWildcard(graphInterval1_4Buffer);
-    graphInterval1_4.setTypedText(touchgfx::TypedText(T_SINGLEUSEID27));
-    Temperature.add(graphInterval1_4);
-
-    graphInterval1_5.setPosition(76, 227, 59, 25);
-    graphInterval1_5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_5.setLinespacing(0);
-    graphInterval1_5Buffer[0] = 0;
-    graphInterval1_5.setWildcard(graphInterval1_5Buffer);
-    graphInterval1_5.setTypedText(touchgfx::TypedText(T_SINGLEUSEID28));
-    Temperature.add(graphInterval1_5);
-
-    graphInterval1_6.setPosition(76, 265, 59, 25);
-    graphInterval1_6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_6.setLinespacing(0);
-    graphInterval1_6Buffer[0] = 0;
-    graphInterval1_6.setWildcard(graphInterval1_6Buffer);
-    graphInterval1_6.setTypedText(touchgfx::TypedText(T_SINGLEUSEID29));
-    Temperature.add(graphInterval1_6);
-
-    graphInterval1_7.setPosition(76, 303, 59, 25);
-    graphInterval1_7.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_7.setLinespacing(0);
-    graphInterval1_7Buffer[0] = 0;
-    graphInterval1_7.setWildcard(graphInterval1_7Buffer);
-    graphInterval1_7.setTypedText(touchgfx::TypedText(T_SINGLEUSEID30));
-    Temperature.add(graphInterval1_7);
-
-    graphInterval1_8.setPosition(76, 340, 59, 25);
-    graphInterval1_8.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_8.setLinespacing(0);
-    graphInterval1_8Buffer[0] = 0;
-    graphInterval1_8.setWildcard(graphInterval1_8Buffer);
-    graphInterval1_8.setTypedText(touchgfx::TypedText(T_SINGLEUSEID31));
-    Temperature.add(graphInterval1_8);
-
-    graphInterval1_9.setPosition(76, 378, 59, 25);
-    graphInterval1_9.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_9.setLinespacing(0);
-    graphInterval1_9Buffer[0] = 0;
-    graphInterval1_9.setWildcard(graphInterval1_9Buffer);
-    graphInterval1_9.setTypedText(touchgfx::TypedText(T_SINGLEUSEID32));
-    Temperature.add(graphInterval1_9);
-
-    graphInterval1_10.setPosition(76, 416, 59, 25);
-    graphInterval1_10.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval1_10.setLinespacing(0);
-    graphInterval1_10Buffer[0] = 0;
-    graphInterval1_10.setWildcard(graphInterval1_10Buffer);
-    graphInterval1_10.setTypedText(touchgfx::TypedText(T_SINGLEUSEID33));
-    Temperature.add(graphInterval1_10);
     SwipeArea.add(Temperature);
 
     Humidity.setWidth(800);
@@ -200,33 +203,27 @@ GraphsViewBase::GraphsViewBase()
     HumBox.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     Humidity.add(HumBox);
 
-    HumGraph.setScale(1);
+    HumGraph.setScale(100);
     HumGraph.setGraphRangeX(0, 100);
     HumGraph.setPosition(141, 43, 577, 394);
     HumGraph.setGraphAreaMargin(8, 0, 20, 8);
     HumGraph.setGraphAreaPadding(0, 0, 0, 0);
-    HumGraph.setGraphRangeY(20, 30);
+    HumGraph.setGraphRangeY(0, 1);
 
-    HumGraphMajorXAxisGrid.setScale(1);
+    HumGraphMajorXAxisGrid.setScale(100);
     HumGraphMajorXAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     HumGraphMajorXAxisGrid.setInterval(10);
     HumGraphMajorXAxisGrid.setLineWidth(1);
     HumGraph.addGraphElement(HumGraphMajorXAxisGrid);
 
-    HumGraphMajorYAxisGrid.setScale(1);
-    HumGraphMajorYAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    HumGraphMajorYAxisGrid.setInterval(1);
-    HumGraphMajorYAxisGrid.setLineWidth(1);
-    HumGraph.addGraphElement(HumGraphMajorYAxisGrid);
-
-    HumGraphMajorYAxisLabel.setScale(1);
+    HumGraphMajorYAxisLabel.setScale(100);
     HumGraphMajorYAxisLabel.setInterval(1);
     HumGraphMajorYAxisLabel.setLabelTypedText(touchgfx::TypedText(T_SINGLEUSEID34));
     HumGraphMajorYAxisLabel.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
     HumGraphMajorYAxisLabel.setAlpha(0);
     HumGraph.addLeftElement(HumGraphMajorYAxisLabel);
 
-    HumGraphLine1.setScale(1);
+    HumGraphLine1.setScale(100);
     HumGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
     HumGraphLine1.setPainter(HumGraphLine1Painter);
     HumGraphLine1.setLineWidth(2);
@@ -277,93 +274,102 @@ GraphsViewBase::GraphsViewBase()
     line2_3.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
     Humidity.add(line2_3);
 
-    graphInterval2.setPosition(76, 39, 59, 25);
-    graphInterval2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2.setLinespacing(0);
-    graphInterval2Buffer[0] = 0;
-    graphInterval2.setWildcard(graphInterval2Buffer);
-    graphInterval2.setTypedText(touchgfx::TypedText(T_SINGLEUSEID37));
-    Humidity.add(graphInterval2);
+    line2_4.setPosition(141, 361, 557, 58);
+    line2_4Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_4.setPainter(line2_4Painter);
+    line2_4.setStart(0, 30);
+    line2_4.setEnd(576, 30);
+    line2_4.setLineWidth(1);
+    line2_4.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_4);
 
-    graphInterval2_1.setPosition(76, 77, 59, 25);
+    line2_5.setPosition(141, 323, 557, 58);
+    line2_5Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_5.setPainter(line2_5Painter);
+    line2_5.setStart(0, 30);
+    line2_5.setEnd(576, 30);
+    line2_5.setLineWidth(1);
+    line2_5.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_5);
+
+    line2_6.setPosition(141, 286, 557, 58);
+    line2_6Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_6.setPainter(line2_6Painter);
+    line2_6.setStart(0, 30);
+    line2_6.setEnd(576, 30);
+    line2_6.setLineWidth(1);
+    line2_6.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_6);
+
+    line2_7.setPosition(141, 248, 557, 58);
+    line2_7Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_7.setPainter(line2_7Painter);
+    line2_7.setStart(0, 30);
+    line2_7.setEnd(576, 30);
+    line2_7.setLineWidth(1);
+    line2_7.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_7);
+
+    line2_8.setPosition(141, 210, 557, 58);
+    line2_8Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_8.setPainter(line2_8Painter);
+    line2_8.setStart(0, 30);
+    line2_8.setEnd(576, 30);
+    line2_8.setLineWidth(1);
+    line2_8.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_8);
+
+    line2_9.setPosition(141, 173, 557, 58);
+    line2_9Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_9.setPainter(line2_9Painter);
+    line2_9.setStart(0, 30);
+    line2_9.setEnd(576, 30);
+    line2_9.setLineWidth(1);
+    line2_9.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_9);
+
+    line2_10.setPosition(141, 135, 557, 58);
+    line2_10Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_10.setPainter(line2_10Painter);
+    line2_10.setStart(0, 30);
+    line2_10.setEnd(576, 30);
+    line2_10.setLineWidth(1);
+    line2_10.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_10);
+
+    line2_11.setPosition(141, 97, 557, 58);
+    line2_11Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_11.setPainter(line2_11Painter);
+    line2_11.setStart(0, 30);
+    line2_11.setEnd(576, 30);
+    line2_11.setLineWidth(1);
+    line2_11.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_11);
+
+    line2_12.setPosition(141, 60, 557, 58);
+    line2_12Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2_12.setPainter(line2_12Painter);
+    line2_12.setStart(0, 30);
+    line2_12.setEnd(576, 30);
+    line2_12.setLineWidth(1);
+    line2_12.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Humidity.add(line2_12);
+
+    graphInterval2_0.setPosition(61, 39, 74, 25);
+    graphInterval2_0.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    graphInterval2_0.setLinespacing(0);
+    graphInterval2_0Buffer[0] = 0;
+    graphInterval2_0.setWildcard(graphInterval2_0Buffer);
+    graphInterval2_0.setTypedText(touchgfx::TypedText(T_SINGLEUSEID37));
+    Humidity.add(graphInterval2_0);
+
+    graphInterval2_1.setPosition(61, 416, 74, 25);
     graphInterval2_1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     graphInterval2_1.setLinespacing(0);
     graphInterval2_1Buffer[0] = 0;
     graphInterval2_1.setWildcard(graphInterval2_1Buffer);
-    graphInterval2_1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID38));
+    graphInterval2_1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID47));
     Humidity.add(graphInterval2_1);
-
-    graphInterval2_2.setPosition(76, 114, 59, 25);
-    graphInterval2_2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_2.setLinespacing(0);
-    graphInterval2_2Buffer[0] = 0;
-    graphInterval2_2.setWildcard(graphInterval2_2Buffer);
-    graphInterval2_2.setTypedText(touchgfx::TypedText(T_SINGLEUSEID39));
-    Humidity.add(graphInterval2_2);
-
-    graphInterval2_3.setPosition(76, 152, 59, 25);
-    graphInterval2_3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_3.setLinespacing(0);
-    graphInterval2_3Buffer[0] = 0;
-    graphInterval2_3.setWildcard(graphInterval2_3Buffer);
-    graphInterval2_3.setTypedText(touchgfx::TypedText(T_SINGLEUSEID40));
-    Humidity.add(graphInterval2_3);
-
-    graphInterval2_4.setPosition(76, 190, 59, 25);
-    graphInterval2_4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_4.setLinespacing(0);
-    graphInterval2_4Buffer[0] = 0;
-    graphInterval2_4.setWildcard(graphInterval2_4Buffer);
-    graphInterval2_4.setTypedText(touchgfx::TypedText(T_SINGLEUSEID41));
-    Humidity.add(graphInterval2_4);
-
-    graphInterval2_5.setPosition(76, 227, 59, 25);
-    graphInterval2_5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_5.setLinespacing(0);
-    graphInterval2_5Buffer[0] = 0;
-    graphInterval2_5.setWildcard(graphInterval2_5Buffer);
-    graphInterval2_5.setTypedText(touchgfx::TypedText(T_SINGLEUSEID42));
-    Humidity.add(graphInterval2_5);
-
-    graphInterval2_6.setPosition(76, 265, 59, 25);
-    graphInterval2_6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_6.setLinespacing(0);
-    graphInterval2_6Buffer[0] = 0;
-    graphInterval2_6.setWildcard(graphInterval2_6Buffer);
-    graphInterval2_6.setTypedText(touchgfx::TypedText(T_SINGLEUSEID43));
-    Humidity.add(graphInterval2_6);
-
-    graphInterval2_7.setPosition(76, 303, 59, 25);
-    graphInterval2_7.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_7.setLinespacing(0);
-    graphInterval2_7Buffer[0] = 0;
-    graphInterval2_7.setWildcard(graphInterval2_7Buffer);
-    graphInterval2_7.setTypedText(touchgfx::TypedText(T_SINGLEUSEID44));
-    Humidity.add(graphInterval2_7);
-
-    graphInterval2_8.setPosition(76, 340, 59, 25);
-    graphInterval2_8.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_8.setLinespacing(0);
-    graphInterval2_8Buffer[0] = 0;
-    graphInterval2_8.setWildcard(graphInterval2_8Buffer);
-    graphInterval2_8.setTypedText(touchgfx::TypedText(T_SINGLEUSEID45));
-    Humidity.add(graphInterval2_8);
-
-    graphInterval2_9.setPosition(76, 378, 59, 25);
-    graphInterval2_9.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_9.setLinespacing(0);
-    graphInterval2_9Buffer[0] = 0;
-    graphInterval2_9.setWildcard(graphInterval2_9Buffer);
-    graphInterval2_9.setTypedText(touchgfx::TypedText(T_SINGLEUSEID46));
-    Humidity.add(graphInterval2_9);
-
-    graphInterval2_10.setPosition(76, 416, 59, 25);
-    graphInterval2_10.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval2_10.setLinespacing(0);
-    graphInterval2_10Buffer[0] = 0;
-    graphInterval2_10.setWildcard(graphInterval2_10Buffer);
-    graphInterval2_10.setTypedText(touchgfx::TypedText(T_SINGLEUSEID47));
-    Humidity.add(graphInterval2_10);
     SwipeArea.add(Humidity);
 
     Pressure.setWidth(800);
@@ -373,33 +379,27 @@ GraphsViewBase::GraphsViewBase()
     PresBox.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     Pressure.add(PresBox);
 
-    PresGraph.setScale(1);
+    PresGraph.setScale(100);
     PresGraph.setGraphRangeX(0, 100);
     PresGraph.setPosition(141, 43, 577, 394);
     PresGraph.setGraphAreaMargin(8, 0, 20, 8);
     PresGraph.setGraphAreaPadding(0, 0, 0, 0);
-    PresGraph.setGraphRangeY(20, 30);
+    PresGraph.setGraphRangeY(0, 1);
 
-    PresGraphMajorXAxisGrid.setScale(1);
+    PresGraphMajorXAxisGrid.setScale(100);
     PresGraphMajorXAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     PresGraphMajorXAxisGrid.setInterval(10);
     PresGraphMajorXAxisGrid.setLineWidth(1);
     PresGraph.addGraphElement(PresGraphMajorXAxisGrid);
 
-    PresGraphMajorYAxisGrid.setScale(1);
-    PresGraphMajorYAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    PresGraphMajorYAxisGrid.setInterval(1);
-    PresGraphMajorYAxisGrid.setLineWidth(1);
-    PresGraph.addGraphElement(PresGraphMajorYAxisGrid);
-
-    PresGraphMajorYAxisLabel.setScale(1);
+    PresGraphMajorYAxisLabel.setScale(100);
     PresGraphMajorYAxisLabel.setInterval(1);
     PresGraphMajorYAxisLabel.setLabelTypedText(touchgfx::TypedText(T_SINGLEUSEID34));
     PresGraphMajorYAxisLabel.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
     PresGraphMajorYAxisLabel.setAlpha(0);
     PresGraph.addLeftElement(PresGraphMajorYAxisLabel);
 
-    PresGraphLine1.setScale(1);
+    PresGraphLine1.setScale(100);
     PresGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
     PresGraphLine1.setPainter(PresGraphLine1Painter);
     PresGraphLine1.setLineWidth(2);
@@ -450,93 +450,102 @@ GraphsViewBase::GraphsViewBase()
     line3_3.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
     Pressure.add(line3_3);
 
-    graphInterval3.setPosition(76, 39, 59, 25);
-    graphInterval3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3.setLinespacing(0);
-    graphInterval3Buffer[0] = 0;
-    graphInterval3.setWildcard(graphInterval3Buffer);
-    graphInterval3.setTypedText(touchgfx::TypedText(T_SINGLEUSEID70));
-    Pressure.add(graphInterval3);
+    line3_4.setPosition(141, 361, 557, 58);
+    line3_4Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_4.setPainter(line3_4Painter);
+    line3_4.setStart(0, 30);
+    line3_4.setEnd(576, 30);
+    line3_4.setLineWidth(1);
+    line3_4.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_4);
 
-    graphInterval3_1.setPosition(76, 77, 59, 25);
+    line3_5.setPosition(141, 323, 557, 58);
+    line3_5Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_5.setPainter(line3_5Painter);
+    line3_5.setStart(0, 30);
+    line3_5.setEnd(576, 30);
+    line3_5.setLineWidth(1);
+    line3_5.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_5);
+
+    line3_6.setPosition(141, 286, 557, 58);
+    line3_6Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_6.setPainter(line3_6Painter);
+    line3_6.setStart(0, 30);
+    line3_6.setEnd(576, 30);
+    line3_6.setLineWidth(1);
+    line3_6.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_6);
+
+    line3_7.setPosition(141, 248, 557, 58);
+    line3_7Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_7.setPainter(line3_7Painter);
+    line3_7.setStart(0, 30);
+    line3_7.setEnd(576, 30);
+    line3_7.setLineWidth(1);
+    line3_7.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_7);
+
+    line3_8.setPosition(141, 210, 557, 58);
+    line3_8Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_8.setPainter(line3_8Painter);
+    line3_8.setStart(0, 30);
+    line3_8.setEnd(576, 30);
+    line3_8.setLineWidth(1);
+    line3_8.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_8);
+
+    line3_9.setPosition(141, 173, 557, 58);
+    line3_9Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_9.setPainter(line3_9Painter);
+    line3_9.setStart(0, 30);
+    line3_9.setEnd(576, 30);
+    line3_9.setLineWidth(1);
+    line3_9.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_9);
+
+    line3_10.setPosition(141, 135, 557, 58);
+    line3_10Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_10.setPainter(line3_10Painter);
+    line3_10.setStart(0, 30);
+    line3_10.setEnd(576, 30);
+    line3_10.setLineWidth(1);
+    line3_10.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_10);
+
+    line3_11.setPosition(141, 97, 557, 58);
+    line3_11Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_11.setPainter(line3_11Painter);
+    line3_11.setStart(0, 30);
+    line3_11.setEnd(576, 30);
+    line3_11.setLineWidth(1);
+    line3_11.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_11);
+
+    line3_12.setPosition(141, 60, 557, 58);
+    line3_12Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line3_12.setPainter(line3_12Painter);
+    line3_12.setStart(0, 30);
+    line3_12.setEnd(576, 30);
+    line3_12.setLineWidth(1);
+    line3_12.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    Pressure.add(line3_12);
+
+    graphInterval3_0.setPosition(61, 39, 74, 25);
+    graphInterval3_0.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    graphInterval3_0.setLinespacing(0);
+    graphInterval3_0Buffer[0] = 0;
+    graphInterval3_0.setWildcard(graphInterval3_0Buffer);
+    graphInterval3_0.setTypedText(touchgfx::TypedText(T_SINGLEUSEID70));
+    Pressure.add(graphInterval3_0);
+
+    graphInterval3_1.setPosition(61, 416, 74, 25);
     graphInterval3_1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     graphInterval3_1.setLinespacing(0);
     graphInterval3_1Buffer[0] = 0;
     graphInterval3_1.setWildcard(graphInterval3_1Buffer);
-    graphInterval3_1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID71));
+    graphInterval3_1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID80));
     Pressure.add(graphInterval3_1);
-
-    graphInterval3_2.setPosition(76, 114, 59, 25);
-    graphInterval3_2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_2.setLinespacing(0);
-    graphInterval3_2Buffer[0] = 0;
-    graphInterval3_2.setWildcard(graphInterval3_2Buffer);
-    graphInterval3_2.setTypedText(touchgfx::TypedText(T_SINGLEUSEID72));
-    Pressure.add(graphInterval3_2);
-
-    graphInterval3_3.setPosition(76, 152, 59, 25);
-    graphInterval3_3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_3.setLinespacing(0);
-    graphInterval3_3Buffer[0] = 0;
-    graphInterval3_3.setWildcard(graphInterval3_3Buffer);
-    graphInterval3_3.setTypedText(touchgfx::TypedText(T_SINGLEUSEID73));
-    Pressure.add(graphInterval3_3);
-
-    graphInterval3_4.setPosition(76, 190, 59, 25);
-    graphInterval3_4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_4.setLinespacing(0);
-    graphInterval3_4Buffer[0] = 0;
-    graphInterval3_4.setWildcard(graphInterval3_4Buffer);
-    graphInterval3_4.setTypedText(touchgfx::TypedText(T_SINGLEUSEID74));
-    Pressure.add(graphInterval3_4);
-
-    graphInterval3_5.setPosition(76, 227, 59, 25);
-    graphInterval3_5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_5.setLinespacing(0);
-    graphInterval3_5Buffer[0] = 0;
-    graphInterval3_5.setWildcard(graphInterval3_5Buffer);
-    graphInterval3_5.setTypedText(touchgfx::TypedText(T_SINGLEUSEID75));
-    Pressure.add(graphInterval3_5);
-
-    graphInterval3_6.setPosition(76, 265, 59, 25);
-    graphInterval3_6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_6.setLinespacing(0);
-    graphInterval3_6Buffer[0] = 0;
-    graphInterval3_6.setWildcard(graphInterval3_6Buffer);
-    graphInterval3_6.setTypedText(touchgfx::TypedText(T_SINGLEUSEID76));
-    Pressure.add(graphInterval3_6);
-
-    graphInterval3_7.setPosition(76, 303, 59, 25);
-    graphInterval3_7.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_7.setLinespacing(0);
-    graphInterval3_7Buffer[0] = 0;
-    graphInterval3_7.setWildcard(graphInterval3_7Buffer);
-    graphInterval3_7.setTypedText(touchgfx::TypedText(T_SINGLEUSEID77));
-    Pressure.add(graphInterval3_7);
-
-    graphInterval3_8.setPosition(76, 340, 59, 25);
-    graphInterval3_8.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_8.setLinespacing(0);
-    graphInterval3_8Buffer[0] = 0;
-    graphInterval3_8.setWildcard(graphInterval3_8Buffer);
-    graphInterval3_8.setTypedText(touchgfx::TypedText(T_SINGLEUSEID78));
-    Pressure.add(graphInterval3_8);
-
-    graphInterval3_9.setPosition(76, 378, 59, 25);
-    graphInterval3_9.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_9.setLinespacing(0);
-    graphInterval3_9Buffer[0] = 0;
-    graphInterval3_9.setWildcard(graphInterval3_9Buffer);
-    graphInterval3_9.setTypedText(touchgfx::TypedText(T_SINGLEUSEID79));
-    Pressure.add(graphInterval3_9);
-
-    graphInterval3_10.setPosition(76, 416, 59, 25);
-    graphInterval3_10.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval3_10.setLinespacing(0);
-    graphInterval3_10Buffer[0] = 0;
-    graphInterval3_10.setWildcard(graphInterval3_10Buffer);
-    graphInterval3_10.setTypedText(touchgfx::TypedText(T_SINGLEUSEID80));
-    Pressure.add(graphInterval3_10);
     SwipeArea.add(Pressure);
 
     IAQ.setWidth(800);
@@ -546,33 +555,27 @@ GraphsViewBase::GraphsViewBase()
     IAQBox.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     IAQ.add(IAQBox);
 
-    IAQGraph.setScale(1);
+    IAQGraph.setScale(100);
     IAQGraph.setGraphRangeX(0, 100);
     IAQGraph.setPosition(141, 43, 577, 394);
     IAQGraph.setGraphAreaMargin(8, 0, 20, 8);
     IAQGraph.setGraphAreaPadding(0, 0, 0, 0);
-    IAQGraph.setGraphRangeY(20, 30);
+    IAQGraph.setGraphRangeY(0, 1);
 
-    IAQGraphMajorXAxisGrid.setScale(1);
+    IAQGraphMajorXAxisGrid.setScale(100);
     IAQGraphMajorXAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     IAQGraphMajorXAxisGrid.setInterval(10);
     IAQGraphMajorXAxisGrid.setLineWidth(1);
     IAQGraph.addGraphElement(IAQGraphMajorXAxisGrid);
 
-    IAQGraphMajorYAxisGrid.setScale(1);
-    IAQGraphMajorYAxisGrid.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    IAQGraphMajorYAxisGrid.setInterval(1);
-    IAQGraphMajorYAxisGrid.setLineWidth(1);
-    IAQGraph.addGraphElement(IAQGraphMajorYAxisGrid);
-
-    IAQGraphMajorYAxisLabel.setScale(1);
+    IAQGraphMajorYAxisLabel.setScale(100);
     IAQGraphMajorYAxisLabel.setInterval(1);
     IAQGraphMajorYAxisLabel.setLabelTypedText(touchgfx::TypedText(T_SINGLEUSEID34));
     IAQGraphMajorYAxisLabel.setColor(touchgfx::Color::getColorFromRGB(20, 151, 197));
     IAQGraphMajorYAxisLabel.setAlpha(0);
     IAQGraph.addLeftElement(IAQGraphMajorYAxisLabel);
 
-    IAQGraphLine1.setScale(1);
+    IAQGraphLine1.setScale(100);
     IAQGraphLine1Painter.setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
     IAQGraphLine1.setPainter(IAQGraphLine1Painter);
     IAQGraphLine1.setLineWidth(2);
@@ -623,93 +626,102 @@ GraphsViewBase::GraphsViewBase()
     line4_3.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
     IAQ.add(line4_3);
 
-    graphInterval4.setPosition(76, 39, 59, 25);
-    graphInterval4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4.setLinespacing(0);
-    graphInterval4Buffer[0] = 0;
-    graphInterval4.setWildcard(graphInterval4Buffer);
-    graphInterval4.setTypedText(touchgfx::TypedText(T_SINGLEUSEID83));
-    IAQ.add(graphInterval4);
+    line4_4.setPosition(141, 361, 557, 58);
+    line4_4Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_4.setPainter(line4_4Painter);
+    line4_4.setStart(0, 30);
+    line4_4.setEnd(576, 30);
+    line4_4.setLineWidth(1);
+    line4_4.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_4);
 
-    graphInterval4_1.setPosition(76, 77, 59, 25);
+    line4_5.setPosition(141, 323, 557, 58);
+    line4_5Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_5.setPainter(line4_5Painter);
+    line4_5.setStart(0, 30);
+    line4_5.setEnd(576, 30);
+    line4_5.setLineWidth(1);
+    line4_5.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_5);
+
+    line4_6.setPosition(141, 286, 557, 58);
+    line4_6Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_6.setPainter(line4_6Painter);
+    line4_6.setStart(0, 30);
+    line4_6.setEnd(576, 30);
+    line4_6.setLineWidth(1);
+    line4_6.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_6);
+
+    line4_7.setPosition(141, 248, 557, 58);
+    line4_7Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_7.setPainter(line4_7Painter);
+    line4_7.setStart(0, 30);
+    line4_7.setEnd(576, 30);
+    line4_7.setLineWidth(1);
+    line4_7.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_7);
+
+    line4_8.setPosition(141, 210, 557, 58);
+    line4_8Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_8.setPainter(line4_8Painter);
+    line4_8.setStart(0, 30);
+    line4_8.setEnd(576, 30);
+    line4_8.setLineWidth(1);
+    line4_8.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_8);
+
+    line4_9.setPosition(141, 173, 557, 58);
+    line4_9Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_9.setPainter(line4_9Painter);
+    line4_9.setStart(0, 30);
+    line4_9.setEnd(576, 30);
+    line4_9.setLineWidth(1);
+    line4_9.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_9);
+
+    line4_10.setPosition(141, 135, 557, 58);
+    line4_10Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_10.setPainter(line4_10Painter);
+    line4_10.setStart(0, 30);
+    line4_10.setEnd(576, 30);
+    line4_10.setLineWidth(1);
+    line4_10.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_10);
+
+    line4_11.setPosition(141, 97, 557, 58);
+    line4_11Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_11.setPainter(line4_11Painter);
+    line4_11.setStart(0, 30);
+    line4_11.setEnd(576, 30);
+    line4_11.setLineWidth(1);
+    line4_11.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_11);
+
+    line4_12.setPosition(141, 60, 557, 58);
+    line4_12Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line4_12.setPainter(line4_12Painter);
+    line4_12.setStart(0, 30);
+    line4_12.setEnd(576, 30);
+    line4_12.setLineWidth(1);
+    line4_12.setLineEndingStyle(touchgfx::Line::BUTT_CAP_ENDING);
+    IAQ.add(line4_12);
+
+    graphInterval4_0.setPosition(61, 39, 74, 25);
+    graphInterval4_0.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    graphInterval4_0.setLinespacing(0);
+    graphInterval4_0Buffer[0] = 0;
+    graphInterval4_0.setWildcard(graphInterval4_0Buffer);
+    graphInterval4_0.setTypedText(touchgfx::TypedText(T_SINGLEUSEID83));
+    IAQ.add(graphInterval4_0);
+
+    graphInterval4_1.setPosition(61, 416, 74, 25);
     graphInterval4_1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     graphInterval4_1.setLinespacing(0);
     graphInterval4_1Buffer[0] = 0;
     graphInterval4_1.setWildcard(graphInterval4_1Buffer);
-    graphInterval4_1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID84));
+    graphInterval4_1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID93));
     IAQ.add(graphInterval4_1);
-
-    graphInterval4_2.setPosition(76, 114, 59, 25);
-    graphInterval4_2.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_2.setLinespacing(0);
-    graphInterval4_2Buffer[0] = 0;
-    graphInterval4_2.setWildcard(graphInterval4_2Buffer);
-    graphInterval4_2.setTypedText(touchgfx::TypedText(T_SINGLEUSEID85));
-    IAQ.add(graphInterval4_2);
-
-    graphInterval4_3.setPosition(76, 152, 59, 25);
-    graphInterval4_3.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_3.setLinespacing(0);
-    graphInterval4_3Buffer[0] = 0;
-    graphInterval4_3.setWildcard(graphInterval4_3Buffer);
-    graphInterval4_3.setTypedText(touchgfx::TypedText(T_SINGLEUSEID86));
-    IAQ.add(graphInterval4_3);
-
-    graphInterval4_4.setPosition(76, 190, 59, 25);
-    graphInterval4_4.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_4.setLinespacing(0);
-    graphInterval4_4Buffer[0] = 0;
-    graphInterval4_4.setWildcard(graphInterval4_4Buffer);
-    graphInterval4_4.setTypedText(touchgfx::TypedText(T_SINGLEUSEID87));
-    IAQ.add(graphInterval4_4);
-
-    graphInterval4_5.setPosition(76, 227, 59, 25);
-    graphInterval4_5.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_5.setLinespacing(0);
-    graphInterval4_5Buffer[0] = 0;
-    graphInterval4_5.setWildcard(graphInterval4_5Buffer);
-    graphInterval4_5.setTypedText(touchgfx::TypedText(T_SINGLEUSEID88));
-    IAQ.add(graphInterval4_5);
-
-    graphInterval4_6.setPosition(76, 265, 59, 25);
-    graphInterval4_6.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_6.setLinespacing(0);
-    graphInterval4_6Buffer[0] = 0;
-    graphInterval4_6.setWildcard(graphInterval4_6Buffer);
-    graphInterval4_6.setTypedText(touchgfx::TypedText(T_SINGLEUSEID89));
-    IAQ.add(graphInterval4_6);
-
-    graphInterval4_7.setPosition(76, 303, 59, 25);
-    graphInterval4_7.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_7.setLinespacing(0);
-    graphInterval4_7Buffer[0] = 0;
-    graphInterval4_7.setWildcard(graphInterval4_7Buffer);
-    graphInterval4_7.setTypedText(touchgfx::TypedText(T_SINGLEUSEID90));
-    IAQ.add(graphInterval4_7);
-
-    graphInterval4_8.setPosition(76, 340, 59, 25);
-    graphInterval4_8.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_8.setLinespacing(0);
-    graphInterval4_8Buffer[0] = 0;
-    graphInterval4_8.setWildcard(graphInterval4_8Buffer);
-    graphInterval4_8.setTypedText(touchgfx::TypedText(T_SINGLEUSEID91));
-    IAQ.add(graphInterval4_8);
-
-    graphInterval4_9.setPosition(76, 378, 59, 25);
-    graphInterval4_9.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_9.setLinespacing(0);
-    graphInterval4_9Buffer[0] = 0;
-    graphInterval4_9.setWildcard(graphInterval4_9Buffer);
-    graphInterval4_9.setTypedText(touchgfx::TypedText(T_SINGLEUSEID92));
-    IAQ.add(graphInterval4_9);
-
-    graphInterval4_10.setPosition(76, 416, 59, 25);
-    graphInterval4_10.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
-    graphInterval4_10.setLinespacing(0);
-    graphInterval4_10Buffer[0] = 0;
-    graphInterval4_10.setWildcard(graphInterval4_10Buffer);
-    graphInterval4_10.setTypedText(touchgfx::TypedText(T_SINGLEUSEID93));
-    IAQ.add(graphInterval4_10);
     SwipeArea.add(IAQ);
     SwipeArea.setSelectedPage(0);
 

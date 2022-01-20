@@ -332,8 +332,8 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef* hltdc)
   /** Initializes the peripherals clock
   */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC;
-    PeriphClkInitStruct.PLLSAI.PLLSAIN = 360;
-    PeriphClkInitStruct.PLLSAI.PLLSAIR = 6;
+    PeriphClkInitStruct.PLLSAI.PLLSAIN = 60;
+    PeriphClkInitStruct.PLLSAI.PLLSAIR = 2;
     PeriphClkInitStruct.PLLSAIDivR = RCC_PLLSAIDIVR_2;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
     {
@@ -653,6 +653,9 @@ static void HAL_FMC_MspInit(void){
   GPIO_InitStruct.Alternate = GPIO_AF12_FMC;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
+  /* Peripheral interrupt init */
+  HAL_NVIC_SetPriority(FMC_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(FMC_IRQn);
   /* USER CODE BEGIN FMC_MspInit 1 */
 
   /* USER CODE END FMC_MspInit 1 */
@@ -762,6 +765,8 @@ static void HAL_FMC_MspDeInit(void){
 
   HAL_GPIO_DeInit(GPIOC, GPIO_PIN_3|GPIO_PIN_0|GPIO_PIN_2);
 
+  /* Peripheral interrupt DeInit */
+  HAL_NVIC_DisableIRQ(FMC_IRQn);
   /* USER CODE BEGIN FMC_MspDeInit 1 */
 
   /* USER CODE END FMC_MspDeInit 1 */
