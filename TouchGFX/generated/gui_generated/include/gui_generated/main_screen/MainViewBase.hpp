@@ -8,10 +8,16 @@
 #include <mvp/View.hpp>
 #include <gui/main_screen/MainPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/containers/clock/DigitalClock.hpp>
-#include <touchgfx/containers/scrollers/ScrollWheel.hpp>
-#include <gui/containers/MenuElement.hpp>
+#include <touchgfx/widgets/canvas/Line.hpp>
+#include <touchgfx/widgets/canvas/PainterRGB565.hpp>
+#include <touchgfx/widgets/Button.hpp>
+#include <touchgfx/containers/Container.hpp>
+#include <touchgfx/widgets/Image.hpp>
+#include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
+#include <touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp>
+#include <touchgfx/widgets/graph/GraphElements.hpp>
 
 class MainViewBase : public touchgfx::View<MainPresenter>
 {
@@ -20,7 +26,35 @@ public:
     virtual ~MainViewBase() {}
     virtual void setupScreen();
 
-    virtual void scrollWheel1UpdateItem(MenuElement& item, int16_t itemIndex)
+    /*
+     * Virtual Action Handlers
+     */
+    virtual void IAQSelect()
+    {
+        // Override and implement this function in Main
+    }
+
+    virtual void CO2Select()
+    {
+        // Override and implement this function in Main
+    }
+
+    virtual void VOCSelect()
+    {
+        // Override and implement this function in Main
+    }
+
+    virtual void humSelect()
+    {
+        // Override and implement this function in Main
+    }
+
+    virtual void presSelect()
+    {
+        // Override and implement this function in Main
+    }
+
+    virtual void tempSelect()
     {
         // Override and implement this function in Main
     }
@@ -35,10 +69,53 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Box box1;
-    touchgfx::ButtonWithLabel GraphButton;
     touchgfx::DigitalClock digitalClock1;
-    touchgfx::ScrollWheel scrollWheel1;
-    touchgfx::DrawableListItems<MenuElement, 7> scrollWheel1ListItems;
+    touchgfx::Line line1;
+    touchgfx::PainterRGB565 line1Painter;
+    touchgfx::Button IAQ_button;
+    touchgfx::Button CO2_button;
+    touchgfx::Button hum_button;
+    touchgfx::Button pres_button;
+    touchgfx::Button temp_button;
+    touchgfx::Button VOC_button;
+    touchgfx::Line line2;
+    touchgfx::PainterRGB565 line2Painter;
+    touchgfx::Container temp_container;
+    touchgfx::Image temp_danger;
+    touchgfx::TextArea temp_text;
+    touchgfx::TextArea temp_value;
+    touchgfx::Container pres_container;
+    touchgfx::Image pres_danger;
+    touchgfx::TextArea pres_text;
+    touchgfx::TextArea pres_value;
+    touchgfx::Container hum_container;
+    touchgfx::Image hum_danger;
+    touchgfx::TextArea hum_text;
+    touchgfx::TextArea hum_value;
+    touchgfx::Container VOC_container;
+    touchgfx::Image VOC_danger;
+    touchgfx::TextArea VOC_text;
+    touchgfx::TextArea VOC_value;
+    touchgfx::Container CO2_container;
+    touchgfx::Image CO2_danger;
+    touchgfx::TextArea CO2_text;
+    touchgfx::TextArea CO2_value;
+    touchgfx::Container IAQ_container;
+    touchgfx::Image IAQ_danger;
+    touchgfx::TextArea IAQ_text;
+    touchgfx::TextAreaWithOneWildcard IAQ_value;
+    touchgfx::GraphWrapAndOverwrite<25> IAQGraphRed;
+    touchgfx::GraphElementHistogram IAQGraphRedHistogram1;
+    touchgfx::GraphWrapAndOverwrite<25> IAQGraphYellow;
+    touchgfx::GraphElementHistogram IAQGraphYellowHistogram1;
+    touchgfx::GraphWrapAndOverwrite<25> IAQGraphGreen;
+    touchgfx::GraphElementHistogram IAQGraphGreenHistogram1;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t IAQ_VALUE_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar IAQ_valueBuffer[IAQ_VALUE_SIZE];
 
 private:
 
@@ -46,14 +123,17 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<MainViewBase, const touchgfx::AbstractButton&> buttonCallback;
-    touchgfx::Callback<MainViewBase, touchgfx::DrawableListItemsInterface*, int16_t, int16_t> updateItemCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
-    void updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex);
 
+    /*
+     * Canvas Buffer Size
+     */
+    static const uint16_t CANVAS_BUFFER_SIZE = 12000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // MAINVIEWBASE_HPP

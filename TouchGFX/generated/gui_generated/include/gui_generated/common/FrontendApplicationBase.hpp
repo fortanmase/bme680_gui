@@ -18,8 +18,7 @@ public:
     // Main
     void gotoMainScreenNoTransition();
 
-    // Graphs
-    void gotoGraphsScreenCoverTransitionEast();
+    void gotoMainScreenCoverTransitionWest();
 
 protected:
     touchgfx::Callback<FrontendApplicationBase> transitionCallback;
@@ -29,8 +28,7 @@ protected:
     // Main
     void gotoMainScreenNoTransitionImpl();
 
-    // Graphs
-    void gotoGraphsScreenCoverTransitionEastImpl();
+    void gotoMainScreenCoverTransitionWestImpl();
 };
 
 #endif // FRONTENDAPPLICATIONBASE_HPP

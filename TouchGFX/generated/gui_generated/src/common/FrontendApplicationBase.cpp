@@ -44,15 +44,13 @@ void FrontendApplicationBase::gotoMainScreenNoTransitionImpl()
     touchgfx::makeTransition<MainView, MainPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }
 
-// Graphs
-
-void FrontendApplicationBase::gotoGraphsScreenCoverTransitionEast()
+void FrontendApplicationBase::gotoMainScreenCoverTransitionWest()
 {
-    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotoGraphsScreenCoverTransitionEastImpl);
+    transitionCallback = touchgfx::Callback<FrontendApplicationBase>(this, &FrontendApplication::gotoMainScreenCoverTransitionWestImpl);
     pendingScreenTransitionCallback = &transitionCallback;
 }
 
-void FrontendApplicationBase::gotoGraphsScreenCoverTransitionEastImpl()
+void FrontendApplicationBase::gotoMainScreenCoverTransitionWestImpl()
 {
-    touchgfx::makeTransition<GraphsView, GraphsPresenter, touchgfx::CoverTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+    touchgfx::makeTransition<MainView, MainPresenter, touchgfx::CoverTransition<WEST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

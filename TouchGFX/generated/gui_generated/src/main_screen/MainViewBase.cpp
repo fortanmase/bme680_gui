@@ -3,13 +3,14 @@
 /*********************************************************************************/
 #include <gui_generated/main_screen/MainViewBase.hpp>
 #include <touchgfx/Color.hpp>
-#include "BitmapDatabase.hpp"
 #include <texts/TextKeysAndLanguages.hpp>
+#include "BitmapDatabase.hpp"
 
 MainViewBase::MainViewBase() :
-    buttonCallback(this, &MainViewBase::buttonCallbackHandler),
-    updateItemCallback(this, &MainViewBase::updateItemCallbackHandler)
+    buttonCallback(this, &MainViewBase::buttonCallbackHandler)
 {
+
+    touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
 
     __background.setPosition(0, 0, 800, 480);
     __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
@@ -17,65 +18,274 @@ MainViewBase::MainViewBase() :
     box1.setPosition(0, 0, 800, 480);
     box1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
 
-    GraphButton.setXY(0, 38);
-    GraphButton.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_SQUARE_LARGE_ID), touchgfx::Bitmap(BITMAP_BLUE_BUTTONS_SQUARE_LARGE_PRESSED_ID));
-    GraphButton.setLabelText(touchgfx::TypedText(T_SINGLEUSEID5));
-    GraphButton.setLabelColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    GraphButton.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
-    GraphButton.setAction(buttonCallback);
-
-    digitalClock1.setPosition(0, 0, 100, 25);
+    digitalClock1.setPosition(700, 0, 100, 25);
     digitalClock1.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     digitalClock1.setTypedText(touchgfx::TypedText(T_SINGLEUSEID65));
     digitalClock1.displayLeadingZeroForHourIndicator(true);
     digitalClock1.setDisplayMode(touchgfx::DigitalClock::DISPLAY_24_HOUR);
     digitalClock1.setTime24Hour(10, 10, 0);
 
-    scrollWheel1.setPosition(400, 38, 390, 390);
-    scrollWheel1.setHorizontal(false);
-    scrollWheel1.setCircular(false);
-    scrollWheel1.setEasingEquation(touchgfx::EasingEquations::backEaseOut);
-    scrollWheel1.setSwipeAcceleration(10);
-    scrollWheel1.setDragAcceleration(10);
-    scrollWheel1.setNumberOfItems(20);
-    scrollWheel1.setSelectedItemOffset(160);
-    scrollWheel1.setDrawableSize(70, 0);
-    scrollWheel1.setDrawables(scrollWheel1ListItems, updateItemCallback);
-    scrollWheel1.animateToItem(0, 0);
+    line1.setPosition(0, 401, 800, 79);
+    line1Painter.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    line1.setPainter(line1Painter);
+    line1.setStart(0, 0);
+    line1.setEnd(800, 0);
+    line1.setLineWidth(2);
+    line1.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
+
+    IAQ_button.setXY(68, 408);
+    IAQ_button.setBitmaps(touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID), touchgfx::Bitmap(BITMAP_IAQ_DARK_ID));
+    IAQ_button.setAction(buttonCallback);
+
+    CO2_button.setXY(168, 408);
+    CO2_button.setBitmaps(touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID), touchgfx::Bitmap(BITMAP_CO2_DARK_ID));
+    CO2_button.setAction(buttonCallback);
+
+    hum_button.setXY(368, 408);
+    hum_button.setBitmaps(touchgfx::Bitmap(BITMAP_HUM_LIGHT_ID), touchgfx::Bitmap(BITMAP_HUM_DARK_ID));
+    hum_button.setAction(buttonCallback);
+
+    pres_button.setXY(468, 408);
+    pres_button.setBitmaps(touchgfx::Bitmap(BITMAP_PRES_LIGHT_ID), touchgfx::Bitmap(BITMAP_PRES_DARK_ID));
+    pres_button.setAction(buttonCallback);
+
+    temp_button.setXY(568, 408);
+    temp_button.setBitmaps(touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID), touchgfx::Bitmap(BITMAP_TEMP_DARK_ID));
+    temp_button.setAction(buttonCallback);
+
+    VOC_button.setXY(268, 408);
+    VOC_button.setBitmaps(touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID), touchgfx::Bitmap(BITMAP_VOC_DARK_ID));
+    VOC_button.setAction(buttonCallback);
+
+    line2.setPosition(68, 387, 64, 32);
+    line2Painter.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    line2.setPainter(line2Painter);
+    line2.setStart(0, 16);
+    line2.setEnd(64, 16);
+    line2.setLineWidth(3);
+    line2.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
+    line2.setVisible(false);
+
+    temp_container.setPosition(34, 25, 298, 289);
+    temp_container.setVisible(false);
+
+    temp_danger.setXY(25, 25);
+    temp_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
+    temp_container.add(temp_danger);
+
+    temp_text.setXY(66, 165);
+    temp_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    temp_text.setLinespacing(0);
+    temp_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID95));
+    temp_container.add(temp_text);
+
+    temp_value.setPosition(57, 102, 185, 48);
+    temp_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    temp_value.setLinespacing(0);
+    temp_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID94));
+    temp_container.add(temp_value);
+
+    pres_container.setPosition(34, 25, 298, 289);
+    pres_container.setVisible(false);
+
+    pres_danger.setXY(25, 25);
+    pres_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
+    pres_container.add(pres_danger);
+
+    pres_text.setXY(81, 180);
+    pres_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    pres_text.setLinespacing(0);
+    pres_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID96));
+    pres_container.add(pres_text);
+
+    pres_value.setXY(78, 77);
+    pres_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    pres_value.setLinespacing(0);
+    pres_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID97));
+    pres_container.add(pres_value);
+
+    hum_container.setPosition(34, 25, 298, 289);
+    hum_container.setVisible(false);
+
+    hum_danger.setXY(25, 25);
+    hum_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
+    hum_container.add(hum_danger);
+
+    hum_text.setXY(81, 165);
+    hum_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    hum_text.setLinespacing(0);
+    hum_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID98));
+    hum_container.add(hum_text);
+
+    hum_value.setXY(81, 102);
+    hum_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    hum_value.setLinespacing(0);
+    hum_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID99));
+    hum_container.add(hum_value);
+
+    VOC_container.setPosition(34, 25, 298, 289);
+    VOC_container.setVisible(false);
+
+    VOC_danger.setXY(25, 25);
+    VOC_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
+    VOC_container.add(VOC_danger);
+
+    VOC_text.setPosition(81, 182, 138, 40);
+    VOC_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    VOC_text.setLinespacing(0);
+    VOC_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID100));
+    VOC_container.add(VOC_text);
+
+    VOC_value.setPosition(78, 77, 141, 96);
+    VOC_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    VOC_value.setLinespacing(0);
+    VOC_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID101));
+    VOC_container.add(VOC_value);
+
+    CO2_container.setPosition(34, 25, 298, 289);
+    CO2_container.setVisible(false);
+
+    CO2_danger.setXY(25, 25);
+    CO2_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
+    CO2_container.add(CO2_danger);
+
+    CO2_text.setPosition(81, 179, 136, 43);
+    CO2_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    CO2_text.setLinespacing(0);
+    CO2_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID102));
+    CO2_container.add(CO2_text);
+
+    CO2_value.setPosition(78, 77, 145, 96);
+    CO2_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    CO2_value.setLinespacing(0);
+    CO2_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID103));
+    CO2_container.add(CO2_value);
+
+    IAQ_container.setPosition(0, 0, 800, 401);
+
+    IAQ_danger.setXY(25, 25);
+    IAQ_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
+    IAQ_container.add(IAQ_danger);
+
+    IAQ_text.setPosition(82, 156, 136, 43);
+    IAQ_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    IAQ_text.setLinespacing(0);
+    IAQ_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID104));
+    IAQ_container.add(IAQ_text);
+
+    IAQ_value.setPosition(77, 85, 145, 52);
+    IAQ_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    IAQ_value.setLinespacing(0);
+    IAQ_valueBuffer[0] = 0;
+    IAQ_value.setWildcard(IAQ_valueBuffer);
+    IAQ_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID105));
+    IAQ_container.add(IAQ_value);
+
+    IAQGraphRed.setScale(10);
+    IAQGraphRed.setPosition(381, 54, 395, 292);
+    IAQGraphRed.setGraphAreaMargin(0, 0, 0, 0);
+    IAQGraphRed.setGraphAreaPadding(0, 0, 0, 0);
+    IAQGraphRed.setGraphRangeY(0, 100);
+
+    IAQGraphRedHistogram1.setScale(10);
+    IAQGraphRedHistogram1.setColor(touchgfx::Color::getColorFromRGB(249, 102, 77));
+    IAQGraphRedHistogram1.setBarWidth(13);
+    IAQGraphRedHistogram1.setBaseline(0);
+    IAQGraphRed.addGraphElement(IAQGraphRedHistogram1);
+    IAQ_container.add(IAQGraphRed);
+
+    IAQGraphYellow.setScale(10);
+    IAQGraphYellow.setPosition(381, 54, 395, 292);
+    IAQGraphYellow.setGraphAreaMargin(0, 0, 0, 0);
+    IAQGraphYellow.setGraphAreaPadding(0, 0, 0, 0);
+    IAQGraphYellow.setGraphRangeY(0, 100);
+
+    IAQGraphYellowHistogram1.setScale(10);
+    IAQGraphYellowHistogram1.setColor(touchgfx::Color::getColorFromRGB(255, 219, 61));
+    IAQGraphYellowHistogram1.setBarWidth(13);
+    IAQGraphYellowHistogram1.setBaseline(0);
+    IAQGraphYellow.addGraphElement(IAQGraphYellowHistogram1);
+    IAQ_container.add(IAQGraphYellow);
+
+    IAQGraphGreen.setScale(10);
+    IAQGraphGreen.setPosition(381, 54, 395, 292);
+    IAQGraphGreen.setGraphAreaMargin(0, 0, 0, 0);
+    IAQGraphGreen.setGraphAreaPadding(0, 0, 0, 0);
+    IAQGraphGreen.setGraphRangeY(0, 100);
+
+    IAQGraphGreenHistogram1.setScale(10);
+    IAQGraphGreenHistogram1.setColor(touchgfx::Color::getColorFromRGB(130, 217, 104));
+    IAQGraphGreenHistogram1.setBarWidth(13);
+    IAQGraphGreenHistogram1.setBaseline(0);
+    IAQGraphGreen.addGraphElement(IAQGraphGreenHistogram1);
+    IAQ_container.add(IAQGraphGreen);
 
     add(__background);
     add(box1);
-    add(GraphButton);
     add(digitalClock1);
-    add(scrollWheel1);
+    add(line1);
+    add(IAQ_button);
+    add(CO2_button);
+    add(hum_button);
+    add(pres_button);
+    add(temp_button);
+    add(VOC_button);
+    add(line2);
+    add(temp_container);
+    add(pres_container);
+    add(hum_container);
+    add(VOC_container);
+    add(CO2_container);
+    add(IAQ_container);
 }
 
 void MainViewBase::setupScreen()
 {
-    scrollWheel1.initialize();
-    for (int i = 0; i < scrollWheel1ListItems.getNumberOfDrawables(); i++)
-    {
-        scrollWheel1ListItems[i].initialize();
-    }
+
 }
 
 void MainViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &GraphButton)
+    if (&src == &IAQ_button)
     {
-        //Interaction1
-        //When GraphButton clicked change screen to Graphs
-        //Go to Graphs with screen transition towards East
-        application().gotoGraphsScreenCoverTransitionEast();
+        //IAQ_button_CallBack
+        //When IAQ_button clicked call virtual function
+        //Call IAQSelect
+        IAQSelect();
     }
-}
-
-void MainViewBase::updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex)
-{
-    if (items == &scrollWheel1ListItems)
+    else if (&src == &CO2_button)
     {
-        touchgfx::Drawable* d = items->getDrawable(containerIndex);
-        MenuElement* cc = (MenuElement*)d;
-        scrollWheel1UpdateItem(*cc, itemIndex);
+        //CO2_button_CallBack
+        //When CO2_button clicked call virtual function
+        //Call CO2Select
+        CO2Select();
+    }
+    else if (&src == &hum_button)
+    {
+        //hum_button_CallBack
+        //When hum_button clicked call virtual function
+        //Call humSelect
+        humSelect();
+    }
+    else if (&src == &pres_button)
+    {
+        //pres_button_CallBack
+        //When pres_button clicked call virtual function
+        //Call presSelect
+        presSelect();
+    }
+    else if (&src == &temp_button)
+    {
+        //temp_button_CallBack
+        //When temp_button clicked call virtual function
+        //Call tempSelect
+        tempSelect();
+    }
+    else if (&src == &VOC_button)
+    {
+        //VOC_button_CallBack
+        //When VOC_button clicked call virtual function
+        //Call VOCSelect
+        VOCSelect();
     }
 }

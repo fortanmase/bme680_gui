@@ -6,7 +6,8 @@
 #include "BitmapDatabase.hpp"
 #include <texts/TextKeysAndLanguages.hpp>
 
-GraphsViewBase::GraphsViewBase()
+GraphsViewBase::GraphsViewBase() :
+    buttonCallback(this, &GraphsViewBase::buttonCallbackHandler)
 {
 
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
@@ -725,11 +726,27 @@ GraphsViewBase::GraphsViewBase()
     SwipeArea.add(IAQ);
     SwipeArea.setSelectedPage(0);
 
+    button1.setXY(0, 0);
+    button1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_ICONS_BACK_ARROW_48_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_BACK_ARROW_48_ID));
+    button1.setAction(buttonCallback);
+
     add(__background);
     add(SwipeArea);
+    add(button1);
 }
 
 void GraphsViewBase::setupScreen()
 {
 
+}
+
+void GraphsViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
+{
+    if (&src == &button1)
+    {
+        //Interaction1
+        //When button1 clicked change screen to Main
+        //Go to Main with screen transition towards West
+        application().gotoMainScreenCoverTransitionWest();
+    }
 }

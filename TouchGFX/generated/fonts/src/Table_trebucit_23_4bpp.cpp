@@ -18,13 +18,8 @@ KEEP extern const touchgfx::GlyphNode glyphs_trebucit_23_4bpp[] FONT_TABLE_LOCAT
     {   972, 0x003A,   5,  12,  12,   2,   8,   0,   0, 0x00 },
     {  1008, 0x003F,   9,  16,  16,   1,   8,   0,   0, 0x00 },
     {  1088, 0x0041,  15,  17,  17,  -1,  14,   2,   2, 0x00 },
-    {  1224, 0x0047,  14,  16,  16,   1,  16,   0,   0, 0x00 },
-    {  1336, 0x004D,  17,  16,  16,   0,  18,   0,   0, 0x00 },
-    {  1480, 0x0050,  14,  16,  16,   0,  13,   0,   0, 0x00 },
-    {  1592, 0x0061,  12,  12,  12,   0,  12,   0,   0, 0x00 },
-    {  1664, 0x0068,  12,  17,  17,   0,  13,   0,   0, 0x00 },
-    {  1766, 0x0070,  14,  17,  12,  -1,  13,   0,   0, 0x00 },
-    {  1885, 0x0072,   9,  12,  12,   1,  10,   0,   0, 0x00 }
+    {  1224, 0x004D,  17,  16,  16,   0,  18,   0,   0, 0x00 },
+    {  1368, 0x0050,  14,  16,  16,   0,  13,   0,   0, 0x00 }
 };
 
 // trebucit_23_4bpp
@@ -39,6 +34,6 @@ touchgfx::GeneratedFont& getFont_trebucit_23_4bpp();
 
 touchgfx::GeneratedFont& getFont_trebucit_23_4bpp()
 {
-    static touchgfx::GeneratedFont trebucit_23_4bpp(glyphs_trebucit_23_4bpp, 21, 23, 5, 4, 1, 1, 2, unicodes_trebucit_23_4bpp, kerning_trebucit_23_4bpp, 63, 0, 0, 0);
+    static touchgfx::GeneratedFont trebucit_23_4bpp(glyphs_trebucit_23_4bpp, 16, 23, 1, 4, 1, 1, 2, unicodes_trebucit_23_4bpp, kerning_trebucit_23_4bpp, 63, 0, 0, 0);
     return trebucit_23_4bpp;
 }

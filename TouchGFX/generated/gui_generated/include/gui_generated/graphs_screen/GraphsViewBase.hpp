@@ -16,6 +16,7 @@
 #include <touchgfx/widgets/graph/GraphLabels.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
+#include <touchgfx/widgets/Button.hpp>
 
 class GraphsViewBase : public touchgfx::View<GraphsPresenter>
 {
@@ -178,6 +179,7 @@ protected:
     touchgfx::PainterRGB565 line4_12Painter;
     touchgfx::TextAreaWithOneWildcard graphInterval4_0;
     touchgfx::TextAreaWithOneWildcard graphInterval4_1;
+    touchgfx::Button button1;
 
     /*
      * Wildcard Buffers
@@ -208,6 +210,16 @@ protected:
     touchgfx::Unicode::UnicodeChar graphInterval4_1Buffer[GRAPHINTERVAL4_1_SIZE];
 
 private:
+
+    /*
+     * Callback Declarations
+     */
+    touchgfx::Callback<GraphsViewBase, const touchgfx::AbstractButton&> buttonCallback;
+
+    /*
+     * Callback Handler Declarations
+     */
+    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
     /*
      * Canvas Buffer Size

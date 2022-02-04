@@ -27,9 +27,10 @@ float gui_pressure = 0;
 float gui_iaq = 0;
 float gui_co2 = 0;
 
-uint32_t lastTickValue; /* Variable monitoring last tick value (HAL_GetTick) */
-uint8_t filterCounter = 0;
-kalman filterObj[5];
+static uint32_t lastTickValue; /* Variable monitoring last tick value (HAL_GetTick) */
+static uint8_t filterCounter = 0;
+static kalman filterObj[5];
+
 float filtredTemp = 0;
 float filtredHum = 0;
 float filtredPres = 0;
@@ -58,7 +59,6 @@ void GraphsView::handleTickEvent()
     if(pfHAL_GetTick() - lastTickValue >= 375)    /* we have 100 points on x-Axis so we have to add a new data point once in 1.66 sec */
     {                                             /* in order to hold a 10 min interval on the graph, the data is filtered 7 times     */
                                                   /* before displayed, so 238ms * 7 = 1.66 sec                                         */
-
         if(filterCounter == 8)
         {
             /* Display the graphs*/
@@ -208,7 +208,6 @@ void GraphsView::displayTemperatureGraph(float temperatureValue)
     setTempGraphMajorYAxisLabel();
     Unicode::snprintfFloat(textArea1Buffer, TEXTAREA1_SIZE, "%.2f", temperatureValue);
     textArea1.invalidate();
-//    TempGraph.invalidate();
 }
 
 /* Function for displaying the humidity graph */
@@ -220,7 +219,6 @@ void GraphsView::displayHumidityGraph(float humidityValue)
     setHumGraphMajorYAxisLabel();
     Unicode::snprintfFloat(textArea2Buffer, TEXTAREA2_SIZE, "%.2f", humidityValue);
     textArea2.invalidate();
-//    HumGraph.invalidate();
 }
 
 /* Function for displaying the pressure graph */
@@ -232,7 +230,6 @@ void GraphsView::displayPressureGraph(float pressureValue)
     setPresGraphMajorYAxisLabel();
     Unicode::snprintfFloat(textArea3Buffer, TEXTAREA3_SIZE, "%.2f", pressureValue);
     textArea3.invalidate();
-//    PresGraph.invalidate();
 }
 
 /* Function for displaying the IAQ graph */
@@ -244,7 +241,6 @@ void GraphsView::displayIAQGraph(float IAQValue)
     setIAQGraphMajorYAxisLabel();
     Unicode::snprintfFloat(textArea4Buffer, TEXTAREA4_SIZE, "%.2f", IAQValue);
     textArea4.invalidate();
-//    IAQGraph.invalidate();
 }
 
 /* Function for setting the temperature graph Y axis labels */

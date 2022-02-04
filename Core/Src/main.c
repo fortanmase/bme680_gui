@@ -101,6 +101,7 @@ const osThreadAttr_t RTCTask_attributes = {
 };
 /* USER CODE BEGIN PV */
 uint32_t (*pfHAL_GetTick)(void) = &HAL_GetTick;     /* Pointer to HAL_GetTick exported to TouchGFX) */
+uint32_t (*pfHAL_CRC_Calculate)(void) = &HAL_CRC_Calculate;
 
 /* Variables exported to TouchGFX */
 extern float gui_temperature;

@@ -24,36 +24,6 @@
             "Moveable": false
           },
           {
-            "Type": "ButtonWithLabel",
-            "Pressed": "__designer\\Blue_Buttons_Square_large_pressed.png",
-            "Released": "__designer\\Blue_Buttons_Square_large.png",
-            "Alpha": 255,
-            "TextId": "SingleUseId5",
-            "ReleasedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "PressedColor": {
-              "Red": 255,
-              "Green": 255,
-              "Blue": 255
-            },
-            "TextRotation": "0",
-            "Style": "Style10",
-            "Name": "GraphButton",
-            "X": 0,
-            "Y": 38,
-            "Width": 360,
-            "Height": 60,
-            "Visible": true,
-            "LockPosition": false,
-            "Draggable": false,
-            "Clickable": false,
-            "Fadeable": false,
-            "Moveable": false
-          },
-          {
             "Type": "DigitalClock",
             "TextColor": {
               "Red": 0,
@@ -69,7 +39,7 @@
             "InitialMinute": 10,
             "InitialSecond": 0,
             "Name": "digitalClock1",
-            "X": 0,
+            "X": 700,
             "Y": 0,
             "Width": 100,
             "Height": 25,
@@ -81,28 +51,791 @@
             "Moveable": false
           },
           {
-            "Type": "ScrollWheel",
-            "SelectedItemOffset": 160,
-            "UseSelectedStyle": false,
-            "ExtraSizeBefore": 0,
-            "ExtraSizeAfter": 0,
-            "MarginBefore": 0,
-            "MarginAfter": 0,
-            "IsHorizontal": false,
-            "IsCircular": false,
-            "ItemTemplateName": "MenuElement",
-            "NumberofItems": 20,
-            "InitialElement": 0,
-            "ItemMargin": 0,
-            "Easing": "Back",
-            "EasingOption": "Out",
-            "SwipeAcceleration": 1.0,
-            "DragAcceleration": 1.0,
-            "Name": "scrollWheel1",
-            "X": 400,
-            "Y": 38,
-            "Width": 390,
-            "Height": 390,
+            "Type": "Line",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "FileNameImage": "",
+            "Alpha": 255,
+            "StartX": 0,
+            "StartY": 0,
+            "EndX": 800,
+            "EndY": 0,
+            "LineWidth": 2,
+            "LineEndingStyle": "Round",
+            "Name": "line1",
+            "X": 0,
+            "Y": 401,
+            "Width": 800,
+            "Height": 79,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Button",
+            "Pressed": "buttons\\iaq_dark.png",
+            "Released": "buttons\\iaq_light.png",
+            "Alpha": 255,
+            "Name": "IAQ_button",
+            "X": 68,
+            "Y": 408,
+            "Width": 64,
+            "Height": 64,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Button",
+            "Pressed": "buttons\\co2_dark.png",
+            "Released": "buttons\\co2_light.png",
+            "Alpha": 255,
+            "Name": "CO2_button",
+            "X": 168,
+            "Y": 408,
+            "Width": 64,
+            "Height": 64,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Button",
+            "Pressed": "buttons\\hum_dark.png",
+            "Released": "buttons\\hum_light.png",
+            "Alpha": 255,
+            "Name": "hum_button",
+            "X": 368,
+            "Y": 408,
+            "Width": 64,
+            "Height": 64,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Button",
+            "Pressed": "buttons\\pres_dark.png",
+            "Released": "buttons\\pres_light.png",
+            "Alpha": 255,
+            "Name": "pres_button",
+            "X": 468,
+            "Y": 408,
+            "Width": 64,
+            "Height": 64,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Button",
+            "Pressed": "buttons\\temp_dark.png",
+            "Released": "buttons\\temp_light.png",
+            "Alpha": 255,
+            "Name": "temp_button",
+            "X": 568,
+            "Y": 408,
+            "Width": 64,
+            "Height": 64,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Button",
+            "Pressed": "buttons\\voc_dark.png",
+            "Released": "buttons\\voc_light.png",
+            "Alpha": 255,
+            "Name": "VOC_button",
+            "X": 268,
+            "Y": 408,
+            "Width": 64,
+            "Height": 64,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Line",
+            "Color": {
+              "Red": 0,
+              "Green": 0,
+              "Blue": 0
+            },
+            "FileNameImage": "",
+            "Alpha": 255,
+            "StartX": 0,
+            "StartY": 16,
+            "EndX": 64,
+            "EndY": 16,
+            "LineWidth": 3,
+            "LineEndingStyle": "Round",
+            "Name": "line2",
+            "X": 68,
+            "Y": 387,
+            "Width": 64,
+            "Height": 32,
+            "Visible": false,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Components": [
+              {
+                "Type": "Image",
+                "RelativeFilename": "onboard_screen\\onboard_screen_danger.png",
+                "Alpha": 255,
+                "Name": "temp_danger",
+                "X": 25,
+                "Y": 25,
+                "Width": 250,
+                "Height": 250,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId95",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": true,
+                "LineSpacing": 0,
+                "Name": "temp_text",
+                "X": 66,
+                "Y": 165,
+                "Width": 170,
+                "Height": 42,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId94",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": false,
+                "LineSpacing": 0,
+                "Name": "temp_value",
+                "X": 57,
+                "Y": 102,
+                "Width": 185,
+                "Height": 48,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              }
+            ],
+            "Type": "Container",
+            "IsCacheableContainer": false,
+            "Name": "temp_container",
+            "X": 34,
+            "Y": 25,
+            "Width": 298,
+            "Height": 289,
+            "Visible": false,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Components": [
+              {
+                "Type": "Image",
+                "RelativeFilename": "onboard_screen\\onboard_screen_danger.png",
+                "Alpha": 255,
+                "Name": "pres_danger",
+                "X": 25,
+                "Y": 25,
+                "Width": 250,
+                "Height": 250,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId96",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": true,
+                "LineSpacing": 0,
+                "Name": "pres_text",
+                "X": 81,
+                "Y": 180,
+                "Width": 138,
+                "Height": 42,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId97",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": true,
+                "LineSpacing": 0,
+                "Name": "pres_value",
+                "X": 78,
+                "Y": 77,
+                "Width": 141,
+                "Height": 96,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              }
+            ],
+            "Type": "Container",
+            "IsCacheableContainer": false,
+            "Name": "pres_container",
+            "X": 34,
+            "Y": 25,
+            "Width": 298,
+            "Height": 289,
+            "Visible": false,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Components": [
+              {
+                "Type": "Image",
+                "RelativeFilename": "onboard_screen\\onboard_screen_danger.png",
+                "Alpha": 255,
+                "Name": "hum_danger",
+                "X": 25,
+                "Y": 25,
+                "Width": 250,
+                "Height": 250,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId98",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": true,
+                "LineSpacing": 0,
+                "Name": "hum_text",
+                "X": 81,
+                "Y": 165,
+                "Width": 140,
+                "Height": 42,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId99",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": true,
+                "LineSpacing": 0,
+                "Name": "hum_value",
+                "X": 81,
+                "Y": 102,
+                "Width": 157,
+                "Height": 48,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              }
+            ],
+            "Type": "Container",
+            "IsCacheableContainer": false,
+            "Name": "hum_container",
+            "X": 34,
+            "Y": 25,
+            "Width": 298,
+            "Height": 289,
+            "Visible": false,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Components": [
+              {
+                "Type": "Image",
+                "RelativeFilename": "onboard_screen\\onboard_screen_danger.png",
+                "Alpha": 255,
+                "Name": "VOC_danger",
+                "X": 25,
+                "Y": 25,
+                "Width": 250,
+                "Height": 250,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId100",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": false,
+                "LineSpacing": 0,
+                "Name": "VOC_text",
+                "X": 81,
+                "Y": 182,
+                "Width": 138,
+                "Height": 40,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId101",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": false,
+                "LineSpacing": 0,
+                "Name": "VOC_value",
+                "X": 78,
+                "Y": 77,
+                "Width": 141,
+                "Height": 96,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              }
+            ],
+            "Type": "Container",
+            "IsCacheableContainer": false,
+            "Name": "VOC_container",
+            "X": 34,
+            "Y": 25,
+            "Width": 298,
+            "Height": 289,
+            "Visible": false,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Components": [
+              {
+                "Type": "Image",
+                "RelativeFilename": "onboard_screen\\onboard_screen_danger.png",
+                "Alpha": 255,
+                "Name": "CO2_danger",
+                "X": 25,
+                "Y": 25,
+                "Width": 250,
+                "Height": 250,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId102",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": false,
+                "LineSpacing": 0,
+                "Name": "CO2_text",
+                "X": 81,
+                "Y": 179,
+                "Width": 136,
+                "Height": 43,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId103",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": false,
+                "LineSpacing": 0,
+                "Name": "CO2_value",
+                "X": 78,
+                "Y": 77,
+                "Width": 145,
+                "Height": 96,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              }
+            ],
+            "Type": "Container",
+            "IsCacheableContainer": false,
+            "Name": "CO2_container",
+            "X": 34,
+            "Y": 25,
+            "Width": 298,
+            "Height": 289,
+            "Visible": false,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Components": [
+              {
+                "Type": "Image",
+                "RelativeFilename": "onboard_screen\\onboard_screen_danger.png",
+                "Alpha": 255,
+                "Name": "IAQ_danger",
+                "X": 25,
+                "Y": 25,
+                "Width": 250,
+                "Height": 250,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId104",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": false,
+                "LineSpacing": 0,
+                "Name": "IAQ_text",
+                "X": 82,
+                "Y": 156,
+                "Width": 136,
+                "Height": 43,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "TextArea",
+                "TextId": "SingleUseId105",
+                "TextRotation": "0",
+                "Color": {
+                  "Red": 79,
+                  "Green": 79,
+                  "Blue": 79
+                },
+                "Alpha": 255,
+                "AutoSize": false,
+                "LineSpacing": 0,
+                "Wildcard1": {
+                  "UseBuffer": true,
+                  "BufferSize": 20
+                },
+                "Name": "IAQ_value",
+                "X": 77,
+                "Y": 85,
+                "Width": 145,
+                "Height": 52,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "DynamicGraph",
+                "DataSeed": -1668583057,
+                "NumberOfValues": 25,
+                "MaxY": 100.0,
+                "MinY": 0.0,
+                "Precision": "0.1",
+                "UseCustomVisibleDataPointRange": false,
+                "FirstIndex": 0,
+                "LastIndex": 24,
+                "MapDataPointIndexToCustomValue": false,
+                "XAxisOffset": 0.0,
+                "XAxisScale": 1.0,
+                "InsertRandomValues": false,
+                "Alpha": 255,
+                "LabelSizeTop": 0,
+                "LabelSizeBottom": 0,
+                "LabelSizeLeft": 0,
+                "LabelSizeRight": 0,
+                "PaddingTop": 0,
+                "PaddingBottom": 0,
+                "PaddingLeft": 0,
+                "PaddingRight": 0,
+                "GraphType": "GraphWrapOverwrite",
+                "GraphDrawers": [
+                  {
+                    "Type": "HistogramDrawer",
+                    "BarWidth": 13,
+                    "BarOffset": 9,
+                    "Color": {
+                      "Red": 249,
+                      "Green": 102,
+                      "Blue": 77
+                    },
+                    "Alpha": 255
+                  }
+                ],
+                "Name": "IAQGraphRed",
+                "X": 381,
+                "Y": 54,
+                "Width": 395,
+                "Height": 292,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "DynamicGraph",
+                "DataSeed": -1668583057,
+                "NumberOfValues": 25,
+                "MaxY": 100.0,
+                "MinY": 0.0,
+                "Precision": "0.1",
+                "UseCustomVisibleDataPointRange": false,
+                "FirstIndex": 0,
+                "LastIndex": 24,
+                "MapDataPointIndexToCustomValue": false,
+                "XAxisOffset": 0.0,
+                "XAxisScale": 1.0,
+                "InsertRandomValues": false,
+                "Alpha": 255,
+                "LabelSizeTop": 0,
+                "LabelSizeBottom": 0,
+                "LabelSizeLeft": 0,
+                "LabelSizeRight": 0,
+                "PaddingTop": 0,
+                "PaddingBottom": 0,
+                "PaddingLeft": 0,
+                "PaddingRight": 0,
+                "GraphType": "GraphWrapOverwrite",
+                "GraphDrawers": [
+                  {
+                    "Type": "HistogramDrawer",
+                    "BarWidth": 13,
+                    "BarOffset": 9,
+                    "Color": {
+                      "Red": 255,
+                      "Green": 219,
+                      "Blue": 61
+                    },
+                    "Alpha": 255
+                  }
+                ],
+                "Name": "IAQGraphYellow",
+                "X": 381,
+                "Y": 54,
+                "Width": 395,
+                "Height": 292,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Type": "DynamicGraph",
+                "DataSeed": -1668583057,
+                "NumberOfValues": 25,
+                "MaxY": 100.0,
+                "MinY": 0.0,
+                "Precision": "0.1",
+                "UseCustomVisibleDataPointRange": false,
+                "FirstIndex": 0,
+                "LastIndex": 24,
+                "MapDataPointIndexToCustomValue": false,
+                "XAxisOffset": 0.0,
+                "XAxisScale": 1.0,
+                "InsertRandomValues": false,
+                "Alpha": 255,
+                "LabelSizeTop": 0,
+                "LabelSizeBottom": 0,
+                "LabelSizeLeft": 0,
+                "LabelSizeRight": 0,
+                "PaddingTop": 0,
+                "PaddingBottom": 0,
+                "PaddingLeft": 0,
+                "PaddingRight": 0,
+                "GraphType": "GraphWrapOverwrite",
+                "GraphDrawers": [
+                  {
+                    "Type": "HistogramDrawer",
+                    "BarWidth": 13,
+                    "BarOffset": 9,
+                    "Color": {
+                      "Red": 130,
+                      "Green": 217,
+                      "Blue": 104
+                    },
+                    "Alpha": 255
+                  }
+                ],
+                "Name": "IAQGraphGreen",
+                "X": 381,
+                "Y": 54,
+                "Width": 395,
+                "Height": 292,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              }
+            ],
+            "Type": "Container",
+            "IsCacheableContainer": false,
+            "Name": "IAQ_container",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 401,
             "Visible": true,
             "LockPosition": false,
             "Draggable": false,
@@ -113,23 +846,81 @@
         ],
         "Interactions": [
           {
-            "InteractionName": "Interaction1",
+            "InteractionName": "IAQ_button_CallBack",
             "HasCompletedTrigger": false,
             "Trigger": {
               "Type": "TriggerClicked",
-              "TriggerComponent": "GraphButton"
+              "TriggerComponent": "IAQ_button"
             },
             "Action": {
-              "Type": "ActionGotoScreen",
-              "ScreenTransitionType": "ScreenTransitionCover",
-              "ScreenTransitionDirection": "East",
-              "ActionComponent": "Graphs"
+              "Type": "ActionCustom",
+              "FunctionName": "IAQSelect"
+            }
+          },
+          {
+            "InteractionName": "CO2_button_CallBack",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "CO2_button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "CO2Select"
+            }
+          },
+          {
+            "InteractionName": "VOC_button_CallBack",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "VOC_button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "VOCSelect"
+            }
+          },
+          {
+            "InteractionName": "hum_button_CallBack",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "hum_button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "humSelect"
+            }
+          },
+          {
+            "InteractionName": "pres_button_CallBack",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "pres_button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "presSelect"
+            }
+          },
+          {
+            "InteractionName": "temp_button_CallBack",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "temp_button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "tempSelect"
             }
           }
         ],
         "Name": "Main",
         "OverrideDefaultBufferSize": false,
-        "CanvasBufferSize": 0
+        "CanvasBufferSize": 12000
       },
       {
         "Components": [
@@ -2345,9 +3136,41 @@
             "Clickable": false,
             "Fadeable": false,
             "Moveable": false
+          },
+          {
+            "Type": "Button",
+            "Pressed": "__designer\\Blue_Icons_Back_arrow_48.png",
+            "Released": "__designer\\Blue_Icons_Back_arrow_48.png",
+            "Alpha": 255,
+            "Name": "button1",
+            "X": 0,
+            "Y": 0,
+            "Width": 26,
+            "Height": 46,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
           }
         ],
-        "Interactions": [],
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "button1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionCover",
+              "ScreenTransitionDirection": "West",
+              "ActionComponent": "Main"
+            }
+          }
+        ],
         "Name": "Graphs",
         "OverrideDefaultBufferSize": false,
         "CanvasBufferSize": 12000
@@ -2409,10 +3232,6 @@
       },
       {
         "TextEntryId": "SingleUseId14",
-        "IsResource": false
-      },
-      {
-        "TextEntryId": "SingleUseId5",
         "IsResource": false
       },
       {
@@ -2553,6 +3372,54 @@
       },
       {
         "TextEntryId": "SingleUseId93",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId94",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId95",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId96",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId97",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId98",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId99",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId100",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId101",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId102",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId103",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId104",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId105",
         "IsResource": false
       }
     ],

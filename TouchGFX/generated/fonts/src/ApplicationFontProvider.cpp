@@ -24,6 +24,12 @@ touchgfx::Font* ApplicationFontProvider::getFont(touchgfx::FontId typography)
     case Typography::SCROLLWHELLTXT:
         // ariblk_50_4bpp
         return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[4]);
+    case Typography::ONBOARD:
+        // Rubik_BoldItalic_40_4bpp
+        return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[5]);
+    case Typography::ONBOARD_SUBSCRIPT:
+        // Rubik_Italic_17_4bpp
+        return const_cast<touchgfx::Font*>(TypedTextDatabase::getFonts()[6]);
     default:
         return 0;
     }
