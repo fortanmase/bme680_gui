@@ -26,6 +26,8 @@ float gui_humidity = 0;
 float gui_pressure = 0;
 float gui_iaq = 0;
 float gui_co2 = 0;
+float gui_voc = 0;
+uint8_t gui_iaq_accuracy = 0;
 
 static uint32_t lastTickValue; /* Variable monitoring last tick value (HAL_GetTick) */
 static uint8_t filterCounter = 0;

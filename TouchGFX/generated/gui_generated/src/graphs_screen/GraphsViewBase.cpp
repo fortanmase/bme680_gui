@@ -726,8 +726,8 @@ GraphsViewBase::GraphsViewBase() :
     SwipeArea.add(IAQ);
     SwipeArea.setSelectedPage(0);
 
-    button1.setXY(0, 0);
-    button1.setBitmaps(touchgfx::Bitmap(BITMAP_BLUE_ICONS_BACK_ARROW_48_ID), touchgfx::Bitmap(BITMAP_BLUE_ICONS_BACK_ARROW_48_ID));
+    button1.setXY(7, 5);
+    button1.setBitmaps(touchgfx::Bitmap(BITMAP_BACK_LIGHT_ID), touchgfx::Bitmap(BITMAP_BACK_DARK_ID));
     button1.setAction(buttonCallback);
 
     add(__background);

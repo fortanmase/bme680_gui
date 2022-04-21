@@ -19,9 +19,29 @@ public:
     virtual void tempSelect();
     void handleTickEvent();
 protected:
-    void ContainerVisibilityOff(void);
+    void containerVisibilityOff(void);
+    void resetOneHourAverage(void);
+    void reset24HourAverage(void);
+    void calculateOneHourAverage(void);
+    void calculate24HourAverage(void);
+
     void setIAQGraphRangeY24Hour(void);
     void displayIAQGraph24Hour(void);
+
+    void setCO2GraphRangeY24Hour(void);
+    void displayCO2Graph24Hour(void);
+
+    void setVOCGraphRangeY24Hour(void);
+    void displayVOCGraph24Hour(void);
+
+    void setPresGraphRangeY24Hour(void);
+    void displayPresGraph24Hour(void);
+
+    void setHumGraphRangeY24Hour(void);
+    void displayHumGraph24Hour(void);
+
+    void setTempGraphRangeY24Hour(void);
+    void displayTempGraph24Hour(void);
 };
 
 #endif // MAINVIEW_HPP

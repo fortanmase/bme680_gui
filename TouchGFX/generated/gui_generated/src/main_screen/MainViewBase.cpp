@@ -33,6 +33,10 @@ MainViewBase::MainViewBase() :
     line1.setLineWidth(2);
     line1.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
 
+    live_button.setXY(674, 408);
+    live_button.setBitmaps(touchgfx::Bitmap(BITMAP_LIVE_LIGHT_ID), touchgfx::Bitmap(BITMAP_LIVE_DARK_ID));
+    live_button.setAction(buttonCallback);
+
     IAQ_button.setXY(68, 408);
     IAQ_button.setBitmaps(touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID), touchgfx::Bitmap(BITMAP_IAQ_DARK_ID));
     IAQ_button.setAction(buttonCallback);
@@ -66,114 +70,423 @@ MainViewBase::MainViewBase() :
     line2.setLineEndingStyle(touchgfx::Line::ROUND_CAP_ENDING);
     line2.setVisible(false);
 
-    temp_container.setPosition(34, 25, 298, 289);
+    temp_container.setPosition(0, 0, 800, 401);
     temp_container.setVisible(false);
 
-    temp_danger.setXY(25, 25);
-    temp_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
-    temp_container.add(temp_danger);
+    temp_good.setXY(43, 75);
+    temp_good.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_GOOD_ID));
+    temp_container.add(temp_good);
 
-    temp_text.setXY(66, 165);
-    temp_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
-    temp_text.setLinespacing(0);
-    temp_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID95));
-    temp_container.add(temp_text);
+    temp_moderate.setXY(43, 75);
+    temp_moderate.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_MODERATE_ID));
+    temp_container.add(temp_moderate);
 
-    temp_value.setPosition(57, 102, 185, 48);
+    temp_bad.setXY(43, 75);
+    temp_bad.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_BAD_ID));
+    temp_container.add(temp_bad);
+
+    temp_wait.setXY(43, 75);
+    temp_wait.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_WAIT_ID));
+    temp_container.add(temp_wait);
+
+    temp_text_wait.setPosition(100, 179, 136, 43);
+    temp_text_wait.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    temp_text_wait.setLinespacing(0);
+    temp_text_wait.setTypedText(touchgfx::TypedText(T_SINGLEUSEID108));
+    temp_container.add(temp_text_wait);
+
+    temp_text_run.setXY(82, 201);
+    temp_text_run.setVisible(false);
+    temp_text_run.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    temp_text_run.setLinespacing(0);
+    temp_text_run.setTypedText(touchgfx::TypedText(T_SINGLEUSEID95));
+    temp_container.add(temp_text_run);
+
+    temp_value.setPosition(82, 152, 170, 48);
+    temp_value.setVisible(false);
     temp_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
     temp_value.setLinespacing(0);
+    temp_valueBuffer[0] = 0;
+    temp_value.setWildcard(temp_valueBuffer);
     temp_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID94));
     temp_container.add(temp_value);
 
-    pres_container.setPosition(34, 25, 298, 289);
+    tempGraphRed.setScale(10);
+    tempGraphRed.setPosition(368, 54, 415, 292);
+    tempGraphRed.setGraphAreaMargin(0, 0, 0, 0);
+    tempGraphRed.setGraphAreaPadding(0, 8, 8, 0);
+    tempGraphRed.setGraphRangeY(0, 100);
+
+    tempGraphRedHistogram1.setScale(10);
+    tempGraphRedHistogram1.setColor(touchgfx::Color::getColorFromRGB(249, 102, 77));
+    tempGraphRedHistogram1.setBarWidth(13);
+    tempGraphRedHistogram1.setBaseline(0);
+    tempGraphRed.addGraphElement(tempGraphRedHistogram1);
+    temp_container.add(tempGraphRed);
+
+    tempGraphYellow.setScale(10);
+    tempGraphYellow.setPosition(368, 54, 415, 292);
+    tempGraphYellow.setGraphAreaMargin(0, 0, 0, 0);
+    tempGraphYellow.setGraphAreaPadding(0, 8, 8, 0);
+    tempGraphYellow.setGraphRangeY(0, 100);
+
+    tempGraphYellowHistogram1.setScale(10);
+    tempGraphYellowHistogram1.setColor(touchgfx::Color::getColorFromRGB(255, 219, 61));
+    tempGraphYellowHistogram1.setBarWidth(13);
+    tempGraphYellowHistogram1.setBaseline(0);
+    tempGraphYellow.addGraphElement(tempGraphYellowHistogram1);
+    temp_container.add(tempGraphYellow);
+
+    tempGraphGreen.setScale(10);
+    tempGraphGreen.setPosition(368, 54, 415, 292);
+    tempGraphGreen.setGraphAreaMargin(0, 0, 0, 0);
+    tempGraphGreen.setGraphAreaPadding(0, 8, 8, 0);
+    tempGraphGreen.setGraphRangeY(0, 100);
+
+    tempGraphGreenHistogram1.setScale(10);
+    tempGraphGreenHistogram1.setColor(touchgfx::Color::getColorFromRGB(130, 217, 104));
+    tempGraphGreenHistogram1.setBarWidth(13);
+    tempGraphGreenHistogram1.setBaseline(0);
+    tempGraphGreen.addGraphElement(tempGraphGreenHistogram1);
+    temp_container.add(tempGraphGreen);
+
+    pres_container.setPosition(0, 0, 800, 401);
     pres_container.setVisible(false);
 
-    pres_danger.setXY(25, 25);
-    pres_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
-    pres_container.add(pres_danger);
+    pres_run.setXY(43, 75);
+    pres_run.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_PRESSURE_ID));
+    pres_container.add(pres_run);
 
-    pres_text.setXY(81, 180);
-    pres_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
-    pres_text.setLinespacing(0);
-    pres_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID96));
-    pres_container.add(pres_text);
+    pres_wait.setXY(43, 75);
+    pres_wait.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_WAIT_ID));
+    pres_container.add(pres_wait);
 
-    pres_value.setXY(78, 77);
+    pres_text_wait.setPosition(100, 179, 136, 43);
+    pres_text_wait.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    pres_text_wait.setLinespacing(0);
+    pres_text_wait.setTypedText(touchgfx::TypedText(T_SINGLEUSEID112));
+    pres_container.add(pres_text_wait);
+
+    pres_text_run.setXY(100, 232);
+    pres_text_run.setVisible(false);
+    pres_text_run.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    pres_text_run.setLinespacing(0);
+    pres_text_run.setTypedText(touchgfx::TypedText(T_SINGLEUSEID96));
+    pres_container.add(pres_text_run);
+
+    pres_value.setXY(98, 136);
+    pres_value.setVisible(false);
     pres_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
     pres_value.setLinespacing(0);
+    pres_valueBuffer[0] = 0;
+    pres_value.setWildcard(pres_valueBuffer);
+    pres_value.resizeToCurrentText();
     pres_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID97));
     pres_container.add(pres_value);
 
-    hum_container.setPosition(34, 25, 298, 289);
+    presGraph.setScale(10);
+    presGraph.setPosition(368, 54, 415, 292);
+    presGraph.setGraphAreaMargin(0, 0, 0, 0);
+    presGraph.setGraphAreaPadding(0, 8, 8, 0);
+    presGraph.setGraphRangeY(0, 100);
+
+    presGraphHistogram1.setScale(10);
+    presGraphHistogram1.setColor(touchgfx::Color::getColorFromRGB(108, 127, 216));
+    presGraphHistogram1.setBarWidth(13);
+    presGraphHistogram1.setBaseline(0);
+    presGraph.addGraphElement(presGraphHistogram1);
+    pres_container.add(presGraph);
+
+    hum_container.setPosition(0, 0, 800, 401);
     hum_container.setVisible(false);
 
-    hum_danger.setXY(25, 25);
-    hum_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
-    hum_container.add(hum_danger);
+    hum_good.setXY(43, 75);
+    hum_good.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_GOOD_ID));
+    hum_container.add(hum_good);
 
-    hum_text.setXY(81, 165);
-    hum_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
-    hum_text.setLinespacing(0);
-    hum_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID98));
-    hum_container.add(hum_text);
+    hum_moderate.setXY(43, 75);
+    hum_moderate.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_MODERATE_ID));
+    hum_container.add(hum_moderate);
 
-    hum_value.setXY(81, 102);
+    hum_bad.setXY(43, 75);
+    hum_bad.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_BAD_ID));
+    hum_container.add(hum_bad);
+
+    hum_wait.setXY(43, 75);
+    hum_wait.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_WAIT_ID));
+    hum_container.add(hum_wait);
+
+    hum_text_wait.setPosition(100, 179, 136, 43);
+    hum_text_wait.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    hum_text_wait.setLinespacing(0);
+    hum_text_wait.setTypedText(touchgfx::TypedText(T_SINGLEUSEID111));
+    hum_container.add(hum_text_wait);
+
+    hum_text_run.setXY(99, 201);
+    hum_text_run.setVisible(false);
+    hum_text_run.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    hum_text_run.setLinespacing(0);
+    hum_text_run.setTypedText(touchgfx::TypedText(T_SINGLEUSEID98));
+    hum_container.add(hum_text_run);
+
+    hum_value.setPosition(90, 152, 157, 48);
+    hum_value.setVisible(false);
     hum_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
     hum_value.setLinespacing(0);
+    hum_valueBuffer[0] = 0;
+    hum_value.setWildcard(hum_valueBuffer);
     hum_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID99));
     hum_container.add(hum_value);
 
-    VOC_container.setPosition(34, 25, 298, 289);
+    humGraphRed.setScale(10);
+    humGraphRed.setPosition(368, 54, 415, 292);
+    humGraphRed.setGraphAreaMargin(0, 0, 0, 0);
+    humGraphRed.setGraphAreaPadding(0, 8, 8, 0);
+    humGraphRed.setGraphRangeY(0, 100);
+
+    humGraphRedHistogram1.setScale(10);
+    humGraphRedHistogram1.setColor(touchgfx::Color::getColorFromRGB(249, 102, 77));
+    humGraphRedHistogram1.setBarWidth(13);
+    humGraphRedHistogram1.setBaseline(0);
+    humGraphRed.addGraphElement(humGraphRedHistogram1);
+    hum_container.add(humGraphRed);
+
+    humGraphYellow.setScale(10);
+    humGraphYellow.setPosition(368, 54, 415, 292);
+    humGraphYellow.setGraphAreaMargin(0, 0, 0, 0);
+    humGraphYellow.setGraphAreaPadding(0, 8, 8, 0);
+    humGraphYellow.setGraphRangeY(0, 100);
+
+    humGraphYellowHistogram1.setScale(10);
+    humGraphYellowHistogram1.setColor(touchgfx::Color::getColorFromRGB(255, 219, 61));
+    humGraphYellowHistogram1.setBarWidth(13);
+    humGraphYellowHistogram1.setBaseline(0);
+    humGraphYellow.addGraphElement(humGraphYellowHistogram1);
+    hum_container.add(humGraphYellow);
+
+    humGraphGreen.setScale(10);
+    humGraphGreen.setPosition(368, 54, 415, 292);
+    humGraphGreen.setGraphAreaMargin(0, 0, 0, 0);
+    humGraphGreen.setGraphAreaPadding(0, 8, 8, 0);
+    humGraphGreen.setGraphRangeY(0, 100);
+
+    humGraphGreenHistogram1.setScale(10);
+    humGraphGreenHistogram1.setColor(touchgfx::Color::getColorFromRGB(130, 217, 104));
+    humGraphGreenHistogram1.setBarWidth(13);
+    humGraphGreenHistogram1.setBaseline(0);
+    humGraphGreen.addGraphElement(humGraphGreenHistogram1);
+    hum_container.add(humGraphGreen);
+
+    text_24H.setPosition(22, 25, 117, 25);
+    text_24H.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    text_24H.setLinespacing(0);
+    text_24HBuffer[0] = 0;
+    text_24H.setWildcard(text_24HBuffer);
+    text_24H.setTypedText(touchgfx::TypedText(T_SINGLEUSEID113));
+    hum_container.add(text_24H);
+
+    text_1H.setPosition(200, 25, 100, 25);
+    text_1H.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    text_1H.setLinespacing(0);
+    text_1HBuffer[0] = 0;
+    text_1H.setWildcard(text_1HBuffer);
+    text_1H.setTypedText(touchgfx::TypedText(T_SINGLEUSEID114));
+    hum_container.add(text_1H);
+
+    VOC_container.setPosition(0, 0, 800, 401);
     VOC_container.setVisible(false);
 
-    VOC_danger.setXY(25, 25);
-    VOC_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
-    VOC_container.add(VOC_danger);
+    VOC_good.setXY(43, 75);
+    VOC_good.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_GOOD_ID));
+    VOC_container.add(VOC_good);
 
-    VOC_text.setPosition(81, 182, 138, 40);
-    VOC_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
-    VOC_text.setLinespacing(0);
-    VOC_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID100));
-    VOC_container.add(VOC_text);
+    VOC_moderate.setXY(43, 75);
+    VOC_moderate.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_MODERATE_ID));
+    VOC_container.add(VOC_moderate);
 
-    VOC_value.setPosition(78, 77, 141, 96);
+    VOC_bad.setXY(43, 75);
+    VOC_bad.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_BAD_ID));
+    VOC_container.add(VOC_bad);
+
+    VOC_wait.setXY(43, 75);
+    VOC_wait.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_WAIT_ID));
+    VOC_container.add(VOC_wait);
+
+    VOC_text_wait.setPosition(100, 179, 136, 43);
+    VOC_text_wait.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    VOC_text_wait.setLinespacing(0);
+    VOC_text_wait.setTypedText(touchgfx::TypedText(T_SINGLEUSEID110));
+    VOC_container.add(VOC_text_wait);
+
+    VOC_text_run.setPosition(100, 234, 138, 40);
+    VOC_text_run.setVisible(false);
+    VOC_text_run.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    VOC_text_run.setLinespacing(0);
+    VOC_text_run.setTypedText(touchgfx::TypedText(T_SINGLEUSEID100));
+    VOC_container.add(VOC_text_run);
+
+    VOC_value.setPosition(95, 135, 141, 96);
+    VOC_value.setVisible(false);
     VOC_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
     VOC_value.setLinespacing(0);
+    VOC_valueBuffer[0] = 0;
+    VOC_value.setWildcard(VOC_valueBuffer);
     VOC_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID101));
     VOC_container.add(VOC_value);
 
-    CO2_container.setPosition(34, 25, 298, 289);
+    VOCGraphRed.setScale(10);
+    VOCGraphRed.setPosition(368, 53, 415, 292);
+    VOCGraphRed.setGraphAreaMargin(0, 0, 0, 0);
+    VOCGraphRed.setGraphAreaPadding(0, 8, 8, 0);
+    VOCGraphRed.setGraphRangeY(0, 100);
+
+    VOCGraphRedHistogram1.setScale(10);
+    VOCGraphRedHistogram1.setColor(touchgfx::Color::getColorFromRGB(249, 102, 77));
+    VOCGraphRedHistogram1.setBarWidth(13);
+    VOCGraphRedHistogram1.setBaseline(0);
+    VOCGraphRed.addGraphElement(VOCGraphRedHistogram1);
+    VOC_container.add(VOCGraphRed);
+
+    VOCGraphYellow.setScale(10);
+    VOCGraphYellow.setPosition(368, 53, 415, 292);
+    VOCGraphYellow.setGraphAreaMargin(0, 0, 0, 0);
+    VOCGraphYellow.setGraphAreaPadding(0, 8, 8, 0);
+    VOCGraphYellow.setGraphRangeY(0, 100);
+
+    VOCGraphYellowHistogram1.setScale(10);
+    VOCGraphYellowHistogram1.setColor(touchgfx::Color::getColorFromRGB(255, 219, 61));
+    VOCGraphYellowHistogram1.setBarWidth(13);
+    VOCGraphYellowHistogram1.setBaseline(0);
+    VOCGraphYellow.addGraphElement(VOCGraphYellowHistogram1);
+    VOC_container.add(VOCGraphYellow);
+
+    VOCGraphGreen.setScale(10);
+    VOCGraphGreen.setPosition(368, 53, 415, 292);
+    VOCGraphGreen.setGraphAreaMargin(0, 0, 0, 0);
+    VOCGraphGreen.setGraphAreaPadding(0, 8, 8, 0);
+    VOCGraphGreen.setGraphRangeY(0, 100);
+
+    VOCGraphGreenHistogram1.setScale(10);
+    VOCGraphGreenHistogram1.setColor(touchgfx::Color::getColorFromRGB(130, 217, 104));
+    VOCGraphGreenHistogram1.setBarWidth(13);
+    VOCGraphGreenHistogram1.setBaseline(0);
+    VOCGraphGreen.addGraphElement(VOCGraphGreenHistogram1);
+    VOC_container.add(VOCGraphGreen);
+
+    CO2_container.setPosition(0, 0, 800, 401);
     CO2_container.setVisible(false);
 
-    CO2_danger.setXY(25, 25);
-    CO2_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
-    CO2_container.add(CO2_danger);
+    CO2_good.setXY(43, 75);
+    CO2_good.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_GOOD_ID));
+    CO2_container.add(CO2_good);
 
-    CO2_text.setPosition(81, 179, 136, 43);
-    CO2_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
-    CO2_text.setLinespacing(0);
-    CO2_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID102));
-    CO2_container.add(CO2_text);
+    CO2_moderate.setXY(43, 75);
+    CO2_moderate.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_MODERATE_ID));
+    CO2_container.add(CO2_moderate);
 
-    CO2_value.setPosition(78, 77, 145, 96);
+    CO2_bad.setXY(43, 75);
+    CO2_bad.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_BAD_ID));
+    CO2_container.add(CO2_bad);
+
+    CO2_wait.setXY(43, 75);
+    CO2_wait.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_WAIT_ID));
+    CO2_container.add(CO2_wait);
+
+    CO2_text_wait.setPosition(100, 179, 136, 43);
+    CO2_text_wait.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    CO2_text_wait.setLinespacing(0);
+    CO2_text_wait.setTypedText(touchgfx::TypedText(T_SINGLEUSEID109));
+    CO2_container.add(CO2_text_wait);
+
+    CO2_text_run.setPosition(100, 234, 136, 43);
+    CO2_text_run.setVisible(false);
+    CO2_text_run.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    CO2_text_run.setLinespacing(0);
+    CO2_text_run.setTypedText(touchgfx::TypedText(T_SINGLEUSEID102));
+    CO2_container.add(CO2_text_run);
+
+    CO2_value.setPosition(95, 135, 141, 92);
+    CO2_value.setVisible(false);
     CO2_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
     CO2_value.setLinespacing(0);
+    CO2_valueBuffer[0] = 0;
+    CO2_value.setWildcard(CO2_valueBuffer);
     CO2_value.setTypedText(touchgfx::TypedText(T_SINGLEUSEID103));
     CO2_container.add(CO2_value);
 
+    CO2GraphRed.setScale(10);
+    CO2GraphRed.setPosition(368, 53, 415, 292);
+    CO2GraphRed.setGraphAreaMargin(0, 0, 0, 0);
+    CO2GraphRed.setGraphAreaPadding(0, 8, 8, 0);
+    CO2GraphRed.setGraphRangeY(0, 100);
+
+    CO2GraphRedHistogram1.setScale(10);
+    CO2GraphRedHistogram1.setColor(touchgfx::Color::getColorFromRGB(249, 102, 77));
+    CO2GraphRedHistogram1.setBarWidth(13);
+    CO2GraphRedHistogram1.setBaseline(0);
+    CO2GraphRed.addGraphElement(CO2GraphRedHistogram1);
+    CO2_container.add(CO2GraphRed);
+
+    CO2GraphYellow.setScale(10);
+    CO2GraphYellow.setPosition(368, 53, 415, 292);
+    CO2GraphYellow.setGraphAreaMargin(0, 0, 0, 0);
+    CO2GraphYellow.setGraphAreaPadding(0, 8, 8, 0);
+    CO2GraphYellow.setGraphRangeY(0, 100);
+
+    CO2GraphYellowHistogram1.setScale(10);
+    CO2GraphYellowHistogram1.setColor(touchgfx::Color::getColorFromRGB(255, 219, 61));
+    CO2GraphYellowHistogram1.setBarWidth(13);
+    CO2GraphYellowHistogram1.setBaseline(0);
+    CO2GraphYellow.addGraphElement(CO2GraphYellowHistogram1);
+    CO2_container.add(CO2GraphYellow);
+
+    CO2GraphGreen.setScale(10);
+    CO2GraphGreen.setPosition(368, 53, 415, 292);
+    CO2GraphGreen.setGraphAreaMargin(0, 0, 0, 0);
+    CO2GraphGreen.setGraphAreaPadding(0, 8, 8, 0);
+    CO2GraphGreen.setGraphRangeY(0, 100);
+
+    CO2GraphGreenHistogram1.setScale(10);
+    CO2GraphGreenHistogram1.setColor(touchgfx::Color::getColorFromRGB(130, 217, 104));
+    CO2GraphGreenHistogram1.setBarWidth(13);
+    CO2GraphGreenHistogram1.setBaseline(0);
+    CO2GraphGreen.addGraphElement(CO2GraphGreenHistogram1);
+    CO2_container.add(CO2GraphGreen);
+
     IAQ_container.setPosition(0, 0, 800, 401);
+    IAQ_container.setVisible(false);
 
-    IAQ_danger.setXY(25, 25);
-    IAQ_danger.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_DANGER_ID));
-    IAQ_container.add(IAQ_danger);
+    IAQ_good.setXY(43, 75);
+    IAQ_good.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_GOOD_ID));
+    IAQ_container.add(IAQ_good);
 
-    IAQ_text.setPosition(82, 156, 136, 43);
-    IAQ_text.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
-    IAQ_text.setLinespacing(0);
-    IAQ_text.setTypedText(touchgfx::TypedText(T_SINGLEUSEID104));
-    IAQ_container.add(IAQ_text);
+    IAQ_moderate.setXY(43, 75);
+    IAQ_moderate.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_MODERATE_ID));
+    IAQ_container.add(IAQ_moderate);
 
-    IAQ_value.setPosition(77, 85, 145, 52);
+    IAQ_bad.setXY(43, 75);
+    IAQ_bad.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_BAD_ID));
+    IAQ_container.add(IAQ_bad);
+
+    IAQ_wait.setXY(43, 75);
+    IAQ_wait.setBitmap(touchgfx::Bitmap(BITMAP_ONBOARD_SCREEN_WAIT_ID));
+    IAQ_container.add(IAQ_wait);
+
+    IAQ_text_wait.setPosition(100, 179, 136, 43);
+    IAQ_text_wait.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    IAQ_text_wait.setLinespacing(0);
+    IAQ_text_wait.setTypedText(touchgfx::TypedText(T_SINGLEUSEID107));
+    IAQ_container.add(IAQ_text_wait);
+
+    IAQ_text_run.setPosition(100, 206, 136, 43);
+    IAQ_text_run.setVisible(false);
+    IAQ_text_run.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
+    IAQ_text_run.setLinespacing(0);
+    IAQ_text_run.setTypedText(touchgfx::TypedText(T_SINGLEUSEID104));
+    IAQ_container.add(IAQ_text_run);
+
+    IAQ_value.setPosition(95, 135, 145, 52);
+    IAQ_value.setVisible(false);
     IAQ_value.setColor(touchgfx::Color::getColorFromRGB(79, 79, 79));
     IAQ_value.setLinespacing(0);
     IAQ_valueBuffer[0] = 0;
@@ -182,9 +495,9 @@ MainViewBase::MainViewBase() :
     IAQ_container.add(IAQ_value);
 
     IAQGraphRed.setScale(10);
-    IAQGraphRed.setPosition(381, 54, 395, 292);
+    IAQGraphRed.setPosition(368, 53, 415, 292);
     IAQGraphRed.setGraphAreaMargin(0, 0, 0, 0);
-    IAQGraphRed.setGraphAreaPadding(0, 0, 0, 0);
+    IAQGraphRed.setGraphAreaPadding(0, 8, 8, 0);
     IAQGraphRed.setGraphRangeY(0, 100);
 
     IAQGraphRedHistogram1.setScale(10);
@@ -195,9 +508,9 @@ MainViewBase::MainViewBase() :
     IAQ_container.add(IAQGraphRed);
 
     IAQGraphYellow.setScale(10);
-    IAQGraphYellow.setPosition(381, 54, 395, 292);
+    IAQGraphYellow.setPosition(368, 53, 415, 292);
     IAQGraphYellow.setGraphAreaMargin(0, 0, 0, 0);
-    IAQGraphYellow.setGraphAreaPadding(0, 0, 0, 0);
+    IAQGraphYellow.setGraphAreaPadding(0, 8, 8, 0);
     IAQGraphYellow.setGraphRangeY(0, 100);
 
     IAQGraphYellowHistogram1.setScale(10);
@@ -208,9 +521,9 @@ MainViewBase::MainViewBase() :
     IAQ_container.add(IAQGraphYellow);
 
     IAQGraphGreen.setScale(10);
-    IAQGraphGreen.setPosition(381, 54, 395, 292);
+    IAQGraphGreen.setPosition(368, 53, 415, 292);
     IAQGraphGreen.setGraphAreaMargin(0, 0, 0, 0);
-    IAQGraphGreen.setGraphAreaPadding(0, 0, 0, 0);
+    IAQGraphGreen.setGraphAreaPadding(0, 8, 8, 0);
     IAQGraphGreen.setGraphRangeY(0, 100);
 
     IAQGraphGreenHistogram1.setScale(10);
@@ -224,6 +537,7 @@ MainViewBase::MainViewBase() :
     add(box1);
     add(digitalClock1);
     add(line1);
+    add(live_button);
     add(IAQ_button);
     add(CO2_button);
     add(hum_button);
@@ -246,7 +560,14 @@ void MainViewBase::setupScreen()
 
 void MainViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &IAQ_button)
+    if (&src == &live_button)
+    {
+        //Interaction1
+        //When live_button clicked change screen to Graphs
+        //Go to Graphs with screen transition towards East
+        application().gotoGraphsScreenSlideTransitionEast();
+    }
+    else if (&src == &IAQ_button)
     {
         //IAQ_button_CallBack
         //When IAQ_button clicked call virtual function

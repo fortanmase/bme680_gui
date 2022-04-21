@@ -101,7 +101,6 @@ const osThreadAttr_t RTCTask_attributes = {
 };
 /* USER CODE BEGIN PV */
 uint32_t (*pfHAL_GetTick)(void) = &HAL_GetTick;     /* Pointer to HAL_GetTick exported to TouchGFX) */
-uint32_t (*pfHAL_CRC_Calculate)(void) = &HAL_CRC_Calculate;
 
 /* Variables exported to TouchGFX */
 extern float gui_temperature;
@@ -109,6 +108,8 @@ extern float gui_humidity;
 extern float gui_pressure;
 extern float gui_iaq;
 extern float gui_co2;
+extern float gui_voc;
+extern uint8_t gui_iaq_accuracy;
 
 extern uint8_t hours;
 extern uint8_t minutes;
@@ -884,6 +885,8 @@ void bsec_output(int64_t timestamp, float iaq, uint8_t iaq_accuracy, float temp,
     gui_pressure = (raw_pressure/100.0f/1.33333f); /* Converting bar to mmHg */
     gui_iaq = iaq;
     gui_co2 = co2_equivalent;
+    gui_voc = breath_voc_equivalent;
+    gui_iaq_accuracy = iaq_accuracy;
 }
 
 int64_t get_timestamp_us (void)

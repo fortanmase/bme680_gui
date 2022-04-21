@@ -530,6 +530,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/BitmapDatabase.cpp</locationURI>
 		</link>
 		<link>
+			<name>Application/User/generated/image_back_dark.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/buttons/image_back_dark.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_back_light.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/buttons/image_back_light.cpp</locationURI>
+		</link>
+		<link>
 			<name>Application/User/generated/image_co2_dark.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/buttons/image_co2_dark.cpp</locationURI>
@@ -558,6 +568,16 @@
 			<name>Application/User/generated/image_iaq_light.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/buttons/image_iaq_light.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_live_dark.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/buttons/image_live_dark.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_live_light.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/buttons/image_live_light.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_pres_dark.cpp</name>
@@ -590,9 +610,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/buttons/image_voc_light.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/image_onboard_screen_danger.cpp</name>
+			<name>Application/User/generated/image_onboard_screen_bad.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/onboard_screen/image_onboard_screen_danger.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/onboard_screen/image_onboard_screen_bad.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_onboard_screen_good.cpp</name>
@@ -600,14 +620,19 @@
 			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/onboard_screen/image_onboard_screen_good.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/image_onboard_screen_warning.cpp</name>
+			<name>Application/User/generated/image_onboard_screen_moderate.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/onboard_screen/image_onboard_screen_warning.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/onboard_screen/image_onboard_screen_moderate.cpp</locationURI>
 		</link>
 		<link>
-			<name>Application/User/generated/image_Blue_Icons_Back_arrow_48.cpp</name>
+			<name>Application/User/generated/image_onboard_screen_pressure.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/__designer/image_Blue_Icons_Back_arrow_48.cpp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/onboard_screen/image_onboard_screen_pressure.cpp</locationURI>
+		</link>
+		<link>
+			<name>Application/User/generated/image_onboard_screen_wait.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/TouchGFX/generated/images/src/onboard_screen/image_onboard_screen_wait.cpp</locationURI>
 		</link>
 		<link>
 			<name>Application/User/generated/image_Dark_PageIndicator_dot_indicator_small_highlight.cpp</name>
