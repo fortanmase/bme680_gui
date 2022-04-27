@@ -19,15 +19,10 @@
     <ClCompile Include="$(ApplicationRoot)\generated\simulator\src\mainBase.cpp"/>
     <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\graphs_screen\GraphsPresenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\graphs_screen\GraphsView.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\graphs_screen\GraphsViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\main_screen\MainPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\main_screen\MainView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\main_screen\MainViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\model\Model.cpp"/>
-    <ClCompile Include="..\..\gui\src\containers\MenuElement.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\containers\MenuElementBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xlsx"/>
@@ -172,17 +167,13 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendApplicationBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\common\FrontendHeap.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendHeapBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\graphs_screen\GraphsPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\graphs_screen\GraphsView.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\graphs_screen\GraphsViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\main_screen\MainPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\main_screen\MainView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\main_screen\MainViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\model\Model.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\containers\MenuElement.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\MenuElementBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

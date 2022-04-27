@@ -9,16 +9,11 @@
 #include <mvp/MVPHeap.hpp>
 
 #include <touchgfx/transitions/NoTransition.hpp>
-#include <touchgfx/transitions/SlideTransition.hpp>
-#include <touchgfx/transitions/CoverTransition.hpp>
-
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/model/Model.hpp>
 
 #include <gui/main_screen/MainView.hpp>
 #include <gui/main_screen/MainPresenter.hpp>
-#include <gui/graphs_screen/GraphsView.hpp>
-#include <gui/graphs_screen/GraphsPresenter.hpp>
 
 
 /**
@@ -42,8 +37,7 @@ public:
      * @note All view types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< MainView,
-            touchgfx::meta::TypeList< GraphsView,
-            touchgfx::meta::Nil >
+            touchgfx::meta::Nil
             > GeneratedViewTypes;
 
     /**
@@ -56,8 +50,7 @@ public:
      * @note All presenter types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< MainPresenter,
-            touchgfx::meta::TypeList< GraphsPresenter,
-            touchgfx::meta::Nil >
+            touchgfx::meta::Nil
             > GeneratedPresenterTypes;
 
     /**
@@ -70,9 +63,7 @@ public:
      * @note All transition types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< touchgfx::NoTransition,
-            touchgfx::meta::TypeList< SlideTransition<EAST>,
-            touchgfx::meta::TypeList< CoverTransition<WEST>,
-            touchgfx::meta::Nil > >
+            touchgfx::meta::Nil
             > GeneratedTransitionTypes;
 
     /**

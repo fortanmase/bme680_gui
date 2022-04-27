@@ -148,9 +148,6 @@
     <Filter Include="Header Files\gui\graphs_screen">
       <UniqueIdentifier>88D105CF-DECD-C2EA-4EA3-9D786EAFA00E</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui\graphs_screen">
-      <UniqueIdentifier>70F1B34E-2F74-F002-83D0-0D212AAD1590</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\gui\main_screen">
       <UniqueIdentifier>62F06B71-B4A5-B4EE-1A56-25B20F00BF67</UniqueIdentifier>
     </Filter>
@@ -166,23 +163,11 @@
     <Filter Include="Source Files\gui\common">
       <UniqueIdentifier>4F929921-C7FD-3A8D-54C7-CB1E5ACEFCAE</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui\containers">
-      <UniqueIdentifier>35E83C88-0F12-CABF-23E3-051F40ED4808</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\gui\containers">
-      <UniqueIdentifier>71D7912D-B991-A421-70FF-797ADE92AD70</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\generated\gui_generated\main_screen">
       <UniqueIdentifier>F5D59BDF-52AB-7F90-D208-E26A2FA657E8</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\generated\gui_generated\main_screen">
       <UniqueIdentifier>3C515452-1C55-8649-AAFF-B57E4A81E90D</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\graphs_screen">
-      <UniqueIdentifier>5A21B454-BE4D-9BE0-0AD5-86A9E938A3B5</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\graphs_screen">
-      <UniqueIdentifier>98E676D7-4398-A802-D439-CFA6224D890C</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\gui_generated\common">
       <UniqueIdentifier>4F08483B-E625-E53B-50BE-85EE217889C8</UniqueIdentifier>
@@ -222,15 +207,6 @@
     <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp">
       <Filter>Source Files\generated\gui_generated\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\gui\src\graphs_screen\GraphsPresenter.cpp">
-      <Filter>Source Files\gui\graphs_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\graphs_screen\GraphsView.cpp">
-      <Filter>Source Files\gui\graphs_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\graphs_screen\GraphsViewBase.cpp">
-      <Filter>Source Files\generated\gui_generated\graphs_screen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\gui\src\main_screen\MainPresenter.cpp">
       <Filter>Source Files\gui\main_screen</Filter>
     </ClCompile>
@@ -242,12 +218,6 @@
     </ClCompile>
     <ClCompile Include="..\..\gui\src\model\Model.cpp">
       <Filter>Source Files\gui\model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\containers\MenuElement.cpp">
-      <Filter>Source Files\gui\containers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\containers\MenuElementBase.cpp">
-      <Filter>Source Files\generated\gui_generated\containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -673,14 +643,8 @@
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendHeapBase.hpp">
       <Filter>Header Files\generated\gui_generated\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\graphs_screen\GraphsPresenter.hpp">
-      <Filter>Header Files\gui\graphs_screen</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\graphs_screen\GraphsView.hpp">
       <Filter>Header Files\gui\graphs_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\graphs_screen\GraphsViewBase.hpp">
-      <Filter>Header Files\generated\gui_generated\graphs_screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\main_screen\MainPresenter.hpp">
       <Filter>Header Files\gui\main_screen</Filter>
@@ -699,12 +663,6 @@
     </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp">
       <Filter>Header Files\generated\gui_generated\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\containers\MenuElement.hpp">
-      <Filter>Header Files\gui\containers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\MenuElementBase.hpp">
-      <Filter>Header Files\generated\gui_generated\containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

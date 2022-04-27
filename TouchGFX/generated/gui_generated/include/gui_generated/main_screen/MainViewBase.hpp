@@ -9,15 +9,18 @@
 #include <gui/main_screen/MainPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/containers/clock/DigitalClock.hpp>
+#include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB565.hpp>
-#include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/containers/Container.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp>
 #include <touchgfx/widgets/graph/GraphElements.hpp>
+#include <touchgfx/containers/SwipeContainer.hpp>
+#include <touchgfx/widgets/graph/GraphScroll.hpp>
+#include <touchgfx/widgets/graph/GraphLabels.hpp>
 
 class MainViewBase : public touchgfx::View<MainPresenter>
 {
@@ -59,6 +62,16 @@ public:
         // Override and implement this function in Main
     }
 
+    virtual void liveSelect()
+    {
+        // Override and implement this function in Main
+    }
+
+    virtual void graphsBackButton()
+    {
+        // Override and implement this function in Main
+    }
+
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -70,8 +83,6 @@ protected:
     touchgfx::Box __background;
     touchgfx::Box box1;
     touchgfx::DigitalClock digitalClock1;
-    touchgfx::Line line1;
-    touchgfx::PainterRGB565 line1Painter;
     touchgfx::Button live_button;
     touchgfx::Button IAQ_button;
     touchgfx::Button CO2_button;
@@ -79,8 +90,8 @@ protected:
     touchgfx::Button pres_button;
     touchgfx::Button temp_button;
     touchgfx::Button VOC_button;
-    touchgfx::Line line2;
-    touchgfx::PainterRGB565 line2Painter;
+    touchgfx::Line line2_menu;
+    touchgfx::PainterRGB565 line2_menuPainter;
     touchgfx::Container temp_container;
     touchgfx::Image temp_good;
     touchgfx::Image temp_moderate;
@@ -117,8 +128,6 @@ protected:
     touchgfx::GraphElementHistogram humGraphYellowHistogram1;
     touchgfx::GraphWrapAndOverwrite<24> humGraphGreen;
     touchgfx::GraphElementHistogram humGraphGreenHistogram1;
-    touchgfx::TextAreaWithOneWildcard text_24H;
-    touchgfx::TextAreaWithOneWildcard text_1H;
     touchgfx::Container VOC_container;
     touchgfx::Image VOC_good;
     touchgfx::Image VOC_moderate;
@@ -161,6 +170,180 @@ protected:
     touchgfx::GraphElementHistogram IAQGraphYellowHistogram1;
     touchgfx::GraphWrapAndOverwrite<24> IAQGraphGreen;
     touchgfx::GraphElementHistogram IAQGraphGreenHistogram1;
+    touchgfx::Container hours_xAxis_Container;
+    touchgfx::TextArea textArea5;
+    touchgfx::TextArea textArea6;
+    touchgfx::TextArea textArea7;
+    touchgfx::TextArea textArea8;
+    touchgfx::TextArea textArea9;
+    touchgfx::TextArea textArea10;
+    touchgfx::TextArea textArea11;
+    touchgfx::TextArea textArea12;
+    touchgfx::TextArea textArea13;
+    touchgfx::TextArea textArea14;
+    touchgfx::TextArea textArea15;
+    touchgfx::TextArea textArea16;
+    touchgfx::TextArea textArea17;
+    touchgfx::TextArea textArea18;
+    touchgfx::TextArea textArea19;
+    touchgfx::TextArea textArea20;
+    touchgfx::TextArea textArea21;
+    touchgfx::TextArea textArea22;
+    touchgfx::TextArea textArea23;
+    touchgfx::TextArea textArea24;
+    touchgfx::TextArea textArea25;
+    touchgfx::TextArea textArea26;
+    touchgfx::TextArea textArea27;
+    touchgfx::TextArea textArea28;
+    touchgfx::Line line1_menu;
+    touchgfx::PainterRGB565 line1_menuPainter;
+    touchgfx::Container graphs_container;
+    touchgfx::SwipeContainer SwipeArea;
+    touchgfx::Container Temperature;
+    touchgfx::Box TempBox;
+    touchgfx::GraphScroll<100> TempGraph;
+    touchgfx::GraphElementLine TempGraphLine1;
+    touchgfx::PainterRGB565 TempGraphLine1Painter;
+    touchgfx::GraphElementGridX TempGraphMajorXAxisGrid;
+    touchgfx::GraphLabelsY TempGraphMajorYAxisLabel;
+    touchgfx::TextAreaWithOneWildcard textArea1;
+    touchgfx::Line line1;
+    touchgfx::PainterRGB565 line1Painter;
+    touchgfx::Line line1_1;
+    touchgfx::PainterRGB565 line1_1Painter;
+    touchgfx::Line line1_2;
+    touchgfx::PainterRGB565 line1_2Painter;
+    touchgfx::Line line1_3;
+    touchgfx::PainterRGB565 line1_3Painter;
+    touchgfx::Line line1_4;
+    touchgfx::PainterRGB565 line1_4Painter;
+    touchgfx::Line line1_5;
+    touchgfx::PainterRGB565 line1_5Painter;
+    touchgfx::Line line1_6;
+    touchgfx::PainterRGB565 line1_6Painter;
+    touchgfx::Line line1_7;
+    touchgfx::PainterRGB565 line1_7Painter;
+    touchgfx::Line line1_8;
+    touchgfx::PainterRGB565 line1_8Painter;
+    touchgfx::Line line1_9;
+    touchgfx::PainterRGB565 line1_9Painter;
+    touchgfx::Line line1_10;
+    touchgfx::PainterRGB565 line1_10Painter;
+    touchgfx::Line line1_11;
+    touchgfx::PainterRGB565 line1_11Painter;
+    touchgfx::Line line1_12;
+    touchgfx::PainterRGB565 line1_12Painter;
+    touchgfx::TextAreaWithOneWildcard graphInterval1_0;
+    touchgfx::TextAreaWithOneWildcard graphInterval1_1;
+    touchgfx::Container Humidity;
+    touchgfx::Box HumBox;
+    touchgfx::GraphScroll<100> HumGraph;
+    touchgfx::GraphElementLine HumGraphLine1;
+    touchgfx::PainterRGB565 HumGraphLine1Painter;
+    touchgfx::GraphElementGridX HumGraphMajorXAxisGrid;
+    touchgfx::GraphLabelsY HumGraphMajorYAxisLabel;
+    touchgfx::TextAreaWithOneWildcard textArea2;
+    touchgfx::Line line2;
+    touchgfx::PainterRGB565 line2Painter;
+    touchgfx::Line line2_1;
+    touchgfx::PainterRGB565 line2_1Painter;
+    touchgfx::Line line2_2;
+    touchgfx::PainterRGB565 line2_2Painter;
+    touchgfx::Line line2_3;
+    touchgfx::PainterRGB565 line2_3Painter;
+    touchgfx::Line line2_4;
+    touchgfx::PainterRGB565 line2_4Painter;
+    touchgfx::Line line2_5;
+    touchgfx::PainterRGB565 line2_5Painter;
+    touchgfx::Line line2_6;
+    touchgfx::PainterRGB565 line2_6Painter;
+    touchgfx::Line line2_7;
+    touchgfx::PainterRGB565 line2_7Painter;
+    touchgfx::Line line2_8;
+    touchgfx::PainterRGB565 line2_8Painter;
+    touchgfx::Line line2_9;
+    touchgfx::PainterRGB565 line2_9Painter;
+    touchgfx::Line line2_10;
+    touchgfx::PainterRGB565 line2_10Painter;
+    touchgfx::Line line2_11;
+    touchgfx::PainterRGB565 line2_11Painter;
+    touchgfx::Line line2_12;
+    touchgfx::PainterRGB565 line2_12Painter;
+    touchgfx::TextAreaWithOneWildcard graphInterval2_0;
+    touchgfx::TextAreaWithOneWildcard graphInterval2_1;
+    touchgfx::Container Pressure;
+    touchgfx::Box PresBox;
+    touchgfx::GraphScroll<100> PresGraph;
+    touchgfx::GraphElementLine PresGraphLine1;
+    touchgfx::PainterRGB565 PresGraphLine1Painter;
+    touchgfx::GraphElementGridX PresGraphMajorXAxisGrid;
+    touchgfx::GraphLabelsY PresGraphMajorYAxisLabel;
+    touchgfx::TextAreaWithOneWildcard textArea3;
+    touchgfx::Line line3;
+    touchgfx::PainterRGB565 line3Painter;
+    touchgfx::Line line3_1;
+    touchgfx::PainterRGB565 line3_1Painter;
+    touchgfx::Line line3_2;
+    touchgfx::PainterRGB565 line3_2Painter;
+    touchgfx::Line line3_3;
+    touchgfx::PainterRGB565 line3_3Painter;
+    touchgfx::Line line3_4;
+    touchgfx::PainterRGB565 line3_4Painter;
+    touchgfx::Line line3_5;
+    touchgfx::PainterRGB565 line3_5Painter;
+    touchgfx::Line line3_6;
+    touchgfx::PainterRGB565 line3_6Painter;
+    touchgfx::Line line3_7;
+    touchgfx::PainterRGB565 line3_7Painter;
+    touchgfx::Line line3_8;
+    touchgfx::PainterRGB565 line3_8Painter;
+    touchgfx::Line line3_9;
+    touchgfx::PainterRGB565 line3_9Painter;
+    touchgfx::Line line3_10;
+    touchgfx::PainterRGB565 line3_10Painter;
+    touchgfx::Line line3_11;
+    touchgfx::PainterRGB565 line3_11Painter;
+    touchgfx::Line line3_12;
+    touchgfx::PainterRGB565 line3_12Painter;
+    touchgfx::TextAreaWithOneWildcard graphInterval3_0;
+    touchgfx::TextAreaWithOneWildcard graphInterval3_1;
+    touchgfx::Container IAQ;
+    touchgfx::Box IAQBox;
+    touchgfx::GraphScroll<100> IAQGraph;
+    touchgfx::GraphElementLine IAQGraphLine1;
+    touchgfx::PainterRGB565 IAQGraphLine1Painter;
+    touchgfx::GraphElementGridX IAQGraphMajorXAxisGrid;
+    touchgfx::GraphLabelsY IAQGraphMajorYAxisLabel;
+    touchgfx::TextAreaWithOneWildcard textArea4;
+    touchgfx::Line line4;
+    touchgfx::PainterRGB565 line4Painter;
+    touchgfx::Line line4_1;
+    touchgfx::PainterRGB565 line4_1Painter;
+    touchgfx::Line line4_2;
+    touchgfx::PainterRGB565 line4_2Painter;
+    touchgfx::Line line4_3;
+    touchgfx::PainterRGB565 line4_3Painter;
+    touchgfx::Line line4_4;
+    touchgfx::PainterRGB565 line4_4Painter;
+    touchgfx::Line line4_5;
+    touchgfx::PainterRGB565 line4_5Painter;
+    touchgfx::Line line4_6;
+    touchgfx::PainterRGB565 line4_6Painter;
+    touchgfx::Line line4_7;
+    touchgfx::PainterRGB565 line4_7Painter;
+    touchgfx::Line line4_8;
+    touchgfx::PainterRGB565 line4_8Painter;
+    touchgfx::Line line4_9;
+    touchgfx::PainterRGB565 line4_9Painter;
+    touchgfx::Line line4_10;
+    touchgfx::PainterRGB565 line4_10Painter;
+    touchgfx::Line line4_11;
+    touchgfx::PainterRGB565 line4_11Painter;
+    touchgfx::Line line4_12;
+    touchgfx::PainterRGB565 line4_12Painter;
+    touchgfx::TextAreaWithOneWildcard graphInterval4_0;
+    touchgfx::TextAreaWithOneWildcard graphInterval4_1;
+    touchgfx::Button graphs_back;
 
     /*
      * Wildcard Buffers
@@ -171,16 +354,36 @@ protected:
     touchgfx::Unicode::UnicodeChar pres_valueBuffer[PRES_VALUE_SIZE];
     static const uint16_t HUM_VALUE_SIZE = 20;
     touchgfx::Unicode::UnicodeChar hum_valueBuffer[HUM_VALUE_SIZE];
-    static const uint16_t TEXT_24H_SIZE = 20;
-    touchgfx::Unicode::UnicodeChar text_24HBuffer[TEXT_24H_SIZE];
-    static const uint16_t TEXT_1H_SIZE = 20;
-    touchgfx::Unicode::UnicodeChar text_1HBuffer[TEXT_1H_SIZE];
     static const uint16_t VOC_VALUE_SIZE = 20;
     touchgfx::Unicode::UnicodeChar VOC_valueBuffer[VOC_VALUE_SIZE];
     static const uint16_t CO2_VALUE_SIZE = 20;
     touchgfx::Unicode::UnicodeChar CO2_valueBuffer[CO2_VALUE_SIZE];
     static const uint16_t IAQ_VALUE_SIZE = 20;
     touchgfx::Unicode::UnicodeChar IAQ_valueBuffer[IAQ_VALUE_SIZE];
+    static const uint16_t TEXTAREA1_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar textArea1Buffer[TEXTAREA1_SIZE];
+    static const uint16_t GRAPHINTERVAL1_0_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar graphInterval1_0Buffer[GRAPHINTERVAL1_0_SIZE];
+    static const uint16_t GRAPHINTERVAL1_1_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar graphInterval1_1Buffer[GRAPHINTERVAL1_1_SIZE];
+    static const uint16_t TEXTAREA2_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar textArea2Buffer[TEXTAREA2_SIZE];
+    static const uint16_t GRAPHINTERVAL2_0_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar graphInterval2_0Buffer[GRAPHINTERVAL2_0_SIZE];
+    static const uint16_t GRAPHINTERVAL2_1_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar graphInterval2_1Buffer[GRAPHINTERVAL2_1_SIZE];
+    static const uint16_t TEXTAREA3_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar textArea3Buffer[TEXTAREA3_SIZE];
+    static const uint16_t GRAPHINTERVAL3_0_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar graphInterval3_0Buffer[GRAPHINTERVAL3_0_SIZE];
+    static const uint16_t GRAPHINTERVAL3_1_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar graphInterval3_1Buffer[GRAPHINTERVAL3_1_SIZE];
+    static const uint16_t TEXTAREA4_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar textArea4Buffer[TEXTAREA4_SIZE];
+    static const uint16_t GRAPHINTERVAL4_0_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar graphInterval4_0Buffer[GRAPHINTERVAL4_0_SIZE];
+    static const uint16_t GRAPHINTERVAL4_1_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar graphInterval4_1Buffer[GRAPHINTERVAL4_1_SIZE];
 
 private:
 
