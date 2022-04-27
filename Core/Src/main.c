@@ -103,21 +103,21 @@ const osThreadAttr_t RTCTask_attributes = {
 uint32_t (*pfHAL_GetTick)(void) = &HAL_GetTick;     /* Pointer to HAL_GetTick exported to TouchGFX) */
 
 /* Variables exported to TouchGFX */
-extern float gui_temperature;
-extern float gui_humidity;
-extern float gui_pressure;
-extern float gui_iaq;
-extern float gui_co2;
-extern float gui_voc;
-extern uint8_t gui_iaq_accuracy;
+float gui_temperature = 0;
+float gui_humidity = 0;
+float gui_pressure = 0;
+float gui_iaq = 0;
+float gui_co2 = 0;
+float gui_voc = 0;
+uint8_t gui_iaq_accuracy = 0;
 
-extern uint8_t hours;
-extern uint8_t minutes;
-extern uint8_t seconds;
-extern uint8_t year;
-extern uint8_t month;
-extern uint8_t date;
-extern uint8_t weekDay;
+uint8_t hours;
+uint8_t minutes;
+uint8_t seconds;
+uint8_t year;
+uint8_t month;
+uint8_t date;
+uint8_t weekDay;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

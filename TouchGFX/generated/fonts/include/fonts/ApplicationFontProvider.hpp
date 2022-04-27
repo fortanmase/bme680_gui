@@ -20,18 +20,20 @@ struct Typography
     static const touchgfx::FontId SCROLLWHELLTXT = 4;
     static const touchgfx::FontId ONBOARD = 5;
     static const touchgfx::FontId ONBOARD_SUBSCRIPT = 6;
+    static const touchgfx::FontId HOURS_SUBSCRIPT = 7;
 };
 
 struct TypographyFontIndex
 {
     static const touchgfx::FontId DEFAULT = 0;           // verdana_20_4bpp
     static const touchgfx::FontId LARGE = 1;             // verdana_40_4bpp
-    static const touchgfx::FontId SMALL = 2;             // verdana_10_4bpp
+    static const touchgfx::FontId SMALL = 2;             // trebuc_13_4bpp
     static const touchgfx::FontId LABELS = 3;            // trebucit_23_4bpp
     static const touchgfx::FontId SCROLLWHELLTXT = 4;    // ariblk_50_4bpp
     static const touchgfx::FontId ONBOARD = 5;           // Rubik_BoldItalic_40_4bpp
     static const touchgfx::FontId ONBOARD_SUBSCRIPT = 6; // Rubik_Italic_17_4bpp
-    static const uint16_t NUMBER_OF_FONTS = 7;
+    static const touchgfx::FontId HOURS_SUBSCRIPT = 7;   // trebucbi_13_4bpp
+    static const uint16_t NUMBER_OF_FONTS = 8;
 };
 
 class ApplicationFontProvider : public touchgfx::FontProvider

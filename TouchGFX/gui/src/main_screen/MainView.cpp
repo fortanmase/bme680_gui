@@ -2,48 +2,6 @@
 #include "BitmapDatabase.hpp"
 #include <touchgfx/Color.hpp>
 
-#define IAQ_LEVEL_GOOD 0
-#define IAQ_LEVEL_MODERATE 100
-#define IAQ_LEVEL_BAD 200
-
-#define CO2_LEVEL_GOOD 0
-#define CO2_LEVEL_MODERATE 600
-#define CO2_LEVEL_BAD 2500
-
-#define VOC_LEVEL_GOOD 0
-#define VOC_LEVEL_MODERATE 350
-#define VOC_LEVEL_BAD 8300
-
-#define HUM_LEVEL_GOOD 40
-#define HUM_LEVEL_MODERATE_HIGH 50
-#define HUM_LEVEL_MODERATE_LOW 40
-#define HUM_LEVEL_BAD_HIGH 80
-#define HUM_LEVEL_BAD_LOW 15
-
-#define TEMP_LEVEL_GOOD 18
-#define TEMP_LEVEL_MODERATE_HIGH 25
-#define TEMP_LEVEL_MODERATE_LOW 18
-#define TEMP_LEVEL_BAD_HIGH 33
-#define TEMP_LEVEL_BAD_LOW 9
-
-float IAQAverage24Hour[4]; /* 0 - total data value; 1 - data counter; 2 - 1 hour average value; 3 - 24 hour average value */
-float CO2Average24Hour[4];
-float VOCAverage24Hour[4];
-float humAverage24Hour[4];
-float presAverage24Hour[4];
-float tempAverage24Hour[4];
-
-uint8_t hourCnt = 0;
-
-/* Variables imported from main */
-uint8_t hours;
-uint8_t minutes;
-uint8_t seconds;
-uint8_t year;
-uint8_t month;
-uint8_t date;
-uint8_t weekDay;
-
 extern uint32_t (*pfHAL_GetTick)(void);                                                   /* Pointer to HAL_GetTick imported from main*/
 extern float gui_temperature;
 extern float gui_humidity;
@@ -53,13 +11,74 @@ extern float gui_co2;
 extern float gui_voc;
 extern uint8_t gui_iaq_accuracy;
 
+/* Variables imported from main */
+extern uint8_t hours;
+extern uint8_t minutes;
+extern uint8_t seconds;
+extern uint8_t year;
+extern uint8_t month;
+extern uint8_t date;
+extern uint8_t weekDay;
+
+static uint8_t filterCounter = 0;
+static kalman filterObject[5];
+
+static float filtredTemp = 0;
+static float filtredHum = 0;
+static float filtredPres = 0;
+static float filtredIAQ = 0;
+
+static float calcIAQAverage[3];         //Array to calculate average data: 0 - 1 hour average, 1 - data counter, 2 - 24 hour average
+static float calcCO2Average[3];
+static float calcVOCAverage[3];
+static float calcHumAverage[3];
+static float calcPresAverage[3];
+static float calcTempAverage[3];
+
+static float IAQAverage24Hour[24];         /* Array to hold 24 hours average data */
+static float CO2Average24Hour[24];
+static float VOCAverage24Hour[24];
+static float humAverage24Hour[24];
+static float presAverage24Hour[24];
+static float tempAverage24Hour[24];
+
+static uint8_t hourCnt = 0;
+static uint8_t lastHoursValue = 0;
+
 static uint32_t tickValue24Hour;                                                   /* Variable monitoring last tick value (HAL_GetTick) */
 static uint32_t tickValueOneHour;
+static uint32_t lastTickValue;
+
+static uint8_t IAQSelectFlag = 0;
+static uint8_t CO2SelectFlag = 0;
+static uint8_t VOCSelectFlag = 0;
+static uint8_t humSelectFlag = 0;
+static uint8_t presSelectFlag = 0;
+static uint8_t tempSelectFlag = 0;
+
+static uint8_t IAQInitFlag = 0;
+static uint8_t CO2InitFlag = 0;
+static uint8_t VOCInitFlag = 0;
+static uint8_t humInitFlag = 0;
+static uint8_t presInitFlag = 0;
+static uint8_t tempInitFlag = 0;
 
 MainView::MainView()
 {
     tickValue24Hour = pfHAL_GetTick();                                                             /* Initialize with actual tick value */
-    for(uint8_t i = 0; i < 3; i++)                                                                            /* Array initialization */
+    tickValueOneHour = pfHAL_GetTick();
+    lastTickValue = pfHAL_GetTick();
+    for(uint8_t i = 0; i < 3; i++)                                                                             /* Array initialization */
+    {
+        calcIAQAverage[i] = 0;
+        calcCO2Average[i] = 0;
+        calcVOCAverage[i] = 0;
+        calcHumAverage[i] = 0;
+        calcPresAverage[i] = 0;
+        calcTempAverage[i] = 0;
+    }
+
+    for(uint8_t i = 0; i < 24; i++)                                                                             /* Array initialization */
     {
         IAQAverage24Hour[i] = 0;
         CO2Average24Hour[i] = 0;
@@ -86,8 +105,6 @@ void MainView::handleTickEvent()
     if(pfHAL_GetTick() - tickValueOneHour >= 3000)
     {
         calculateOneHourAverage();
-        Unicode::snprintfFloat(text_24HBuffer, TEXT_24H_SIZE, "%.1f", gui_humidity);
-        text_24H.invalidate();
         tickValueOneHour = pfHAL_GetTick();
     }
     else
@@ -95,15 +112,15 @@ void MainView::handleTickEvent()
         //do nothing
     }
 
-    if(pfHAL_GetTick() - tickValue24Hour >= 30000)
+    if(pfHAL_GetTick() - tickValue24Hour >= 60000)
     {
         calculate24HourAverage();
-        displayIAQGraph24Hour();
-        displayCO2Graph24Hour();
-        displayVOCGraph24Hour();
-        displayPresGraph24Hour();
-        displayHumGraph24Hour();
-        displayTempGraph24Hour();
+        displayIAQGraph24Hour(calcIAQAverage[0]);
+        displayCO2Graph24Hour(calcCO2Average[0]);
+        displayVOCGraph24Hour(calcVOCAverage[0]);
+        displayPresGraph24Hour(calcPresAverage[0]);
+        displayHumGraph24Hour(calcHumAverage[0]);
+        displayTempGraph24Hour(calcTempAverage[0]);
         resetOneHourAverage();
         if(hourCnt == 23)
         {
@@ -120,15 +137,38 @@ void MainView::handleTickEvent()
     {
         //do nothing
     }
+
+    if(pfHAL_GetTick() - lastTickValue >= 375)    /* we have 100 points on x-Axis so we have to add a new data point once in 1.66 sec */
+    {                                             /* in order to hold a 10 min interval on the graph, the data is filtered 7 times     */
+                                                  /* before displayed, so 238ms * 7 = 1.66 sec                                         */
+        if(filterCounter == 8)
+        {
+            /* Display the graphs*/
+            displayTemperatureGraph(filtredTemp);
+            displayHumidityGraph(filtredHum);
+            displayPressureGraph(filtredPres);
+            displayIAQGraph(filtredIAQ);
+            filterCounter = 0;
+        }
+        else
+        {
+            filterCounter++;
+            filterData();
+        }
+        lastTickValue = pfHAL_GetTick();             /* refresh the actual tick value */
+    }
+    else
+    {
+        //do nothing
+    }
 }
 
 void MainView::IAQSelect()
 {
-    line2.setVisible(true);
-    remove(line2);
-    line2.invalidate();
-    line2.setX(IAQ_button.getX());
-    add(line2);
+    resetSelectFlags();
+    IAQSelectFlag = true;
+    line2_menu.setVisible(true);
+    line2_menu.setX(IAQ_button.getX());
     IAQ_button.setBitmaps(touchgfx::Bitmap(BITMAP_IAQ_DARK_ID), touchgfx::Bitmap(BITMAP_IAQ_DARK_ID));
     CO2_button.setBitmaps(touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID), touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID));
     VOC_button.setBitmaps(touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID), touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID));
@@ -137,19 +177,23 @@ void MainView::IAQSelect()
     temp_button.setBitmaps(touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID), touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID));
     containerVisibilityOff();
     IAQ_container.setVisible(true);
-    remove(IAQ_container);
-    IAQ_container.invalidate();
-    add(IAQ_container);
+    if(IAQInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
+    }
     box1.invalidate();
 }
 
 void MainView::CO2Select()
 {
-    line2.setVisible(true);
-    remove(line2);
-    line2.invalidate();
-    line2.setX(CO2_button.getX());
-    add(line2);
+    resetSelectFlags();
+    CO2SelectFlag = true;
+    line2_menu.setVisible(true);
+    line2_menu.setX(CO2_button.getX());
     IAQ_button.setBitmaps(touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID), touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID));
     CO2_button.setBitmaps(touchgfx::Bitmap(BITMAP_CO2_DARK_ID), touchgfx::Bitmap(BITMAP_CO2_DARK_ID));
     VOC_button.setBitmaps(touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID), touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID));
@@ -158,19 +202,23 @@ void MainView::CO2Select()
     temp_button.setBitmaps(touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID), touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID));
     containerVisibilityOff();
     CO2_container.setVisible(true);
-    remove(CO2_container);
-    CO2_container.invalidate();
-    add(CO2_container);
+    if(CO2InitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
+    }
     box1.invalidate();
 }
 
 void MainView::VOCSelect()
 {
-    line2.setVisible(true);
-    remove(line2);
-    line2.invalidate();
-    line2.setX(VOC_button.getX());
-    add(line2);
+    resetSelectFlags();
+    VOCSelectFlag = true;
+    line2_menu.setVisible(true);
+    line2_menu.setX(VOC_button.getX());
     IAQ_button.setBitmaps(touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID), touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID));
     CO2_button.setBitmaps(touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID), touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID));
     VOC_button.setBitmaps(touchgfx::Bitmap(BITMAP_VOC_DARK_ID), touchgfx::Bitmap(BITMAP_VOC_DARK_ID));
@@ -179,19 +227,23 @@ void MainView::VOCSelect()
     temp_button.setBitmaps(touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID), touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID));
     containerVisibilityOff();
     VOC_container.setVisible(true);
-    remove(VOC_container);
-    VOC_container.invalidate();
-    add(VOC_container);
+    if(VOCInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
+    }
     box1.invalidate();
 }
 
 void MainView::humSelect()
 {
-    line2.setVisible(true);
-    remove(line2);
-    line2.invalidate();
-    line2.setX(hum_button.getX());
-    add(line2);
+    resetSelectFlags();
+    humSelectFlag = true;
+    line2_menu.setVisible(true);
+    line2_menu.setX(hum_button.getX());
     IAQ_button.setBitmaps(touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID), touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID));
     CO2_button.setBitmaps(touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID), touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID));
     VOC_button.setBitmaps(touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID), touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID));
@@ -200,19 +252,23 @@ void MainView::humSelect()
     temp_button.setBitmaps(touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID), touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID));
     containerVisibilityOff();
     hum_container.setVisible(true);
-    remove(hum_container);
-    hum_container.invalidate();
-    add(hum_container);
+    if(humInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
+    }
     box1.invalidate();
 }
 
 void MainView::presSelect()
 {
-    line2.setVisible(true);
-    remove(line2);
-    line2.invalidate();
-    line2.setX(pres_button.getX());
-    add(line2);
+    resetSelectFlags();
+    presSelectFlag = true;
+    line2_menu.setVisible(true);
+    line2_menu.setX(pres_button.getX());
     IAQ_button.setBitmaps(touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID), touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID));
     CO2_button.setBitmaps(touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID), touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID));
     VOC_button.setBitmaps(touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID), touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID));
@@ -221,19 +277,23 @@ void MainView::presSelect()
     temp_button.setBitmaps(touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID), touchgfx::Bitmap(BITMAP_TEMP_LIGHT_ID));
     containerVisibilityOff();
     pres_container.setVisible(true);
-    remove(pres_container);
-    pres_container.invalidate();
-    add(pres_container);
+    if(presInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
+    }
     box1.invalidate();
 }
 
 void MainView::tempSelect()
 {
-    line2.setVisible(true);
-    remove(line2);
-    line2.invalidate();
-    line2.setX(temp_button.getX());
-    add(line2);
+    resetSelectFlags();
+    tempSelectFlag = true;
+    line2_menu.setVisible(true);
+    line2_menu.setX(temp_button.getX());
     IAQ_button.setBitmaps(touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID), touchgfx::Bitmap(BITMAP_IAQ_LIGHT_ID));
     CO2_button.setBitmaps(touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID), touchgfx::Bitmap(BITMAP_CO2_LIGHT_ID));
     VOC_button.setBitmaps(touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID), touchgfx::Bitmap(BITMAP_VOC_LIGHT_ID));
@@ -242,9 +302,113 @@ void MainView::tempSelect()
     temp_button.setBitmaps(touchgfx::Bitmap(BITMAP_TEMP_DARK_ID), touchgfx::Bitmap(BITMAP_TEMP_DARK_ID));
     containerVisibilityOff();
     temp_container.setVisible(true);
-    remove(temp_container);
-    temp_container.invalidate();
-    add(temp_container);
+    if(tempInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
+    }
+    box1.invalidate();
+}
+
+void MainView::liveSelect()
+{
+    containerVisibilityOff();
+    graphs_container.setVisible(true);
+    box1.invalidate();
+}
+
+void MainView::resetSelectFlags(void)
+{
+    IAQSelectFlag = 0;
+    CO2SelectFlag = 0;
+    VOCSelectFlag = 0;
+    humSelectFlag = 0;
+    presSelectFlag = 0;
+    tempSelectFlag = 0;
+}
+
+void MainView::graphsBackButton()
+{
+    graphs_container.setVisible(false);
+    if(IAQSelectFlag == true)
+    {
+        IAQ_container.setVisible(true);
+        if(IAQInitFlag == true)
+        {
+            hours_xAxis_Container.setVisible(true);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+    else if(CO2SelectFlag == true)
+    {
+        CO2_container.setVisible(true);
+        if(CO2InitFlag == true)
+        {
+            hours_xAxis_Container.setVisible(true);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+    else if(VOCSelectFlag == true)
+    {
+        VOC_container.setVisible(true);
+        if(VOCInitFlag == true)
+        {
+            hours_xAxis_Container.setVisible(true);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+    else if(humSelectFlag == true)
+    {
+        hum_container.setVisible(true);
+        if(humInitFlag == true)
+        {
+            hours_xAxis_Container.setVisible(true);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+    else if(presSelectFlag == true)
+    {
+        pres_container.setVisible(true);
+        if(presInitFlag == true)
+        {
+            hours_xAxis_Container.setVisible(true);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+    else if(tempSelectFlag == true)
+    {
+        temp_container.setVisible(true);
+        if(tempInitFlag == true)
+        {
+            hours_xAxis_Container.setVisible(true);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+    else
+    {
+        //do nothing
+    }
     box1.invalidate();
 }
 
@@ -252,12 +416,12 @@ void MainView::resetOneHourAverage(void)
 {
     for(uint8_t i = 0; i < 2; i++)
     {
-        IAQAverage24Hour[i] = 0;
-        CO2Average24Hour[i] = 0;
-        VOCAverage24Hour[i] = 0;
-        humAverage24Hour[i] = 0;
-        presAverage24Hour[i] = 0;
-        tempAverage24Hour[i] = 0;
+        calcIAQAverage[i] = 0;
+        calcCO2Average[i] = 0;
+        calcVOCAverage[i] = 0;
+        calcHumAverage[i] = 0;
+        calcPresAverage[i] = 0;
+        calcTempAverage[i] = 0;
     }
 }
 
@@ -265,44 +429,44 @@ void MainView::reset24HourAverage(void)
 {
     for(uint8_t i = 0; i < 3; i++)
     {
-        IAQAverage24Hour[i] = 0;
-        CO2Average24Hour[i] = 0;
-        VOCAverage24Hour[i] = 0;
-        humAverage24Hour[i] = 0;
-        presAverage24Hour[i] = 0;
-        tempAverage24Hour[i] = 0;
+        calcIAQAverage[i] = 0;
+        calcCO2Average[i] = 0;
+        calcVOCAverage[i] = 0;
+        calcHumAverage[i] = 0;
+        calcPresAverage[i] = 0;
+        calcTempAverage[i] = 0;
     }
 }
 
 void MainView::calculateOneHourAverage(void)
 {
-    IAQAverage24Hour[0] = ((IAQAverage24Hour[0] * IAQAverage24Hour[1]) + gui_iaq) / (IAQAverage24Hour[1] + 1);
-    IAQAverage24Hour[1]++;
+    calcIAQAverage[0] = ((calcIAQAverage[0] * calcIAQAverage[1]) + gui_iaq) / (calcIAQAverage[1] + 1);
+    calcIAQAverage[1]++;
 
-    CO2Average24Hour[0] = ((CO2Average24Hour[0] * CO2Average24Hour[1]) + gui_co2) / (CO2Average24Hour[1] + 1);
-    CO2Average24Hour[1]++;
+    calcCO2Average[0] = ((calcCO2Average[0] * calcCO2Average[1]) + gui_co2) / (calcCO2Average[1] + 1);
+    calcCO2Average[1]++;
 
-    VOCAverage24Hour[0] = ((VOCAverage24Hour[0] * VOCAverage24Hour[1]) + (gui_voc * 1000)) / (VOCAverage24Hour[1] + 1);
-    VOCAverage24Hour[1]++;
+    calcVOCAverage[0] = ((calcVOCAverage[0] * calcVOCAverage[1]) + (gui_voc * 1000)) / (calcVOCAverage[1] + 1);
+    calcVOCAverage[1]++;
 
-    humAverage24Hour[0] = ((humAverage24Hour[0] * humAverage24Hour[1]) + gui_humidity) / (humAverage24Hour[1] + 1);
-    humAverage24Hour[1]++;
+    calcHumAverage[0] = ((calcHumAverage[0] * calcHumAverage[1]) + gui_humidity) / (calcHumAverage[1] + 1);
+    calcHumAverage[1]++;
 
-    presAverage24Hour[0] = ((presAverage24Hour[0] * presAverage24Hour[1]) + gui_pressure) / (presAverage24Hour[1] + 1);
-    presAverage24Hour[1]++;
+    calcPresAverage[0] = ((calcPresAverage[0] * calcPresAverage[1]) + gui_pressure) / (calcPresAverage[1] + 1);
+    calcPresAverage[1]++;
 
-    tempAverage24Hour[0] = ((tempAverage24Hour[0] * tempAverage24Hour[1]) + gui_temperature) / (tempAverage24Hour[1] + 1);
-    tempAverage24Hour[1]++;
+    calcTempAverage[0] = ((calcTempAverage[0] * calcTempAverage[1]) + gui_temperature) / (calcTempAverage[1] + 1);
+    calcTempAverage[1]++;
 }
 
 void MainView::calculate24HourAverage(void)
 {
-    IAQAverage24Hour[2] = ((IAQAverage24Hour[2] * hourCnt) + IAQAverage24Hour[0]) / (hourCnt + 1);
-    CO2Average24Hour[2] = ((CO2Average24Hour[2] * hourCnt) + CO2Average24Hour[0]) / (hourCnt + 1);
-    VOCAverage24Hour[2] = ((VOCAverage24Hour[2] * hourCnt) + VOCAverage24Hour[0]) / (hourCnt + 1);
-    humAverage24Hour[2] = ((humAverage24Hour[2] * hourCnt) + humAverage24Hour[0]) / (hourCnt + 1);
-    presAverage24Hour[2] = ((presAverage24Hour[2] * hourCnt) + presAverage24Hour[0]) / (hourCnt + 1);
-    tempAverage24Hour[2] = ((tempAverage24Hour[2] * hourCnt) + tempAverage24Hour[0]) / (hourCnt + 1);
+    calcIAQAverage[2] = ((calcIAQAverage[2] * hourCnt) + calcIAQAverage[0]) / (hourCnt + 1);
+    calcCO2Average[2] = ((calcCO2Average[2] * hourCnt) + calcCO2Average[0]) / (hourCnt + 1);
+    calcVOCAverage[2] = ((calcVOCAverage[2] * hourCnt) + calcVOCAverage[0]) / (hourCnt + 1);
+    calcHumAverage[2] = ((calcHumAverage[2] * hourCnt) + calcHumAverage[0]) / (hourCnt + 1);
+    calcPresAverage[2] = ((calcPresAverage[2] * hourCnt) + calcPresAverage[0]) / (hourCnt + 1);
+    calcTempAverage[2] = ((calcTempAverage[2] * hourCnt) + calcTempAverage[0]) / (hourCnt + 1);
 }
 
 void MainView::containerVisibilityOff(void)
@@ -313,6 +477,8 @@ void MainView::containerVisibilityOff(void)
     hum_container.setVisible (false);
     pres_container.setVisible(false);
     temp_container.setVisible(false);
+    graphs_container.setVisible(false);
+    hours_xAxis_Container.setVisible(false);
 }
 
 void MainView::setIAQGraphRangeY24Hour(void)
@@ -366,10 +532,11 @@ void MainView::setIAQGraphRangeY24Hour(void)
     IAQGraphYellow.setGraphRangeY(IAQGraphMin, IAQGraphMax);
     IAQGraphRed.setGraphRangeY   (IAQGraphMin, IAQGraphMax);
 }
-void MainView::displayIAQGraph24Hour(void)
+void MainView::displayIAQGraph24Hour(float IAQValue)
 {
     if(gui_iaq_accuracy == 0)
     {
+        IAQInitFlag = false;
         IAQ_wait.setVisible(true);
         IAQ_good.setVisible(false);
         IAQ_moderate.setVisible(false);
@@ -380,29 +547,30 @@ void MainView::displayIAQGraph24Hour(void)
     }
     else
     {
+        IAQInitFlag = true;
         IAQ_wait.setVisible(false);
         IAQ_text_run.setVisible(true);
         IAQ_text_wait.setVisible(false);
         IAQ_value.setVisible(true);
 
         /*Setting of histogram bar color*/
-        if(IAQAverage24Hour[0] > IAQ_LEVEL_GOOD && IAQAverage24Hour[0] < IAQ_LEVEL_MODERATE)
+        if(IAQValue > IAQ_LEVEL_GOOD && IAQValue < IAQ_LEVEL_MODERATE)
         {
             IAQGraphYellow.addDataPoint(0);
             IAQGraphRed.addDataPoint(0);
-            IAQGraphGreen.addDataPoint(IAQAverage24Hour[0]);
+            IAQGraphGreen.addDataPoint(IAQValue);
         }
-        else if(IAQAverage24Hour[0] > IAQ_LEVEL_MODERATE && IAQAverage24Hour[0] < IAQ_LEVEL_BAD)
+        else if(IAQValue > IAQ_LEVEL_MODERATE && IAQValue < IAQ_LEVEL_BAD)
         {
             IAQGraphGreen.addDataPoint(0);
             IAQGraphRed.addDataPoint(0);
-            IAQGraphYellow.addDataPoint(IAQAverage24Hour[0]);
+            IAQGraphYellow.addDataPoint(IAQValue);
         }
-        else if (IAQAverage24Hour[0] > IAQ_LEVEL_BAD)
+        else if (calcIAQAverage[0] > IAQ_LEVEL_BAD)
         {
             IAQGraphGreen.addDataPoint(0);
             IAQGraphYellow.addDataPoint(0);
-            IAQGraphRed.addDataPoint(IAQAverage24Hour[0]);
+            IAQGraphRed.addDataPoint(IAQValue);
         }
         else
         {
@@ -410,19 +578,19 @@ void MainView::displayIAQGraph24Hour(void)
         }
 
         /* Setting of onboard screen color */
-        if(IAQAverage24Hour[2] > IAQ_LEVEL_GOOD && IAQAverage24Hour[2] < IAQ_LEVEL_MODERATE)
+        if(calcIAQAverage[2] > IAQ_LEVEL_GOOD && calcIAQAverage[2] < IAQ_LEVEL_MODERATE)
         {
             IAQ_good.setVisible(true);
             IAQ_moderate.setVisible(false);
             IAQ_bad.setVisible(false);
         }
-        else if(IAQAverage24Hour[2] > IAQ_LEVEL_MODERATE && IAQAverage24Hour[2] < IAQ_LEVEL_BAD)
+        else if(calcIAQAverage[2] > IAQ_LEVEL_MODERATE && calcIAQAverage[2] < IAQ_LEVEL_BAD)
         {
             IAQ_good.setVisible(false);
             IAQ_moderate.setVisible(true);
             IAQ_bad.setVisible(false);
         }
-        else if (IAQAverage24Hour[2] > IAQ_LEVEL_BAD)
+        else if (calcIAQAverage[2] > IAQ_LEVEL_BAD)
         {
             IAQ_good.setVisible(false);
             IAQ_moderate.setVisible(false);
@@ -433,9 +601,17 @@ void MainView::displayIAQGraph24Hour(void)
             //do nothing
         }
 
-        Unicode::snprintfFloat(IAQ_valueBuffer, IAQ_VALUE_SIZE, "%.1f", IAQAverage24Hour[2]);
-        IAQ_value.invalidate();
+        Unicode::snprintfFloat(IAQ_valueBuffer, IAQ_VALUE_SIZE, "%.1f", calcIAQAverage[2]);
         setIAQGraphRangeY24Hour();
+    }
+
+    if(IAQSelectFlag == true && IAQInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
     }
     box1.invalidate();
 }
@@ -492,10 +668,11 @@ void MainView::setCO2GraphRangeY24Hour(void)
     CO2GraphRed.setGraphRangeY   (CO2GraphMin, CO2GraphMax);
 }
 
-void MainView::displayCO2Graph24Hour(void)
+void MainView::displayCO2Graph24Hour(float CO2Value)
 {
     if(gui_iaq_accuracy == 0)
     {
+        CO2InitFlag = false;
         CO2_wait.setVisible(true);
         CO2_good.setVisible(false);
         CO2_moderate.setVisible(false);
@@ -506,47 +683,48 @@ void MainView::displayCO2Graph24Hour(void)
     }
     else
     {
+        CO2InitFlag = true;
         CO2_wait.setVisible(false);
         CO2_text_run.setVisible(true);
         CO2_text_wait.setVisible(false);
         CO2_value.setVisible(true);
 
-        if(CO2Average24Hour[0] > CO2_LEVEL_GOOD && CO2Average24Hour[0] < CO2_LEVEL_MODERATE)
+        if(CO2Value > CO2_LEVEL_GOOD && CO2Value < CO2_LEVEL_MODERATE)
         {
             CO2GraphYellow.addDataPoint(0);
             CO2GraphRed.addDataPoint(0);
-            CO2GraphGreen.addDataPoint((int)CO2Average24Hour[0]);
+            CO2GraphGreen.addDataPoint((int) CO2Value);
         }
-        else if(CO2Average24Hour[0] > CO2_LEVEL_MODERATE && CO2Average24Hour[0] < CO2_LEVEL_BAD)
+        else if(CO2Value > CO2_LEVEL_MODERATE && CO2Value < CO2_LEVEL_BAD)
         {
             CO2GraphGreen.addDataPoint(0);
             CO2GraphRed.addDataPoint(0);
-            CO2GraphYellow.addDataPoint((int)CO2Average24Hour[0]);
+            CO2GraphYellow.addDataPoint((int) CO2Value);
         }
-        else if (CO2Average24Hour[0] > CO2_LEVEL_BAD)
+        else if (calcCO2Average[0] > CO2_LEVEL_BAD)
         {
             CO2GraphGreen.addDataPoint(0);
             CO2GraphYellow.addDataPoint(0);
-            CO2GraphRed.addDataPoint((int)CO2Average24Hour[0]);
+            CO2GraphRed.addDataPoint((int) CO2Value);
         }
         else
         {
             //do nothing
         }
 
-        if(CO2Average24Hour[2] > CO2_LEVEL_GOOD && CO2Average24Hour[2] < CO2_LEVEL_MODERATE)
+        if(calcCO2Average[2] > CO2_LEVEL_GOOD && calcCO2Average[2] < CO2_LEVEL_MODERATE)
         {
             CO2_good.setVisible(true);
             CO2_moderate.setVisible(false);
             CO2_bad.setVisible(false);
         }
-        else if(CO2Average24Hour[2] > CO2_LEVEL_MODERATE && CO2Average24Hour[2] < CO2_LEVEL_BAD)
+        else if(calcCO2Average[2] > CO2_LEVEL_MODERATE && calcCO2Average[2] < CO2_LEVEL_BAD)
         {
             CO2_good.setVisible(false);
             CO2_moderate.setVisible(true);
             CO2_bad.setVisible(false);
         }
-        else if (CO2Average24Hour[2] > CO2_LEVEL_BAD)
+        else if (calcCO2Average[2] > CO2_LEVEL_BAD)
         {
             CO2_good.setVisible(false);
             CO2_moderate.setVisible(false);
@@ -557,9 +735,17 @@ void MainView::displayCO2Graph24Hour(void)
             //do nothing
         }
 
-        Unicode::snprintfFloat(CO2_valueBuffer, CO2_VALUE_SIZE, "%.0f", CO2Average24Hour[2]);
-        CO2_value.invalidate();
+        Unicode::snprintfFloat(CO2_valueBuffer, CO2_VALUE_SIZE, "%.0f", calcCO2Average[2]);
         setCO2GraphRangeY24Hour();
+    }
+
+    if(CO2SelectFlag == true && CO2InitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
     }
     box1.invalidate();
 }
@@ -616,10 +802,11 @@ void MainView::setVOCGraphRangeY24Hour(void)
     VOCGraphRed.setGraphRangeY   (VOCGraphMin, VOCGraphMax);
 }
 
-void MainView::displayVOCGraph24Hour(void)
+void MainView::displayVOCGraph24Hour(float VOCValue)
 {
     if(gui_iaq_accuracy == 0)
     {
+        VOCInitFlag = false;
         VOC_wait.setVisible(true);
         VOC_good.setVisible(false);
         VOC_moderate.setVisible(false);
@@ -630,47 +817,48 @@ void MainView::displayVOCGraph24Hour(void)
     }
     else
     {
+        VOCInitFlag = true;
         VOC_wait.setVisible(false);
         VOC_text_run.setVisible(true);
         VOC_text_wait.setVisible(false);
         VOC_value.setVisible(true);
 
-        if(VOCAverage24Hour[0] > VOC_LEVEL_GOOD && VOCAverage24Hour[0] < VOC_LEVEL_MODERATE)
+        if(VOCValue > VOC_LEVEL_GOOD && VOCValue < VOC_LEVEL_MODERATE)
         {
             VOCGraphYellow.addDataPoint(0);
             VOCGraphRed.addDataPoint(0);
-            VOCGraphGreen.addDataPoint((int)VOCAverage24Hour[0]);
+            VOCGraphGreen.addDataPoint((int) VOCValue);
         }
-        else if(VOCAverage24Hour[0] > VOC_LEVEL_MODERATE && VOCAverage24Hour[0] < VOC_LEVEL_BAD)
+        else if(VOCValue > VOC_LEVEL_MODERATE && VOCValue < VOC_LEVEL_BAD)
         {
             VOCGraphGreen.addDataPoint(0);
             VOCGraphRed.addDataPoint(0);
-            VOCGraphYellow.addDataPoint((int)VOCAverage24Hour[0]);
+            VOCGraphYellow.addDataPoint((int) VOCValue);
         }
-        else if (VOCAverage24Hour[0] > VOC_LEVEL_BAD)
+        else if (VOCValue > VOC_LEVEL_BAD)
         {
             VOCGraphGreen.addDataPoint(0);
             VOCGraphYellow.addDataPoint(0);
-            VOCGraphRed.addDataPoint((int)VOCAverage24Hour[0]);
+            VOCGraphRed.addDataPoint((int) VOCValue);
         }
         else
         {
             //do nothing
         }
 
-        if(VOCAverage24Hour[2] > VOC_LEVEL_GOOD && VOCAverage24Hour[2] < VOC_LEVEL_MODERATE)
+        if(calcVOCAverage[2] > VOC_LEVEL_GOOD && calcVOCAverage[2] < VOC_LEVEL_MODERATE)
         {
             VOC_good.setVisible(true);
             VOC_moderate.setVisible(false);
             VOC_bad.setVisible(false);
         }
-        else if(VOCAverage24Hour[2] > VOC_LEVEL_MODERATE && VOCAverage24Hour[2] < VOC_LEVEL_BAD)
+        else if(calcVOCAverage[2] > VOC_LEVEL_MODERATE && calcVOCAverage[2] < VOC_LEVEL_BAD)
         {
             VOC_good.setVisible(false);
             VOC_moderate.setVisible(true);
             VOC_bad.setVisible(false);
         }
-        else if (VOCAverage24Hour[2] > VOC_LEVEL_BAD)
+        else if (calcVOCAverage[2] > VOC_LEVEL_BAD)
         {
             VOC_good.setVisible(false);
             VOC_moderate.setVisible(false);
@@ -681,9 +869,17 @@ void MainView::displayVOCGraph24Hour(void)
             //do nothing
         }
 
-        Unicode::snprintfFloat(VOC_valueBuffer, VOC_VALUE_SIZE, "%.0f", VOCAverage24Hour[2]);
-        VOC_value.invalidate();
+        Unicode::snprintfFloat(VOC_valueBuffer, VOC_VALUE_SIZE, "%.0f", calcVOCAverage[2]);
         setVOCGraphRangeY24Hour();
+    }
+
+    if(VOCSelectFlag == true && VOCInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
     }
     box1.invalidate();
 }
@@ -739,10 +935,11 @@ void MainView::setHumGraphRangeY24Hour(void)
     humGraphYellow.setGraphRangeY(humGraphMin, humGraphMax);
     humGraphRed.setGraphRangeY   (humGraphMin, humGraphMax);
 }
-void MainView::displayHumGraph24Hour(void)
+void MainView::displayHumGraph24Hour(float humValue)
 {
     if(gui_humidity == 0)
     {
+        humInitFlag = false;
         hum_wait.setVisible(true);
         hum_good.setVisible(false);
         hum_moderate.setVisible(false);
@@ -753,49 +950,50 @@ void MainView::displayHumGraph24Hour(void)
     }
     else
     {
+        humInitFlag = true;
         hum_wait.setVisible(false);
         hum_value.setVisible(true);
         hum_text_run.setVisible(true);
         hum_text_wait.setVisible(false);
 
-        if(humAverage24Hour[0] > HUM_LEVEL_GOOD && humAverage24Hour[0] < HUM_LEVEL_MODERATE_HIGH)
+        if(humValue > HUM_LEVEL_GOOD && humValue < HUM_LEVEL_MODERATE_HIGH)
         {
             humGraphYellow.addDataPoint(0);
             humGraphRed.addDataPoint(0);
-            humGraphGreen.addDataPoint(humAverage24Hour[0]);
+            humGraphGreen.addDataPoint(humValue);
         }
-        else if( (humAverage24Hour[0] > HUM_LEVEL_MODERATE_HIGH && humAverage24Hour[0] < HUM_LEVEL_BAD_HIGH) ||
-                 (humAverage24Hour[0] < HUM_LEVEL_MODERATE_LOW  && humAverage24Hour[0] > HUM_LEVEL_BAD_LOW)    )
+        else if( (humValue > HUM_LEVEL_MODERATE_HIGH && humValue < HUM_LEVEL_BAD_HIGH) ||
+                 (humValue < HUM_LEVEL_MODERATE_LOW  && humValue > HUM_LEVEL_BAD_LOW)    )
         {
             humGraphGreen.addDataPoint(0);
             humGraphRed.addDataPoint(0);
-            humGraphYellow.addDataPoint(humAverage24Hour[0]);
+            humGraphYellow.addDataPoint(humValue);
         }
-        else if (humAverage24Hour[0] > HUM_LEVEL_BAD_HIGH && humAverage24Hour[0] < HUM_LEVEL_BAD_LOW)
+        else if (humValue > HUM_LEVEL_BAD_HIGH || humValue < HUM_LEVEL_BAD_LOW)
         {
             humGraphGreen.addDataPoint(0);
             humGraphYellow.addDataPoint(0);
-            humGraphRed.addDataPoint(humAverage24Hour[0]);
+            humGraphRed.addDataPoint(humValue);
         }
         else
         {
             //do nothing
         }
 
-        if(humAverage24Hour[2] > HUM_LEVEL_GOOD && humAverage24Hour[2] < HUM_LEVEL_MODERATE_HIGH)
+        if(calcHumAverage[2] > HUM_LEVEL_GOOD && calcHumAverage[2] < HUM_LEVEL_MODERATE_HIGH)
         {
             hum_good.setVisible(true);
             hum_moderate.setVisible(false);
             hum_bad.setVisible(false);
         }
-        else if( (humAverage24Hour[2] > HUM_LEVEL_MODERATE_HIGH && humAverage24Hour[2] < HUM_LEVEL_BAD_HIGH) ||
-                 (humAverage24Hour[2] < HUM_LEVEL_MODERATE_LOW  && humAverage24Hour[2] > HUM_LEVEL_BAD_LOW)    )
+        else if( (calcHumAverage[2] > HUM_LEVEL_MODERATE_HIGH && calcHumAverage[2] < HUM_LEVEL_BAD_HIGH) ||
+                 (calcHumAverage[2] < HUM_LEVEL_MODERATE_LOW  && calcHumAverage[2] > HUM_LEVEL_BAD_LOW)    )
         {
             hum_good.setVisible(false);
             hum_moderate.setVisible(true);
             hum_bad.setVisible(false);
         }
-        else if (humAverage24Hour[2] > HUM_LEVEL_BAD_HIGH && humAverage24Hour[2] < HUM_LEVEL_BAD_LOW)
+        else if (calcHumAverage[2] > HUM_LEVEL_BAD_HIGH || calcHumAverage[2] < HUM_LEVEL_BAD_LOW)
         {
             hum_good.setVisible(false);
             hum_moderate.setVisible(false);
@@ -805,11 +1003,17 @@ void MainView::displayHumGraph24Hour(void)
         {
             //do nothing
         }
-
-        Unicode::snprintfFloat(text_1HBuffer, TEXT_1H_SIZE, "%.1f", humAverage24Hour[0]);
-        Unicode::snprintfFloat(hum_valueBuffer, HUM_VALUE_SIZE, "%.1f", humAverage24Hour[2]);
-        hum_value.invalidate();
+        Unicode::snprintfFloat(hum_valueBuffer, HUM_VALUE_SIZE, "%.1f", calcHumAverage[2]);
         setHumGraphRangeY24Hour();
+    }
+
+    if(humSelectFlag == true && humInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
     }
     box1.invalidate();
 }
@@ -824,10 +1028,11 @@ void MainView::setPresGraphRangeY24Hour(void)
     presGraphMin =  presGraph.getGraphRangeYMinAsFloat();
     presGraph.setGraphRangeY (presGraphMin, presGraphMax);
 }
-void MainView::displayPresGraph24Hour(void)
+void MainView::displayPresGraph24Hour(float presValue)
 {
     if(gui_pressure == 0)
     {
+        presInitFlag = false;
         pres_wait.setVisible(true);
         pres_run.setVisible(false);
 
@@ -836,16 +1041,25 @@ void MainView::displayPresGraph24Hour(void)
     }
     else
     {
+        presInitFlag = true;
         pres_wait.setVisible(false);
         pres_run.setVisible(true);
         pres_value.setVisible(true);
         pres_text_run.setVisible(true);
         pres_text_wait.setVisible(false);
-        presGraph.addDataPoint(presAverage24Hour[0]);
+        presGraph.addDataPoint(presValue);
 
-        Unicode::snprintfFloat(pres_valueBuffer, PRES_VALUE_SIZE, "%.1f", presAverage24Hour[2]);
-        pres_value.invalidate();
+        Unicode::snprintfFloat(pres_valueBuffer, PRES_VALUE_SIZE, "%.1f", calcPresAverage[2]);
         setPresGraphRangeY24Hour();
+    }
+
+    if(presSelectFlag == true && presInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
     }
     box1.invalidate();
 }
@@ -901,10 +1115,11 @@ void MainView::setTempGraphRangeY24Hour(void)
     tempGraphYellow.setGraphRangeY(tempGraphMin, tempGraphMax);
     tempGraphRed.setGraphRangeY   (tempGraphMin, tempGraphMax);
 }
-void MainView::displayTempGraph24Hour(void)
+void MainView::displayTempGraph24Hour(float tempValue)
 {
     if(gui_temperature == 0)
     {
+        tempInitFlag = false;
         temp_wait.setVisible(true);
         temp_good.setVisible(false);
         temp_moderate.setVisible(false);
@@ -915,49 +1130,50 @@ void MainView::displayTempGraph24Hour(void)
     }
     else
     {
+        tempInitFlag = true;
         temp_wait.setVisible(false);
         temp_value.setVisible(true);
         temp_text_run.setVisible(true);
         temp_text_wait.setVisible(false);
 
-        if(tempAverage24Hour[0] > TEMP_LEVEL_GOOD && tempAverage24Hour[0] < TEMP_LEVEL_MODERATE_HIGH)
+        if(tempValue > TEMP_LEVEL_GOOD && tempValue < TEMP_LEVEL_MODERATE_HIGH)
         {
             tempGraphYellow.addDataPoint(0);
             tempGraphRed.addDataPoint(0);
-            tempGraphGreen.addDataPoint(tempAverage24Hour[0]);
+            tempGraphGreen.addDataPoint(tempValue);
         }
-        else if( (tempAverage24Hour[0] > TEMP_LEVEL_MODERATE_HIGH && tempAverage24Hour[0] < TEMP_LEVEL_BAD_HIGH) ||
-                 (tempAverage24Hour[0] < TEMP_LEVEL_MODERATE_LOW  && tempAverage24Hour[0] > TEMP_LEVEL_BAD_LOW)    )
+        else if( (tempValue > TEMP_LEVEL_MODERATE_HIGH && tempValue < TEMP_LEVEL_BAD_HIGH) ||
+                 (tempValue < TEMP_LEVEL_MODERATE_LOW  && tempValue > TEMP_LEVEL_BAD_LOW)    )
         {
             tempGraphGreen.addDataPoint(0);
             tempGraphRed.addDataPoint(0);
-            tempGraphYellow.addDataPoint(tempAverage24Hour[0]);
+            tempGraphYellow.addDataPoint(tempValue);
         }
-        else if (tempAverage24Hour[0] > TEMP_LEVEL_BAD_HIGH && tempAverage24Hour[0] < TEMP_LEVEL_BAD_LOW)
+        else if (tempValue > TEMP_LEVEL_BAD_HIGH || tempValue < TEMP_LEVEL_BAD_LOW)
         {
             tempGraphGreen.addDataPoint(0);
             tempGraphYellow.addDataPoint(0);
-            tempGraphRed.addDataPoint(tempAverage24Hour[0]);
+            tempGraphRed.addDataPoint(tempValue);
         }
         else
         {
             //do nothing
         }
 
-        if(tempAverage24Hour[2] > TEMP_LEVEL_GOOD && tempAverage24Hour[2] < TEMP_LEVEL_MODERATE_HIGH)
+        if(calcTempAverage[2] > TEMP_LEVEL_GOOD && calcTempAverage[2] < TEMP_LEVEL_MODERATE_HIGH)
         {
             temp_good.setVisible(true);
             temp_moderate.setVisible(false);
             temp_bad.setVisible(false);
         }
-        else if( (tempAverage24Hour[2] > TEMP_LEVEL_MODERATE_HIGH && tempAverage24Hour[2] < TEMP_LEVEL_BAD_HIGH) ||
-                 (tempAverage24Hour[2] < TEMP_LEVEL_MODERATE_LOW  && tempAverage24Hour[2] > TEMP_LEVEL_BAD_LOW)    )
+        else if( (calcTempAverage[2] > TEMP_LEVEL_MODERATE_HIGH && calcTempAverage[2] < TEMP_LEVEL_BAD_HIGH) ||
+                 (calcTempAverage[2] < TEMP_LEVEL_MODERATE_LOW  && calcTempAverage[2] > TEMP_LEVEL_BAD_LOW)    )
         {
             temp_good.setVisible(false);
             temp_moderate.setVisible(true);
             temp_bad.setVisible(false);
         }
-        else if (tempAverage24Hour[2] > TEMP_LEVEL_BAD_HIGH && tempAverage24Hour[2] < TEMP_LEVEL_BAD_LOW)
+        else if (calcTempAverage[2] > TEMP_LEVEL_BAD_HIGH || calcTempAverage[2] < TEMP_LEVEL_BAD_LOW)
         {
             temp_good.setVisible(false);
             temp_moderate.setVisible(false);
@@ -968,9 +1184,226 @@ void MainView::displayTempGraph24Hour(void)
             //do nothing
         }
 
-        Unicode::snprintfFloat(temp_valueBuffer, TEMP_VALUE_SIZE, "%.1f", tempAverage24Hour[2]);
-        temp_value.invalidate();
+        Unicode::snprintfFloat(temp_valueBuffer, TEMP_VALUE_SIZE, "%.1f", calcTempAverage[2]);
         setTempGraphRangeY24Hour();
     }
+
+    if(tempSelectFlag == true && tempInitFlag == true)
+    {
+        hours_xAxis_Container.setVisible(true);
+    }
+    else
+    {
+        //do nothing
+    }
     box1.invalidate();
+}
+
+void MainView::handleClickEvent(const ClickEvent& evt)
+{
+    bool tempGraphAreaClicked = false;
+    bool humGraphAreaClicked  = false;
+    bool presGraphAreaClicked = false;
+    bool IAQGraphAreaClicked  = false;
+
+    if(TempGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))           /* Check if temperature graph is clicked and get the coordinates */
+    {
+        tempGraphAreaClicked = true;
+    }
+    else if(HumGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))       /* Check if humidity graph is clicked and get the coordinates */
+    {
+        humGraphAreaClicked = true;
+    }
+    else if(PresGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))      /* Check if pressure graph is clicked and get the coordinates */
+    {
+        presGraphAreaClicked = true;
+    }
+    else if (IAQGraph.getAbsoluteRect().intersect(evt.getX(), evt.getY()))     /* Check if IAQ graph is clicked and get the coordinates */
+    {
+        IAQGraphAreaClicked = true;
+    }
+    else
+    {
+        // do nothing
+    }
+
+    if (evt.getType() == ClickEvent::PRESSED)       /* Click Event occurred */
+    {
+        if(tempGraphAreaClicked)
+        {
+            clickStatus = ClickStatus::CLICKED;     /* Click Event occurred within the temperature graph */
+        }
+        else if(humGraphAreaClicked)
+        {
+            clickStatus = ClickStatus::CLICKED;     /* Click Event occurred within the humidity graph */
+        }
+        else if(presGraphAreaClicked)
+        {
+            clickStatus = ClickStatus::CLICKED;     /* Click Event occurred within the pressure graph */
+        }
+        else if (IAQGraphAreaClicked)               /* Click Event occurred within the IAQ graph */
+        {
+            clickStatus = ClickStatus::CLICKED;
+        }
+        else
+        {
+            //do nothing
+        }
+        MainViewBase::handleClickEvent(evt);              /* Act normally */
+    }
+    else if (evt.getType() == ClickEvent::RELEASED)         /* No Click Event or click event ended */
+    {
+        if(clickStatus == ClickStatus::CLICK_DRAGGING)      /* Drag event occured */
+        {
+            SwipeArea.handleClickEvent(evt);
+        }
+        else
+        {
+            MainViewBase::handleClickEvent(evt);          /* Not dragging, allow passing the event to the graph */
+        }
+        clickStatus = ClickStatus::RELEASED;
+    }
+}
+
+void MainView::handleDragEvent(const DragEvent& evt)
+{
+    bool dragIntersect = false;
+    /* Check if drag event occured and get the coordinates */
+    if( ( TempGraph.getAbsoluteRect().intersect(evt.getOldX(), evt.getOldY())) ||
+        (  HumGraph.getAbsoluteRect().intersect(evt.getOldX(), evt.getOldY())) ||
+        ( PresGraph.getAbsoluteRect().intersect(evt.getOldX(), evt.getOldY())) ||
+        (  IAQGraph.getAbsoluteRect().intersect(evt.getOldX(), evt.getOldY()))    )
+    {
+        dragIntersect = true;
+    }
+    else
+    {
+        dragIntersect = false;
+    }
+
+    if(dragIntersect)
+    {
+        if(abs(evt.getDeltaX()) > 2 && clickStatus == ClickStatus::CLICKED)             /* Drag occurred within a graph */
+        {
+            ClickEvent cancelEvt(ClickEvent::CANCEL, evt.getOldX(), evt.getOldY(), 1);  /* We are now dragging, cancel any graph touch by creating a new click event and forwarding it to the rest of the view*/
+            MainViewBase::handleClickEvent(cancelEvt);
+            clickStatus = ClickStatus::CLICK_DRAGGING;
+        }
+    }
+
+    if(clickStatus == ClickStatus::CLICK_DRAGGING)
+    {
+        SwipeArea.handleDragEvent(evt);             /* We are dragging, forward drag events to swipe container only */
+    }
+    else
+    {
+        MainViewBase::handleDragEvent(evt);       /* No dragging within a graph occured, act normally */
+    }
+}
+
+void MainView::handleGestureEvent(const GestureEvent& evt)
+{
+    if(clickStatus == ClickStatus::CLICK_DRAGGING)
+    {
+        SwipeArea.handleGestureEvent(evt);          /* We are dragging, forward gesture events to swipe container only */
+    }
+    else
+    {
+        MainViewBase::handleGestureEvent(evt);    /* No dragging within a graph occured, act normally */
+    }
+}
+
+void MainView::filterData(void)
+{
+    filtredTemp = filterObject[0].kalmanFilter(gui_temperature, 0.1f);
+    filtredHum  = filterObject[1].kalmanFilter(gui_humidity, 0.05f);
+    filtredPres = filterObject[2].kalmanFilter(gui_pressure, 0.001f);
+    filtredIAQ  = filterObject[3].kalmanFilter(gui_iaq, 0.001);
+}
+/* Function for displaying the temperature graph */
+void MainView::displayTemperatureGraph(float temperatureValue)
+{
+    TempGraph.addDataPoint(temperatureValue*100.0f);
+    TempGraph.setGraphRangeYAuto(false, 5);
+    TempGraphMajorYAxisLabel.setInterval(((TempGraph.getGraphRangeYMaxAsInt() - TempGraph.getGraphRangeYMinAsInt())/10));
+    setTempGraphMajorYAxisLabel();
+    Unicode::snprintfFloat(textArea1Buffer, TEXTAREA1_SIZE, "%.2f", temperatureValue);
+    textArea1.invalidate();
+}
+
+/* Function for displaying the humidity graph */
+void MainView::displayHumidityGraph(float humidityValue)
+{
+    HumGraph.addDataPoint(humidityValue*100);
+    HumGraph.setGraphRangeYAuto(false, 5);
+    HumGraphMajorYAxisLabel.setInterval(((HumGraph.getGraphRangeYMaxAsInt() - HumGraph.getGraphRangeYMinAsInt())/10));
+    setHumGraphMajorYAxisLabel();
+    Unicode::snprintfFloat(textArea2Buffer, TEXTAREA2_SIZE, "%.2f", humidityValue);
+    textArea2.invalidate();
+}
+
+/* Function for displaying the pressure graph */
+void MainView::displayPressureGraph(float pressureValue)
+{
+    PresGraph.addDataPoint(pressureValue*100);
+    PresGraph.setGraphRangeYAuto(false, 5);
+    PresGraphMajorYAxisLabel.setInterval(((PresGraph.getGraphRangeYMaxAsInt() - PresGraph.getGraphRangeYMinAsInt())/10));
+    setPresGraphMajorYAxisLabel();
+    Unicode::snprintfFloat(textArea3Buffer, TEXTAREA3_SIZE, "%.2f", pressureValue);
+    textArea3.invalidate();
+}
+
+/* Function for displaying the IAQ graph */
+void MainView::displayIAQGraph(float IAQValue)
+{
+    IAQGraph.addDataPoint(IAQValue*100);
+    IAQGraph.setGraphRangeYAuto(false, 5);
+    IAQGraphMajorYAxisLabel.setInterval(((IAQGraph.getGraphRangeYMaxAsInt() - IAQGraph.getGraphRangeYMinAsInt())/10));
+    setIAQGraphMajorYAxisLabel();
+    Unicode::snprintfFloat(textArea4Buffer, TEXTAREA4_SIZE, "%.2f", IAQValue);
+    textArea4.invalidate();
+}
+
+/* Function for setting the temperature graph Y axis labels */
+void MainView::setTempGraphMajorYAxisLabel(void)
+{
+    int GraphRangeYMinAsInt = TempGraph.getGraphRangeYMinAsInt();
+    int IntervalAsInt       = TempGraphMajorYAxisLabel.getIntervalAsInt();
+    Unicode::snprintfFloat( graphInterval1_1Buffer, GRAPHINTERVAL1_1_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
+    Unicode::snprintfFloat( graphInterval1_0Buffer, GRAPHINTERVAL1_0_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
+    graphInterval1_1.invalidate();
+    graphInterval1_0.invalidate();
+}
+
+/* Function for setting the humidity graph Y axis labels */
+void MainView::setHumGraphMajorYAxisLabel(void)
+{
+    int GraphRangeYMinAsInt = HumGraph.getGraphRangeYMinAsInt();
+    int IntervalAsInt       = HumGraphMajorYAxisLabel.getIntervalAsInt();
+    Unicode::snprintfFloat( graphInterval2_1Buffer, GRAPHINTERVAL2_1_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
+    Unicode::snprintfFloat( graphInterval2_0Buffer, GRAPHINTERVAL2_0_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
+    graphInterval2_1.invalidate();
+    graphInterval2_0.invalidate();
+}
+
+/* Function for setting the pressure graph Y axis labels */
+void MainView::setPresGraphMajorYAxisLabel(void)
+{
+    int GraphRangeYMinAsInt = PresGraph.getGraphRangeYMinAsInt();
+    int IntervalAsInt       = PresGraphMajorYAxisLabel.getIntervalAsInt();
+    Unicode::snprintfFloat( graphInterval3_1Buffer, GRAPHINTERVAL3_1_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
+    Unicode::snprintfFloat( graphInterval3_0Buffer, GRAPHINTERVAL3_0_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
+    graphInterval3_1.invalidate();
+    graphInterval3_0.invalidate();
+}
+
+/* Function for setting the IAQ graph Y axis labels */
+void MainView::setIAQGraphMajorYAxisLabel(void)
+{
+    int GraphRangeYMinAsInt = IAQGraph.getGraphRangeYMinAsInt();
+    int IntervalAsInt       = IAQGraphMajorYAxisLabel.getIntervalAsInt();
+    Unicode::snprintfFloat( graphInterval4_1Buffer, GRAPHINTERVAL4_1_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt *  0)/100));
+    Unicode::snprintfFloat( graphInterval4_0Buffer, GRAPHINTERVAL4_0_SIZE, "%.2f", ((float)(GraphRangeYMinAsInt + IntervalAsInt * 10)/100));
+    graphInterval4_1.invalidate();
+    graphInterval4_0.invalidate();
 }
